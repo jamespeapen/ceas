@@ -1,0 +1,14 @@
+Package: asap
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R:
+    person("Rachel", "House", , "first.last@example.com", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("James", "Eapen", , "james.eapen@vai.org", role = c("aut", "cre"), comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+Imports:
+    data.table,
+    readxl
+License: `use_mit_license()`,
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
