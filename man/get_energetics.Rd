@@ -4,7 +4,7 @@
 \alias{get_energetics}
 \title{Get energetics}
 \usage{
-get_energetics(seahorse_rates, ph, pka, buffer)
+get_energetics(partitioned_data, ph, pka, buffer)
 }
 \arguments{
 \item{seahorse_rates}{data.table of the input rates}
@@ -17,6 +17,6 @@ Makes table of energetics
 }
 \examples{
 seahorse_rates <- read_data(seahorse_rates)
-energetics <- get_energetics_list(seahorse_rates)
-split_data <- get_energetics(seahorse_rates)
+partitioned_data <- partition_data(seahorse_rates)
+energetics <- get_energetics(partitioned_data)
 }

@@ -17,7 +17,7 @@ Makes table of energetics
 }
 \examples{
 seahorse_rates <- read_data(seahorse_rates)
-energetics_list <- get_energetics_list(seahorse_rates)
-energetics <- get_energetics(seahorse_rates)
+partitioned_data <- partition_data(seahorse_rates)
+energetics <- get_energetics(partitioned_data)
 energetics_summary <- get_energetics_summary(energetics_list)
 }

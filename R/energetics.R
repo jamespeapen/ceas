@@ -7,10 +7,11 @@
 #' @export
 #'
 #' @examples
-#' seahorse_rates <- read_data(seahorse_rates)
-#' split_data <- get_energetics_list(seahorse_rates)
+#' replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
+#' seahorse_rates <- read_data(replicate_list)
+#' partitioned_data <- partition_data(seahorse_rates)
 
-get_energetics_list <- function(seahorse_rates) {
+partition_data <- function(seahorse_rates) {
   list(
     basal = subset(seahorse_rates, Measurement == 3 & assay_type == "MITO"),
     uncoupled = subset(seahorse_rates, Measurement == 6 & assay_type == "MITO"),
@@ -34,22 +35,22 @@ get_energetics_list <- function(seahorse_rates) {
 #'
 #' @examples
 #' seahorse_rates <- read_data(seahorse_rates)
-#' energetics <- get_energetics_list(seahorse_rates)
-#' split_data <- get_energetics(seahorse_rates)
+#' partitioned_data <- partition_data(seahorse_rates)
+#' energetics <- get_energetics(partitioned_data)
 
-get_energetics <- function(seahorse_rates, ph, pka, buffer) {
-  basal_mito_resp <- seahorse_rates$basal$OCR - seahorse_rates$nonmito$OCR
-  max_mito_resp <- seahorse_rates$maxresp$OCR - seahorse_rates$nonmito$OCR
+get_energetics <- function(partitioned_data, ph, pka, buffer) {
+  basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
+  max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
 
-  max_glyc <- seahorse_rates$maxgly$ECAR - seahorse_rates$nonmito$OCR
+  max_glyc <- partitioned_data$maxgly$ECAR - partitioned_data$nonmito$OCR
 
-  ocr_coupled_no_drugs <- (seahorse_rates$basal$OCR - seahorse_rates$uncoupled$OCR) / 0.908
+  ocr_coupled_no_drugs <- (partitioned_data$basal$OCR - partitioned_data$uncoupled$OCR) / 0.908
   ocr_coupled_max_ox <- max_mito_resp
   ocr_coupled_max_glyc <- max_glyc
 
-  ppr_total_no_drugs <- seahorse_rates$basal_ecar$ECAR / buffer
-  ppr_total_max_ox <- seahorse_rates$fccp_ecar$ECAR / buffer
-  ppr_total_max_glyc <- seahorse_rates$oligomon_ecar$ECAR / buffer
+  ppr_total_no_drugs <- partitioned_data$basal_ecar$ECAR / buffer
+  ppr_total_max_ox <- partitioned_data$fccp_ecar$ECAR / buffer
+  ppr_total_max_glyc <- partitioned_data$oligomon_ecar$ECAR / buffer
 
   ppr_resp_no_drugs <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
   ppr_resp_max_ox <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_mito_resp
@@ -83,8 +84,8 @@ get_energetics <- function(seahorse_rates, ph, pka, buffer) {
   ox_index_max_ox <- jatp_ox_max_ox / jatp_total_max_ox * 100
   ox_index_max_glyc <- jatp_ox_max_glyc / jatp_total_max_glyc * 100
 
-  seahorse_condition <- factor(seahorse_rates$basal$Replicate)
-  seahorse_cell_line <- factor(seahorse_rates$basal$cell_line)
+  seahorse_condition <- factor(partitioned_data$basal$Replicate)
+  seahorse_cell_line <- factor(partitioned_data$basal$cell_line)
 
   data.table(seahorse_cell_line,
     jatp_glyc_no_drugs,
@@ -107,8 +108,8 @@ get_energetics <- function(seahorse_rates, ph, pka, buffer) {
 #'
 #' @examples
 #' seahorse_rates <- read_data(seahorse_rates)
-#' energetics_list <- get_energetics_list(seahorse_rates)
-#' energetics <- get_energetics(seahorse_rates)
+#' partitioned_data <- partition_data(seahorse_rates)
+#' energetics <- get_energetics(partitioned_data)
 #' energetics_summary <- get_energetics_summary(energetics_list)
 
 get_energetics_summary <- function(energetics) {
