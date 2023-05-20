@@ -115,10 +115,10 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 get_energetics_summary <- function(energetics) {
   sdcols <- colnames(energetics)[-1]
   merge(
-    energetics[, .(count = .N), by = seahorse_cell_line],
+    energetics[, .(count = .N), by = cell_line],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
         lapply(.SD, function(x) list(mean = mean(x), sd =  sd(x)))
-    )), .SDcols = sdcols, by = seahorse_cell_line]
+    )), .SDcols = sdcols, by = cell_line]
   )
 }
 
