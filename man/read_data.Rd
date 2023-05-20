@@ -4,10 +4,10 @@
 \alias{read_data}
 \title{Input data TODO}
 \usage{
-read_data(input_data, sheet = 2)
+read_data(rep_list, sheet = 2)
 }
 \arguments{
-\item{input_data}{The name of the sample file}
+\item{rep_list}{A list of paths to the excel files. One file per replicate}
 
 \item{sheet}{The number of the sheet containing the data. Default is 2
 because the output from Seahorse Wave is on sheet 2}
