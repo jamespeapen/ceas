@@ -60,40 +60,40 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ppr_glyc_max_ox <- ppr_total_max_ox - ppr_resp_max_ox
   ppr_glyc_max_glyc <- ppr_total_max_glyc - ppr_resp_max_glyc
 
-  jatp_glyc_no_drugs <- (ppr_glyc_no_drugs * 1) + (basal_mito_resp * 0.167 * 2)
-  jatp_glyc_max_ox <- (ppr_glyc_max_ox * 1) + (max_mito_resp * 0.167 * 2)
-  jatp_glyc_max_glyc <- (ppr_glyc_max_glyc * 1) + (max_glyc * 0.167 * 2)
+  glyc_no_drugs <- (ppr_glyc_no_drugs * 1) + (basal_mito_resp * 0.167 * 2)
+  glyc_max_ox <- (ppr_glyc_max_ox * 1) + (max_mito_resp * 0.167 * 2)
+  glyc_max_glyc <- (ppr_glyc_max_glyc * 1) + (max_glyc * 0.167 * 2)
 
-  jatp_ox_no_drugs <- ((ocr_coupled_no_drugs * 2.486) + (basal_mito_resp * 0.121)) * 2
-  jatp_ox_max_ox <- ((ocr_coupled_max_ox * 2.486) + (max_mito_resp * 0.121)) * 2
-  jatp_ox_max_glyc <- ((ocr_coupled_max_glyc * 2.486) + (max_glyc * 0.121)) * 2
+  ox_no_drugs <- ((ocr_coupled_no_drugs * 2.486) + (basal_mito_resp * 0.121)) * 2
+  ox_max_ox <- ((ocr_coupled_max_ox * 2.486) + (max_mito_resp * 0.121)) * 2
+  ox_max_glyc <- ((ocr_coupled_max_glyc * 2.486) + (max_glyc * 0.121)) * 2
 
-  jatp_total_no_drugs <- jatp_ox_no_drugs + jatp_glyc_no_drugs
-  jatp_total_max_ox <- jatp_ox_max_ox + jatp_glyc_max_ox
-  jatp_total_max_glyc <- jatp_ox_max_glyc + jatp_glyc_max_glyc
+  total_no_drugs <- ox_no_drugs + glyc_no_drugs
+  total_max_ox <- ox_max_ox + glyc_max_ox
+  total_max_glyc <- ox_max_glyc + glyc_max_glyc
 
-  glyc_ind_no_drugs <- jatp_glyc_no_drugs / jatp_total_no_drugs * 100
-  glyc_ind_max_ox <- jatp_glyc_max_ox / jatp_total_max_ox * 100
-  glyc_ind_max_glyc <- jatp_glyc_max_glyc / jatp_total_max_glyc * 100
-  gi_max <- jatp_glyc_max_glyc / (jatp_total_max_glyc + jatp_ox_max_ox) * 100
+  glyc_ind_no_drugs <- glyc_no_drugs / total_no_drugs * 100
+  glyc_ind_max_ox <- glyc_max_ox / total_max_ox * 100
+  glyc_ind_max_glyc <- glyc_max_glyc / total_max_glyc * 100
+  gi_max <- glyc_max_glyc / (total_max_glyc + ox_max_ox) * 100
 
-  bioenergetic_scope_no_drugs <- jatp_glyc_no_drugs * jatp_ox_no_drugs
-  bioenergetic_scope_gi_max <- jatp_total_max_glyc * jatp_ox_max_ox
+  bioenergetic_scope_no_drugs <- glyc_no_drugs * ox_no_drugs
+  bioenergetic_scope_gi_max <- total_max_glyc * ox_max_ox
 
-  ox_index_no_drugs <- jatp_ox_no_drugs / jatp_total_no_drugs * 100
-  ox_index_max_ox <- jatp_ox_max_ox / jatp_total_max_ox * 100
-  ox_index_max_glyc <- jatp_ox_max_glyc / jatp_total_max_glyc * 100
+  ox_index_no_drugs <- ox_no_drugs / total_no_drugs * 100
+  ox_index_max_ox <- ox_max_ox / total_max_ox * 100
+  ox_index_max_glyc <- ox_max_glyc / total_max_glyc * 100
 
   seahorse_condition <- factor(partitioned_data$basal$Replicate)
-  seahorse_cell_line <- factor(partitioned_data$basal$cell_line)
+  cell_line <- factor(partitioned_data$basal$cell_line)
 
-  data.table(seahorse_cell_line,
-    jatp_glyc_no_drugs,
-    jatp_glyc_max_ox,
-    jatp_glyc_max_glyc,
-    jatp_ox_no_drugs,
-    jatp_ox_max_ox,
-    jatp_ox_max_glyc)
+  data.table(cell_line,
+    glyc_no_drugs,
+    glyc_max_ox,
+    glyc_max_glyc,
+    ox_no_drugs,
+    ox_max_ox,
+    ox_max_glyc)
 }
 
 #' Get energetics summary
