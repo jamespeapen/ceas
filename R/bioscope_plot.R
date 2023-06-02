@@ -25,5 +25,25 @@ bioscope_plot <- function(energetics_summary) {
   xlab("ATP Production from Glycolysis (JATP)") +
   ylab("ATP Production from OXPHOS (JATP)") +
   scale_color_discrete(name = "Cell Line") +
-  xlim(0, max_axis) + ylim(0, max_axis)
+  xlim(0, max_axis) + ylim(0, max_axis) +
+  geom_linerange(aes(
+    x = glyc_max_glyc.mean, y = ox_max_ox.mean,
+     ymin = ox_max_ox.mean - ox_max_ox.sd,
+     ymax = ox_max_ox.mean + ox_max_ox.sd
+  ), data = energetics_summary) +
+  geom_linerange(aes(
+    x = glyc_max_glyc.mean, y = ox_max_ox.mean,
+     xmin = glyc_max_glyc.mean - glyc_max_glyc.sd,
+     xmax = glyc_max_glyc.mean + glyc_max_glyc.sd
+  ), data = energetics_summary) +
+  geom_linerange(aes(
+    x = glyc_max_glyc.mean, y = ox_no_drugs.mean,
+    xmin = glyc_no_drugs.mean - glyc_no_drugs.sd,
+    xmax = glyc_no_drugs.mean + glyc_no_drugs.sd
+  ), data = energetics_summary) +
+  geom_linerange(aes(
+    x = glyc_no_drugs.mean, y = ox_no_drugs.mean,
+    ymin = ox_no_drugs.mean - ox_no_drugs.sd,
+    ymax = ox_no_drugs.mean + ox_no_drugs.sd
+  ), data = energetics_summary)
 }
