@@ -4,6 +4,7 @@
 #' @param energetics_summary A summary table of ATP values
 #' @return a ggplot
 #'
+#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim scale_color_discrete
 #' @export
 #'
 #' @examples
