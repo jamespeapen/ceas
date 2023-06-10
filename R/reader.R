@@ -31,7 +31,7 @@ read_seahorse <- function(rep_list, sheet = 2) {
     missing_cols <- setdiff(data_cols, colnames(rep.i))
 
     if (length(missing_cols) != 0) {
-      stop(paste0("'", missing_cols, "'", " column not found\n"))
+      stop(paste0("'", missing_cols, "'", " column was not found\n"))
     }
 
     # setup columns for partitioning
