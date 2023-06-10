@@ -10,6 +10,22 @@
 #' seahorse_rates <- read_data(seahorse_rates)
 bioscope_plot <- function(energetics_summary) {
 
+  # sanity checks
+  data_cols <- c(
+    "glyc_no_drugs.mean",
+    "glyc_no_drugs.sd",
+    "glyc_max_glyc.mean",
+    "glyc_max_glyc.sd",
+    "ox_no_drugs.mean",
+    "ox_no_drugs.sd",
+    "ox_max_ox.mean",
+    "ox_max_ox.sd"
+  )
+  missing_cols <- setdiff(data_cols, colnames(energetics_summary))
+  if (length(missing_cols) != 0) {
+    stop(paste0("'", missing_cols, "'", " column was not found in input data\n"))
+  }
+
   max_axis <- round(max(
       max(energetics_summary$glyc_max_glyc.mean, energetics_summary$ox_max_ox.mean)
     ), -3)
