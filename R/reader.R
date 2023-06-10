@@ -12,14 +12,31 @@
 #'
 #' @examples
 #' seahorse_rates <- read_data("sample1")
+  # TODO: are these the defaults from seahorse? can they be user defined?
+  data_cols <- c(
+    "Measurement",
+    "Group",
+    "OCR",
+    "ECAR",
+    "PER"
+  )
 
-read_data <- function(rep_list, sheet = 2) {
-  # TODO: sanity check for column names
   reps <- lapply(seq.int(length(rep_list)), function(i) {
-    setDT(read_excel(rep_list[i], sheet))[
-    , c("cell_line", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)
-    ][, replicate := i][, Group := NULL]
+    # sanity check
+    rep.i <- read_excel(rep_list[i], sheet)
+    missing_cols <- setdiff(data_cols, colnames(rep.i))
+
+    if (length(missing_cols) != 0) {
+      stop(paste0("'", missing_cols, "'", " column not found\n"))
+    }
+
+    # setup columns for partitioning
+    setDT(rep.i)[
+    , c("cell_line", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)][
+    , replicate := i][
+    , Group := NULL]
   })
+
   rbindlist(reps)
 }
 
