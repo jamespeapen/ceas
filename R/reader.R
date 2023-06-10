@@ -1,4 +1,4 @@
-#' Input data TODO
+#' Read seahorse data
 #'
 #' Reads input data
 #' @param rep_list A list of paths to the excel files. One file per replicate
@@ -11,7 +11,11 @@
 #' @export
 #'
 #' @examples
-#' seahorse_rates <- read_data("sample1")
+#' rep_list <- list.files("result_dir", pattern = "*.xlsx")
+#' seahorse_rates <- read_data(rep_list)
+
+read_seahorse <- function(rep_list, sheet = 2) {
+
   # TODO: are these the defaults from seahorse? can they be user defined?
   data_cols <- c(
     "Measurement",
