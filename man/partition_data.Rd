@@ -2,12 +2,14 @@
 % Please edit documentation in R/energetics.R
 \name{partition_data}
 \alias{partition_data}
-\title{Get energetics list}
+\title{Organize Seahorse Data}
 \usage{
 partition_data(seahorse_rates)
 }
 \arguments{
-\item{seahorse_rates}{data.table of the input rates}
+\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using rep_list function)}
+
+\item{partition_data}{organizes Seahorse OCR and ECAR rates based on defined points during the experiment (e.g. basal OCR before drug addition) - togglable in function if you are modifying Mito Stress Test and Glyco Stress Test measurement numbers (i.e. from 3 measurements to X measurements)}
 }
 \value{
 a list of groups from the data
@@ -16,7 +18,7 @@ a list of groups from the data
 Makes list of energetics tables
 }
 \examples{
-replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
-seahorse_rates <- read_data(replicate_list)
+rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
 }

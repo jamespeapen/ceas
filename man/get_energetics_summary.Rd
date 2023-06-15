@@ -2,12 +2,14 @@
 % Please edit documentation in R/energetics.R
 \name{get_energetics_summary}
 \alias{get_energetics_summary}
-\title{Get energetics summary}
+\title{Calculate ATP Production Mean and Standard Deviation}
 \usage{
 get_energetics_summary(energetics)
 }
 \arguments{
-\item{seahorse_rates}{data.table of the input rates}
+\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using rep_list function)}
+
+\item{get_energetics_summary}{calculates mean and standard deviation of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics function}
 }
 \value{
 a list of groups from the data
@@ -16,8 +18,9 @@ a list of groups from the data
 Makes table of energetics
 }
 \examples{
-seahorse_rates <- read_data(seahorse_rates)
+rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
-energetics <- get_energetics(partitioned_data)
+energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
 energetics_summary <- get_energetics_summary(energetics_list)
 }

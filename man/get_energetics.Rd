@@ -2,12 +2,20 @@
 % Please edit documentation in R/energetics.R
 \name{get_energetics}
 \alias{get_energetics}
-\title{Get energetics}
+\title{Calculate ATP Production from OXPHOS and Glycolysis}
 \usage{
 get_energetics(partitioned_data, ph, pka, buffer)
 }
 \arguments{
-\item{seahorse_rates}{data.table of the input rates}
+\item{partitioned_data}{a data.table of organized Seahorse OCR and ECAR rates based on defined points}
+
+\item{ph}{pH value for energetics calculation (for XF Media, 7.5)}
+
+\item{pka}{pKa value for energetics calculation (for XF Media, 6.063)}
+
+\item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)}
+
+\item{get_energetics}{calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data}
 }
 \value{
 a list of groups from the data
@@ -16,7 +24,8 @@ a list of groups from the data
 Makes table of energetics
 }
 \examples{
-seahorse_rates <- read_data(seahorse_rates)
+rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
-energetics <- get_energetics(partitioned_data)
+energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
 }

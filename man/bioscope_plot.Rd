@@ -2,19 +2,34 @@
 % Please edit documentation in R/bioscope_plot.R
 \name{bioscope_plot}
 \alias{bioscope_plot}
-\title{Bioenergetic scope plot}
+\title{Bioenergetic Scope Plot Function Design}
 \usage{
-bioscope_plot(energetics_summary)
+bioscope_plot(energetics_summary, size = 2, shape = 21)
 }
 \arguments{
-\item{energetics_summary}{A summary table of ATP values}
+\item{energetics_summary}{A summary table of calculated means and standard deviations of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics_summary function}
+
+\item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard deviation basal and maximal ATP production from glycolysis and OXPHOS for each experimental group}
 }
 \value{
 a ggplot
 }
 \description{
-Create a Bioenergetic scope plot
+Design the Bioenergetic Scope Plot Function
 }
 \examples{
-seahorse_rates <- read_data(seahorse_rates)
+rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet=2)
+partitioned_data <- partition_data(seahorse_rates)
+energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
+energetics_summary <- get_energetics_summary(energetics_list)
+bioscope_plot(energetics_summary)
+
+# to change fill, the geom_point shape number should be between 15 and 25
+bioscope_plot(seahorse_rates, shape = 21) + # filled circle
+ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+
+# to change color use ggplot2::scale_color_manual
+bioscope_plot(seahorse_rates) +
+ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 }
