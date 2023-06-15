@@ -3,6 +3,7 @@
 export(bioscope_plot)
 export(get_energetics)
 export(get_energetics_summary)
+export(make_bioscope_plot)
 export(partition_data)
 export(read_seahorse)
 importFrom(data.table,":=")

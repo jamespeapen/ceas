@@ -27,16 +27,20 @@ partition_data <- function(seahorse_rates) {
 #' Get energetics
 #'
 #' Makes table of energetics
-#' @param seahorse_rates data.table of the input rates
+#' @param partitioned_data A list of energetics tables from `partition_data` function
+#' @param ph pH value for energetics calculation
+#' @param pka pKa value for energetics calculation
+#' @param buffer buffer for energetics calculation
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table data.table
 #' @export
 #'
 #' @examples
-#' seahorse_rates <- read_data(seahorse_rates)
-#' partitioned_data <- partition_data(seahorse_rates)
-#' energetics <- get_energetics(partitioned_data)
+#' replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
+#' energetics <- read_data(replicate_list) |>
+#'                   partition_data() |>
+#'                   get_energetics(ph, pka, buffer)
 
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
