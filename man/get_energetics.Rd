@@ -7,7 +7,13 @@
 get_energetics(partitioned_data, ph, pka, buffer)
 }
 \arguments{
-\item{seahorse_rates}{data.table of the input rates}
+\item{partitioned_data}{A list of energetics tables from \code{partition_data} function}
+
+\item{ph}{pH value for energetics calculation}
+
+\item{pka}{pKa value for energetics calculation}
+
+\item{buffer}{buffer for energetics calculation}
 }
 \value{
 a list of groups from the data
@@ -16,7 +22,8 @@ a list of groups from the data
 Makes table of energetics
 }
 \examples{
-seahorse_rates <- read_data(seahorse_rates)
-partitioned_data <- partition_data(seahorse_rates)
-energetics <- get_energetics(partitioned_data)
+replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
+energetics <- read_data(replicate_list) |>
+                  partition_data() |>
+                  get_energetics(ph, pka, buffer)
 }
