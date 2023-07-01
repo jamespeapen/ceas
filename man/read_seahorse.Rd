@@ -19,6 +19,6 @@ a seahorse_rates table
 Reads input data
 }
 \examples{
-rep_list <- list.files("result_dir", pattern = "*.xlsx")
-seahorse_rates <- read_data(rep_list)
+replicate_list <- list.files("result_dir", pattern = "*.xlsx", full.names = TRUE)
+seahorse_rates <- read_seahorse(rep_list)
 }

@@ -11,8 +11,8 @@
 #' @export
 #'
 #' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx")
-#' seahorse_rates <- read_data(rep_list)
+#' replicate_list <- list.files("result_dir", pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_seahorse(rep_list)
 
 read_seahorse <- function(rep_list, sheet = 2) {
 
@@ -22,7 +22,7 @@ read_seahorse <- function(rep_list, sheet = 2) {
     "Group",
     "OCR",
     "ECAR",
-    "PER"
+    "PERtexlive.combined.scheme-basic"
   )
 
   reps <- lapply(seq.int(length(rep_list)), function(i) {

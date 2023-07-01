@@ -16,8 +16,8 @@ a ggplot
 Create a Bioenergetic scope plot
 }
 \examples{
-replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
-seahorse_rates <- read_data(replicate_list) |>
+rep_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+seahorse_rates <- read_seahorse(rep_list) |>
                   partition_data() |>
                   get_energetics(ph, pka, buffer) |>
                   get_energetics_summary()

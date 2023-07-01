@@ -16,7 +16,8 @@ a list of groups from the data
 Makes table of energetics
 }
 \examples{
-seahorse_rates <- read_data(seahorse_rates)
+replicate_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+seahorse_rates <- read_seahorse(replicate_list)
 partitioned_data <- partition_data(seahorse_rates)
 energetics <- get_energetics(partitioned_data)
 energetics_summary <- get_energetics_summary(energetics_list)

@@ -7,8 +7,8 @@
 #' @export
 #'
 #' @examples
-#' replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
-#' seahorse_rates <- read_data(replicate_list)
+#' replicate_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_seahorse(replicate_list)
 #' partitioned_data <- partition_data(seahorse_rates)
 
 partition_data <- function(seahorse_rates) {
@@ -37,8 +37,8 @@ partition_data <- function(seahorse_rates) {
 #' @export
 #'
 #' @examples
-#' replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
-#' energetics <- read_data(replicate_list) |>
+#' replicate_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+#' energetics <- read_seahorse(replicate_list) |>
 #'                   partition_data() |>
 #'                   get_energetics(ph, pka, buffer)
 
@@ -111,7 +111,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' @export
 #'
 #' @examples
-#' seahorse_rates <- read_data(seahorse_rates)
+#' replicate_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_seahorse(replicate_list)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics <- get_energetics(partitioned_data)
 #' energetics_summary <- get_energetics_summary(energetics_list)

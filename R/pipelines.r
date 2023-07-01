@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
+#' rep_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
 #' make_bioscope_plot(rep_list, ph, pka, buffer)
 make_bioscope_plot <- function(rep_list, ph, pka, buffer) {
   read_seahorse(rep_list) |>

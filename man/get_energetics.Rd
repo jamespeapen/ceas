@@ -22,8 +22,8 @@ a list of groups from the data
 Makes table of energetics
 }
 \examples{
-replicate_list <- c("rep1.xlsx", "rep2.xlsx", "rep3.xlsx")
-energetics <- read_data(replicate_list) |>
+replicate_list <- list.files("inst", pattern = "*.xlsx", full.names = TRUE)
+energetics <- read_seahorse(replicate_list) |>
                   partition_data() |>
                   get_energetics(ph, pka, buffer)
 }
