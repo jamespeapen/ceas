@@ -4,7 +4,7 @@
 \alias{bioscope_plot}
 \title{Bioenergetic scope plot}
 \usage{
-bioscope_plot(energetics_summary)
+bioscope_plot(energetics_summary, size = 2, shape = 21)
 }
 \arguments{
 \item{energetics_summary}{A summary table of ATP values}
@@ -22,4 +22,12 @@ seahorse_rates <- read_data(replicate_list) |>
                   get_energetics(ph, pka, buffer) |>
                   get_energetics_summary()
 bioscope_plot(seahorse_rates)
+
+# to change fill, the geom_point shape number should be between 15 and 25
+bioscope_plot(seahorse_rates, shape = 21) + # filled circle
+ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+
+# to change color use ggplot2::scale_color_manual
+bioscope_plot(seahorse_rates) +
+ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 }
