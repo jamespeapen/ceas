@@ -7,18 +7,19 @@
 partition_data(seahorse_rates)
 }
 \arguments{
-\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using rep_list function)}
-
-\item{partition_data}{organizes Seahorse OCR and ECAR rates based on defined points during the experiment (e.g. basal OCR before drug addition) - togglable in function if you are modifying Mito Stress Test and Glyco Stress Test measurement numbers (i.e. from 3 measurements to X measurements)}
+\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 }
 \value{
-a list of groups from the data
+a list of TODO(groups) from the data
 }
 \description{
-Makes list of energetics tables
+Organizes Seahorse OCR and ECAR rates based on defined points during the
+experiment (e.g. basal OCR before drug addition) - togglable in function if
+you are modifying Mito Stress Test and Glyco Stress Test measurement numbers
+(i.e. from 3 measurements to X measurements): TODO
 }
 \examples{
-rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
-seahorse_rates <- read_data(rep_list, sheet=2)
+rep_list <- list.files("result_dir", pattern = "*.xlsx",
+full.names=TRUE) seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
 }

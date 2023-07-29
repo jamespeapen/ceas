@@ -7,15 +7,15 @@
 get_energetics_summary(energetics)
 }
 \arguments{
-\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using rep_list function)}
-
-\item{get_energetics_summary}{calculates mean and standard deviation of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics function}
+\item{seahorse_rates}{a data.table of Seahorse OCR and ECAR rates (from \code{get_energetics})}
 }
 \value{
 a list of groups from the data
 }
 \description{
-Makes table of energetics
+Calculates mean and standard deviation of ATP production from glycolysis and
+OXPHOS at points defined in \code{partition_data} and with values calculated
+using the \code{get_energetics} function
 }
 \examples{
 rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)

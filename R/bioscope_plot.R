@@ -1,8 +1,13 @@
-#' Bioenergetic Scope Plot Function Design
+#' Bioenergetic Scope Plot
 #'
-#' Design the Bioenergetic Scope Plot Function 
-#' @param energetics_summary A summary table of calculated means and standard deviations of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics_summary function
-#' @param bioscope_plot Creates a 2D plot visualizing the mean and standard deviation basal and maximal ATP production from glycolysis and OXPHOS for each experimental group 
+#' Generate the Bioenergetic Scope Plot
+#' @param energetics_summary A summary table of calculated means and standard
+#' deviations of ATP production from glycolysis and OXPHOS at points defined in
+#' patitioned_data and with values calculated using get_energetics_summary
+#' function
+#' @param bioscope_plot Creates a 2D plot visualizing the mean and standard
+#' deviation basal and maximal ATP production from glycolysis and OXPHOS for
+#' each experimental group
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim

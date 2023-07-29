@@ -1,9 +1,14 @@
-#' Read Seahorse Wave File Excel Export
+#' Read Seahorse Wave Excel File
 #'
-#' Reads input data
-#' @param rep_list A list of Seahorse Wave excel export files. One file per replicate. Group all replicates for a given experiment in a single folder, and write that folder's path in "result_dir". "full.names=TRUE" will import the entire path for each file 
-#' @param sheet The number of the excel sheet containing the long-form Seahorse data. Default is 2 
-#' because the long-form output from Seahorse Wave is on sheet 2
+#' Reads input seahore data from an excel Seahorse Wave File
+#' @param rep_list A list of Seahorse Wave excel export files. One file per
+#' replicate. Group all replicates for a given experiment in a single folder,
+#' and write that folder's path in "seahorse_data". You can use
+#' `list.files("seahorse_data") "full.names=TRUE") to get the paths to the
+#' files.
+#' @param sheet The number of the excel sheet containing the long-form Seahorse
+#' data. Default is 2 because the long-form output from Seahorse Wave is on
+#' sheet 2
 #' @return a seahorse_rates table
 #'
 #' @importFrom data.table setDT := tstrsplit rbindlist

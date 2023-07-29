@@ -2,21 +2,26 @@
 % Please edit documentation in R/reader.R
 \name{read_data}
 \alias{read_data}
-\title{Read Seahorse Wave File Excel Export}
+\title{Read Seahorse Wave Excel File}
 \usage{
 read_data(rep_list, sheet = 2)
 }
 \arguments{
-\item{rep_list}{A list of Seahorse Wave excel export files. One file per replicate. Group all replicates for a given experiment in a single folder, and write that folder's path in "result_dir". "full.names=TRUE" will import the entire path for each file}
+\item{rep_list}{A list of Seahorse Wave excel export files. One file per
+replicate. Group all replicates for a given experiment in a single folder,
+and write that folder's path in "seahorse_data". You can use
+`list.files("seahorse_data") "full.names=TRUE") to get the paths to the
+files.}
 
-\item{sheet}{The number of the excel sheet containing the long-form Seahorse data. Default is 2
-because the long-form output from Seahorse Wave is on sheet 2}
+\item{sheet}{The number of the excel sheet containing the long-form Seahorse
+data. Default is 2 because the long-form output from Seahorse Wave is on
+sheet 2}
 }
 \value{
 a seahorse_rates table
 }
 \description{
-Reads input data
+Reads input seahore data from an excel Seahorse Wave File
 }
 \examples{
 rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)

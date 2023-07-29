@@ -7,25 +7,24 @@
 get_energetics(partitioned_data, ph, pka, buffer)
 }
 \arguments{
-\item{partitioned_data}{a data.table of organized Seahorse OCR and ECAR rates based on defined points}
+\item{partitioned_data}{a data.table of organized Seahorse OCR and ECAR
+rates based on TODO(defined points). Returned by \code{partition_data}}
 
 \item{ph}{pH value for energetics calculation (for XF Media, 7.5)}
 
 \item{pka}{pKa value for energetics calculation (for XF Media, 6.063)}
 
 \item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)}
-
-\item{get_energetics}{calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data}
 }
 \value{
-a list of groups from the data
+a \code{data.table} of glycolysis and OXPHOS rates by no drug vs drug treatments: TODO
 }
 \description{
-Makes table of energetics
+Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
 }
 \examples{
 rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
 }

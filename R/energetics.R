@@ -1,15 +1,17 @@
 #' Organize Seahorse Data
 #'
-#' Makes list of energetics tables
-#' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using rep_list function)
-#' @param partition_data organizes Seahorse OCR and ECAR rates based on defined points during the experiment (e.g. basal OCR before drug addition) - togglable in function if you are modifying Mito Stress Test and Glyco Stress Test measurement numbers (i.e. from 3 measurements to X measurements)
-#' @return a list of groups from the data
+#' Organizes Seahorse OCR and ECAR rates based on defined points during the
+#' experiment (e.g. basal OCR before drug addition) - togglable in function if
+#' you are modifying Mito Stress Test and Glyco Stress Test measurement numbers
+#' (i.e. from 3 measurements to X measurements): TODO
+#'
+#' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
+#' @return a list of TODO(groups) from the data
 #'
 #' @export
 #'
-#' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+#' @examples rep_list <- list.files("result_dir", pattern = "*.xlsx",
+#' full.names=TRUE) seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 
 partition_data <- function(seahorse_rates) {
@@ -28,20 +30,20 @@ partition_data <- function(seahorse_rates) {
 
 #' Calculate ATP Production from OXPHOS and Glycolysis
 #'
-#' Makes table of energetics
-#' @param partitioned_data a data.table of organized Seahorse OCR and ECAR rates based on defined points
+#' Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
+#' @param partitioned_data a data.table of organized Seahorse OCR and ECAR
+#' rates based on TODO(defined points). Returned by `partition_data`
 #' @param ph pH value for energetics calculation (for XF Media, 7.5)
 #' @param pka pKa value for energetics calculation (for XF Media, 6.063)
 #' @param buffer buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)
-#' @param get_energetics calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
-#' @return a list of groups from the data
+#' @return a `data.table` of glycolysis and OXPHOS rates by no drug vs drug treatments: TODO
 #'
 #' @importFrom data.table data.table
 #' @export
 #'
 #' @examples
 #' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
-#' #' seahorse_rates <- read_data(rep_list, sheet=2)
+#' seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
 
@@ -107,9 +109,10 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 
 #' Calculate ATP Production Mean and Standard Deviation
 #'
-#' Makes table of energetics
-#' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using rep_list function)
-#' @param get_energetics_summary calculates mean and standard deviation of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics function
+#' Calculates mean and standard deviation of ATP production from glycolysis and
+#' OXPHOS at points defined in `partition_data` and with values calculated
+#' using the `get_energetics` function
+#' @param seahorse_rates a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table data.table

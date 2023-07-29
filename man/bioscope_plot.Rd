@@ -2,24 +2,29 @@
 % Please edit documentation in R/bioscope_plot.R
 \name{bioscope_plot}
 \alias{bioscope_plot}
-\title{Bioenergetic Scope Plot Function Design}
+\title{Bioenergetic Scope Plot}
 \usage{
 bioscope_plot(energetics_summary, size = 2, shape = 21)
 }
 \arguments{
-\item{energetics_summary}{A summary table of calculated means and standard deviations of ATP production from glycolysis and OXPHOS at points defined in patitioned_data and with values calculated using get_energetics_summary function}
+\item{energetics_summary}{A summary table of calculated means and standard
+deviations of ATP production from glycolysis and OXPHOS at points defined in
+patitioned_data and with values calculated using get_energetics_summary
+function}
 
-\item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard deviation basal and maximal ATP production from glycolysis and OXPHOS for each experimental group}
+\item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard
+deviation basal and maximal ATP production from glycolysis and OXPHOS for
+each experimental group}
 }
 \value{
 a ggplot
 }
 \description{
-Design the Bioenergetic Scope Plot Function
+Generate the Bioenergetic Scope Plot
 }
 \examples{
 rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
 energetics_summary <- get_energetics_summary(energetics_list)

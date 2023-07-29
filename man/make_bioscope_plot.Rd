@@ -7,20 +7,26 @@
 make_bioscope_plot(rep_list, ph, pka, buffer)
 }
 \arguments{
-\item{rep_list}{A list of Seahorse Wave excel export files. One file per replicate. Group all replicates for a given experiment in a single folder, and write that folder's path in "result_dir". "full.names=TRUE" will import the entire path for each file}
+\item{rep_list}{A list of Seahorse Wave excel export files. One file per
+replicate. Group all replicates for a given experiment in a single folder,
+and write that folder's path in "seahorse_data". You can use
+`list.files("seahorse_data") "full.names=TRUE") to get the paths to the
+files.}
 
 \item{ph}{pH value for energetics calculation (for XF Media, 7.5)}
 
 \item{pka}{pKa value for energetics calculation (for XF Media, 6.063)}
 
-\item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)
-#'@param make_bioscope_plot Is a shortcut to create a 2D plot visualizing the mean and standard deviation basal and maximal ATP production from glycolysis and OXPHOS for each experimental group}
+\item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)}
 }
 \value{
 a ggplot
 }
 \description{
-Create a Bioenergetic scope plot from input Seahorse Wave export, long-form rates excel files
+Wrapper to create a 2D plot visualizing the mean and standard deviation
+basal and maximal ATP production from glycolysis and OXPHOS for each
+experimental group Create a Bioenergetic scope plot from input Seahorse Wave
+export, long-form rates excel files
 }
 \examples{
 rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
