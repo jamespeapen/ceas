@@ -30,5 +30,5 @@ export, long-form rates excel files
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-make_bioscope_plot(rep_list, ph, pka, buffer)
+make_bioscope_plot(rep_list, ph = 7.4, pka = 6.093, buffer = 0.1)
 }

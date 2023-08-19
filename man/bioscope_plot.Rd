@@ -28,17 +28,17 @@ Generate the Bioenergetic Scope Plot
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-seahorse_rates <- read_data(rep_list, sheet=2)
+seahorse_rates <- read_data(rep_list, sheet=2) #reads in data
 partitioned_data <- partition_data(seahorse_rates)
-energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
+energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 energetics_summary <- get_energetics_summary(energetics_list)
 bioscope_plot(energetics_summary)
 
 # to change fill, the geom_point shape number should be between 15 and 25
-bioscope_plot(seahorse_rates, shape = 21) + # filled circle
-ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+bioscope_plot(energetics_summary, shape = 21) + # filled circle
+ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 
 # to change color use ggplot2::scale_color_manual
-bioscope_plot(seahorse_rates) +
-ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+bioscope_plot(energetics_summary) +
+ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 }
