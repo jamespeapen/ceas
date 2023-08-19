@@ -40,14 +40,14 @@ partition_data <- function(
   assay_type <- NULL
 
   list(
-    basal = subset(seahorse_rates, Measurement == basal_tp & assay_type == "MITO"),
-    oligo = subset(seahorse_rates, Measurement == oligo_tp & assay_type == "MITO"),
-    maxresp = subset(seahorse_rates, Measurement == maxresp_tp & assay_type == "MITO"),
-    nonmito = subset(seahorse_rates, Measurement == nonmito_tp & assay_type == "MITO"),
-    maxgly = subset(seahorse_rates, Measurement == maxgly_tp & assay_type == "MITO"),
-    fccp_ecar = subset(seahorse_rates, Measurement == fccp_ecar_tp & assay_type == "MITO"),
-    basal_ecar = subset(seahorse_rates, Measurement == basal_tp & assay_type == "GLYCO"),
-    oligomon_ecar = subset(seahorse_rates, Measurement == oligomon_ecar_tp & assay_type == "GLYCO")
+    basal = seahorse_rates[Measurement == basal_tp & assay_type == "MITO"],
+    oligo = seahorse_rates[Measurement == oligo_tp & assay_type == "MITO"],
+    maxresp = seahorse_rates[Measurement == maxresp_tp & assay_type == "MITO"],
+    nonmito = seahorse_rates[Measurement == nonmito_tp & assay_type == "MITO"],
+    maxgly = seahorse_rates[Measurement == maxgly_tp & assay_type == "MITO"],
+    fccp_ecar = seahorse_rates[Measurement == fccp_ecar_tp & assay_type == "MITO"],
+    basal_ecar = seahorse_rates[Measurement == basal_tp & assay_type == "GLYCO"],
+    oligomon_ecar = seahorse_rates[Measurement == oligomon_ecar_tp & assay_type == "GLYCO"]
   )
 }
 
