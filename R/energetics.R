@@ -34,6 +34,11 @@ partition_data <- function(
   basal_ecar_tp = 3,
   oligomon_ecar_tp = 8
 ) {
+
+  # suppress "no visible binding for global variable" error
+  Measurement <- NULL
+  assay_type <- NULL
+
   list(
     basal = subset(seahorse_rates, Measurement == basal_tp & assay_type == "MITO"),
     oligo = subset(seahorse_rates, Measurement == oligo_tp & assay_type == "MITO"),
@@ -146,11 +151,17 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' energetics_summary <- get_energetics_summary(energetics_list)
 
 get_energetics_summary <- function(energetics) {
+
+  # suppress "no visible binding for global variable" error
+  . <- NULL
+  .N <- NULL
+  cell_line <- NULL
+
   sdcols <- colnames(energetics)[-1]
   merge(
     energetics[, .(count = .N), by = cell_line],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
-        lapply(.SD, function(x) list(mean = mean(x), sd =  sd(x)))
+      lapply(.SD, function(x) list(mean = mean(x), sd =  sd(x)))
     )), .SDcols = sdcols, by = cell_line]
   )
 }

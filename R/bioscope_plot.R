@@ -54,6 +54,17 @@ bioscope_plot <- function(
     stop(paste0("'", missing_cols, "'", " column was not found in input data\n"))
   }
 
+  # suppress "no visible binding for global variable" error
+  glyc_max_glyc.mean <- NULL
+  glyc_max_glyc.sd <- NULL
+  glyc_no_drugs.mean <- NULL
+  glyc_no_drugs.sd <- NULL
+  ox_max_ox.mean <- NULL
+  ox_max_ox.sd <- NULL
+  ox_no_drugs.mean <- NULL
+  ox_no_drugs.sd <- NULL
+  cell_line <- NULL
+
   max_axis <- round(max(
       max(energetics_summary$glyc_max_glyc.mean, energetics_summary$ox_max_ox.mean)
     ), -3)

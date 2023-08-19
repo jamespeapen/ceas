@@ -34,7 +34,10 @@ read_data <- function(rep_list, sheet = 2) {
     if (length(missing_cols) != 0) {
       stop(paste0("'", missing_cols, "'", " column was not found\n"))
     }
+
     # setup columns for partitioning
+    Group <- NULL # suppress "no visible binding for global variable" error
+
     setDT(rep.i)[
       , c("cell_line", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)][
         , replicate := i][
