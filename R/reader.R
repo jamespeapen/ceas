@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet=2)
 
 read_data <- function(rep_list, sheet = 2) {

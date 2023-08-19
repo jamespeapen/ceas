@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 
@@ -60,7 +61,7 @@ partition_data <- function(
 #' @export
 #'
 #' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)
@@ -138,7 +139,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' @export
 #'
 #' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
 #' #' seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph, pka, buffer)

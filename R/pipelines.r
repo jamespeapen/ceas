@@ -19,7 +19,7 @@
 #' @export
 #'
 #' @examples
-#' rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
 #' make_bioscope_plot(rep_list, ph, pka, buffer)
 
 make_bioscope_plot <- function(rep_list, ph, pka, buffer) {
