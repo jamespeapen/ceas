@@ -139,8 +139,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
 #' @return a list of groups from the data
 #'
-#' @importFrom data.table data.table
 #' @importFrom data.table .SD
+#' @importFrom stats sd
 #' @export
 #'
 #' @examples
