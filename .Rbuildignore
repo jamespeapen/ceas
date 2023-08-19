@@ -1,0 +1,4 @@
+.envrc
+default.nix
+.direnv
+^LICENSE\.md$
