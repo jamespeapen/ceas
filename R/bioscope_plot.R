@@ -8,6 +8,8 @@
 #' @param bioscope_plot Creates a 2D plot visualizing the mean and standard
 #' deviation basal and maximal ATP production from glycolysis and OXPHOS for
 #' each experimental group
+#' @param size Size of the points
+#' @param shape Shape of the points
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim

@@ -7,7 +7,7 @@
 get_energetics_summary(energetics)
 }
 \arguments{
-\item{seahorse_rates}{a data.table of Seahorse OCR and ECAR rates (from \code{get_energetics})}
+\item{energetics}{a data.table of Seahorse OCR and ECAR rates (from \code{get_energetics})}
 }
 \value{
 a list of groups from the data

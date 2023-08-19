@@ -12,6 +12,10 @@ deviations of ATP production from glycolysis and OXPHOS at points defined in
 patitioned_data and with values calculated using get_energetics_summary
 function}
 
+\item{size}{Size of the points}
+
+\item{shape}{Shape of the points}
+
 \item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard
 deviation basal and maximal ATP production from glycolysis and OXPHOS for
 each experimental group}

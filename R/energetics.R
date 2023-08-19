@@ -131,7 +131,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' Calculates mean and standard deviation of ATP production from glycolysis and
 #' OXPHOS at points defined in `partition_data` and with values calculated
 #' using the `get_energetics` function
-#' @param seahorse_rates a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
+#' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table data.table
