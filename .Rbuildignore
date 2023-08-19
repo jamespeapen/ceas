@@ -1,4 +1,5 @@
 .envrc
 default.nix
 .direnv
+.lintr
 ^LICENSE\.md$
