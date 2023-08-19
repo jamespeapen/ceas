@@ -8,7 +8,7 @@ get_energetics(partitioned_data, ph, pka, buffer)
 }
 \arguments{
 \item{partitioned_data}{a data.table of organized Seahorse OCR and ECAR
-rates based on TODO(defined points). Returned by \code{partition_data}}
+rates based on timepoints from the assay cycle. Returned by \code{partition_data}}
 
 \item{ph}{pH value for energetics calculation (for XF Media, 7.5)}
 
@@ -17,7 +17,7 @@ rates based on TODO(defined points). Returned by \code{partition_data}}
 \item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)}
 }
 \value{
-a \code{data.table} of glycolysis and OXPHOS rates by no drug vs drug treatments: TODO
+a \code{data.table} of glycolysis and OXPHOS rates
 }
 \description{
 Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data

@@ -4,22 +4,48 @@
 \alias{partition_data}
 \title{Organize Seahorse Data}
 \usage{
-partition_data(seahorse_rates)
+partition_data(
+  seahorse_rates,
+  basal_tp = 3,
+  oligo_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  maxgly_tp = 6,
+  fccp_ecar_tp = 8,
+  basal_ecar_tp = 3,
+  oligomon_ecar_tp = 8
+)
 }
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
+
+\item{basal_tp}{... . Must be less than \code{oligo_tp}}
+
+\item{oligo_tp}{Must be less than \code{maxresp_tp}}
+
+\item{maxresp_tp}{Must be less than \code{nonmito_tp}}
+
+\item{nonmito_tp}{Must be larger than \code{maxresp_tp}}
+
+\item{maxgly_tp}{Must be the same as \code{oligo_tp}}
+
+\item{fccp_ecar_tp}{Must be the same as \code{maxresp_tp}}
+
+\item{basal_ecar_tp}{Must be the same as \code{basal_tp}}
+
+\item{oligomon_ecar_tp}{Must be larger than \code{basal_ecar_tp}}
 }
 \value{
-a list of TODO(groups) from the data
+a list of named timepoints from each assay cycle
 }
 \description{
-Organizes Seahorse OCR and ECAR rates based on defined points during the
-experiment (e.g. basal OCR before drug addition) - togglable in function if
-you are modifying Mito Stress Test and Glyco Stress Test measurement numbers
-(i.e. from 3 measurements to X measurements): TODO
+Organizes Seahorse OCR and ECAR rates based on defined time points (i.e. the
+Measurement column) during the experiment. This time point can be specified
+if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
+per cycle to X measurements)
 }
 \examples{
-rep_list <- list.files("result_dir", pattern = "*.xlsx",
-full.names=TRUE) seahorse_rates <- read_data(rep_list, sheet=2)
+rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+seahorse_rates <- read_data(rep_list, sheet=2)
 partitioned_data <- partition_data(seahorse_rates)
 }

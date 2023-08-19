@@ -1,29 +1,47 @@
 #' Organize Seahorse Data
 #'
-#' Organizes Seahorse OCR and ECAR rates based on defined points during the
-#' experiment (e.g. basal OCR before drug addition) - togglable in function if
-#' you are modifying Mito Stress Test and Glyco Stress Test measurement numbers
-#' (i.e. from 3 measurements to X measurements): TODO
+#' Organizes Seahorse OCR and ECAR rates based on defined time points (i.e. the
+#' Measurement column) during the experiment. This time point can be specified
+#' if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
+#' per cycle to X measurements)
 #'
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
-#' @return a list of TODO(groups) from the data
+#' @param basal_tp  Must be less than `oligo_tp`
+#' @param oligo_tp Must be less than `maxresp_tp`
+#' @param maxresp_tp Must be less than `nonmito_tp`
+#' @param nonmito_tp Must be larger than `maxresp_tp`
+#' @param maxgly_tp Must be the same as `oligo_tp`
+#' @param fccp_ecar_tp Must be the same as `maxresp_tp`
+#' @param basal_ecar_tp Must be the same as `basal_tp`
+#' @param oligomon_ecar_tp Must be larger than `basal_ecar_tp`
+#' @return a list of named timepoints from each assay cycle
 #'
 #' @export
 #'
-#' @examples rep_list <- list.files("result_dir", pattern = "*.xlsx",
-#' full.names=TRUE) seahorse_rates <- read_data(rep_list, sheet=2)
+#' @examples rep_list <- list.files("result_dir", pattern = "*.xlsx", full.names=TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet=2)
 #' partitioned_data <- partition_data(seahorse_rates)
 
-partition_data <- function(seahorse_rates) {
+partition_data <- function(
+  seahorse_rates,
+  basal_tp = 3,
+  oligo_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  maxgly_tp = 6,
+  fccp_ecar_tp = 8,
+  basal_ecar_tp = 3,
+  oligomon_ecar_tp = 8
+) {
   list(
-    basal = subset(seahorse_rates, Measurement == 3 & assay_type == "MITO"),
-    uncoupled = subset(seahorse_rates, Measurement == 6 & assay_type == "MITO"),
-    maxresp = subset(seahorse_rates, Measurement == 8 & assay_type == "MITO"),
-    nonmito = subset(seahorse_rates, Measurement == 12 & assay_type == "MITO"),
-    maxgly = subset(seahorse_rates, Measurement == 6 & assay_type == "MITO"),
-    fccp_ecar = subset(seahorse_rates, Measurement == 8 & assay_type == "MITO"),
-    basal_ecar = subset(seahorse_rates, Measurement == 3 & assay_type == "GLYCO"),
-    oligomon_ecar = subset(seahorse_rates, Measurement == 8 & assay_type == "GLYCO")
+    basal = subset(seahorse_rates, Measurement == basal_tp & assay_type == "MITO"),
+    oligo = subset(seahorse_rates, Measurement == oligo_tp & assay_type == "MITO"),
+    maxresp = subset(seahorse_rates, Measurement == maxresp_tp & assay_type == "MITO"),
+    nonmito = subset(seahorse_rates, Measurement == nonmito_tp & assay_type == "MITO"),
+    maxgly = subset(seahorse_rates, Measurement == maxgly_tp & assay_type == "MITO"),
+    fccp_ecar = subset(seahorse_rates, Measurement == fccp_ecar_tp & assay_type == "MITO"),
+    basal_ecar = subset(seahorse_rates, Measurement == basal_tp & assay_type == "GLYCO"),
+    oligomon_ecar = subset(seahorse_rates, Measurement == oligomon_ecar_tp & assay_type == "GLYCO")
   )
 }
 
@@ -32,11 +50,11 @@ partition_data <- function(seahorse_rates) {
 #'
 #' Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
 #' @param partitioned_data a data.table of organized Seahorse OCR and ECAR
-#' rates based on TODO(defined points). Returned by `partition_data`
+#' rates based on timepoints from the assay cycle. Returned by `partition_data`
 #' @param ph pH value for energetics calculation (for XF Media, 7.5)
 #' @param pka pKa value for energetics calculation (for XF Media, 6.063)
 #' @param buffer buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)
-#' @return a `data.table` of glycolysis and OXPHOS rates by no drug vs drug treatments: TODO
+#' @return a `data.table` of glycolysis and OXPHOS rates
 #'
 #' @importFrom data.table data.table
 #' @export
@@ -54,7 +72,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 
   max_glyc <- partitioned_data$maxgly$ECAR - partitioned_data$nonmito$OCR
 
-  ocr_coupled_no_drugs <- (partitioned_data$basal$OCR - partitioned_data$uncoupled$OCR) / 0.908
+  ocr_coupled_no_drugs <- (partitioned_data$basal$OCR - partitioned_data$oligo$OCR) / 0.908
   ocr_coupled_max_ox <- max_mito_resp
   ocr_coupled_max_glyc <- max_glyc
 
