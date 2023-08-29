@@ -19,7 +19,7 @@ partition_data(
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
-\item{basal_tp}{... . Must be less than \code{oligo_tp}}
+\item{basal_tp}{Must be less than \code{oligo_tp}}
 
 \item{oligo_tp}{Must be less than \code{maxresp_tp}}
 

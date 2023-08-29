@@ -6,6 +6,15 @@
 \alias{ceas-package}
 \title{ceas: Cellular Energetics Analysis Software}
 \description{
-Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data.
+'Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data.'
+}
+\author{
+\strong{Maintainer}: Rachel House \email{rae.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
+
+Authors:
+\itemize{
+  \item James Eapen \email{james.eapen@vai.org} (\href{https://orcid.org/0000-0001-6016-3598}{ORCID})
+}
+
 }
 \keyword{internal}
