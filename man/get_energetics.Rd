@@ -23,8 +23,8 @@ a \code{data.table} of glycolysis and OXPHOS rates
 Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
 }
 \examples{
-rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-seahorse_rates <- read_data(rep_list, sheet=2)
+rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 }

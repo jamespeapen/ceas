@@ -18,8 +18,8 @@ OXPHOS at points defined in \code{partition_data} and with values calculated
 using the \code{get_energetics} function
 }
 \examples{
-rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-seahorse_rates <- read_data(rep_list, sheet=2)
+rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 energetics_summary <- get_energetics_summary(energetics_list)

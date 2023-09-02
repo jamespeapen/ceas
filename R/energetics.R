@@ -19,22 +19,19 @@
 #' @export
 #'
 #' @examples
-#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
-
 partition_data <- function(
-  seahorse_rates,
-  basal_tp = 3,
-  oligo_tp = 6,
-  maxresp_tp = 8,
-  nonmito_tp = 12,
-  maxgly_tp = 6,
-  fccp_ecar_tp = 8,
-  basal_ecar_tp = 3,
-  oligomon_ecar_tp = 8
-) {
-
+    seahorse_rates,
+    basal_tp = 3,
+    oligo_tp = 6,
+    maxresp_tp = 8,
+    nonmito_tp = 12,
+    maxgly_tp = 6,
+    fccp_ecar_tp = 8,
+    basal_ecar_tp = 3,
+    oligomon_ecar_tp = 8) {
   # suppress "no visible binding for global variable" error
   Measurement <- NULL
   assay_type <- NULL
@@ -66,12 +63,10 @@ partition_data <- function(
 #' @export
 #'
 #' @examples
-#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-
-
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
   max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
@@ -121,13 +116,15 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   seahorse_condition <- factor(partitioned_data$basal$Replicate)
   cell_line <- factor(partitioned_data$basal$cell_line)
 
-  data.table(cell_line,
+  data.table(
+    cell_line,
     glyc_no_drugs,
     glyc_max_ox,
     glyc_max_glyc,
     ox_no_drugs,
     ox_max_ox,
-    ox_max_glyc)
+    ox_max_glyc
+  )
 }
 
 
@@ -144,14 +141,12 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' @export
 #'
 #' @examples
-#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' energetics_summary <- get_energetics_summary(energetics_list)
-
 get_energetics_summary <- function(energetics) {
-
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
@@ -161,9 +156,7 @@ get_energetics_summary <- function(energetics) {
   merge(
     energetics[, .(count = .N), by = cell_line],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
-      lapply(.SD, function(x) list(mean = mean(x), sd =  sd(x)))
+      lapply(.SD, function(x) list(mean = mean(x), sd = sd(x)))
     )), .SDcols = sdcols, by = cell_line]
   )
 }
-
-

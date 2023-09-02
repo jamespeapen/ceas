@@ -16,9 +16,8 @@
 #' @export
 #'
 #' @examples
-#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names=TRUE)
-#' seahorse_rates <- read_data(rep_list, sheet=2)
-
+#' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
 read_data <- function(rep_list, sheet = 2) {
   data_cols <- c(
     "Measurement",
@@ -39,10 +38,8 @@ read_data <- function(rep_list, sheet = 2) {
     Group <- NULL # suppress "no visible binding for global variable" error
 
     setDT(rep.i)[
-      , c("cell_line", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)][
-        , replicate := i][
-          , Group := NULL]
-    })
-    rbindlist(reps)
-  }
-
+      , c("cell_line", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)
+    ][, replicate := i][, Group := NULL]
+  })
+  rbindlist(reps)
+}
