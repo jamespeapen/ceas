@@ -3,3 +3,4 @@ default.nix
 .direnv
 .lintr
 ^LICENSE\.md$
+^\.github$
