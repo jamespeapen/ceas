@@ -156,7 +156,16 @@ get_energetics_summary <- function(energetics) {
   merge(
     energetics[, .(count = .N), by = cell_line],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
-      lapply(.SD, function(x) list(mean = mean(x), sd = sd(x)))
+      lapply(
+        .SD,
+        function(x) {
+          list(
+            mean = mean(x),
+            sd = sd(x),
+            se = sd(x) / sqrt(length(x))
+          )
+        }
+      )
     )), .SDcols = sdcols, by = cell_line]
   )
 }
