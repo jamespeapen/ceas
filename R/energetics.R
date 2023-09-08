@@ -127,13 +127,14 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   )
 }
 
-
 #' Calculate ATP Production Mean and Standard Deviation
 #'
 #' Calculates mean and standard deviation of ATP production from glycolysis and
 #' OXPHOS at points defined in `partition_data` and with values calculated
 #' using the `get_energetics` function
 #' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
+#' @param error_metric Whether to calculate error as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
+#' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table .SD
@@ -146,12 +147,17 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' energetics_summary <- get_energetics_summary(energetics_list)
-get_energetics_summary <- function(energetics) {
+get_energetics_summary <- function(
+    energetics,
+    error_metric = "ci",
+    conf_int = 0.95) {
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
   cell_line <- NULL
+  se <- NULL
 
+  z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
   sdcols <- colnames(energetics)[-1]
   merge(
     energetics[, .(count = .N), by = cell_line],
@@ -162,10 +168,24 @@ get_energetics_summary <- function(energetics) {
           list(
             mean = mean(x),
             sd = sd(x),
-            se = sd(x) / sqrt(length(x))
+            se = se(x),
+            lower_bound = ifelse(
+              error_metric == "sd",
+              mean(x) - sd(x),
+              mean(x) - (z_value * se(x))
+            ),
+            higher_bound = ifelse(
+              error_metric == "sd",
+              mean(x) + sd(x),
+              mean(x) + (z_value * se(x))
+            )
           )
         }
       )
     )), .SDcols = sdcols, by = cell_line]
   )
+}
+
+se <- function(x) {
+  sd(x) / sqrt(length(x))
 }

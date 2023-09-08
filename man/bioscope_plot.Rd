@@ -4,13 +4,22 @@
 \alias{bioscope_plot}
 \title{Bioenergetic Scope Plot}
 \usage{
-bioscope_plot(energetics_summary, size = 2, shape = 21)
+bioscope_plot(
+  energetics,
+  error_bar = "ci",
+  conf_int = 0.95,
+  size = 2,
+  shape = 21
+)
 }
 \arguments{
-\item{energetics_summary}{A summary table of calculated means and standard
-deviations of ATP production from glycolysis and OXPHOS at points defined in
-patitioned_data and with values calculated using get_energetics_summary
-function}
+\item{energetics}{A table of calculated glycolysis and OXPHOS rates.
+Returned by \code{get_energetics}}
+
+\item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"})
+or confidence intervals (\code{"ci"})}
+
+\item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
 
 \item{size}{Size of the points}
 
@@ -30,15 +39,14 @@ Generate the Bioenergetic Scope Plot
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
 partitioned_data <- partition_data(seahorse_rates)
-energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-energetics_summary <- get_energetics_summary(energetics_list)
-bioscope_plot(energetics_summary)
+energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+bioscope_plot(energetics)
 
 # to change fill, the geom_point shape number should be between 15 and 25
-bioscope_plot(energetics_summary, shape = 21) + # filled circle
+bioscope_plot(energetics, shape = 21) + # filled circle
   ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 
 # to change color use ggplot2::scale_color_manual
-bioscope_plot(energetics_summary) +
+bioscope_plot(energetics) +
   ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 }

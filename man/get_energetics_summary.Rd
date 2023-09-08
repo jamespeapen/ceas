@@ -4,10 +4,14 @@
 \alias{get_energetics_summary}
 \title{Calculate ATP Production Mean and Standard Deviation}
 \usage{
-get_energetics_summary(energetics)
+get_energetics_summary(energetics, error_metric = "ci", conf_int = 0.95)
 }
 \arguments{
 \item{energetics}{a data.table of Seahorse OCR and ECAR rates (from \code{get_energetics})}
+
+\item{error_metric}{Whether to calculate error as standard deviation (\code{"sd"}) or confidence intervals (\code{"ci"})}
+
+\item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
 }
 \value{
 a list of groups from the data

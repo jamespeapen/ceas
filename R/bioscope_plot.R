@@ -1,10 +1,11 @@
 #' Bioenergetic Scope Plot
 #'
 #' Generate the Bioenergetic Scope Plot
-#' @param energetics_summary A summary table of calculated means and standard
-#' deviations of ATP production from glycolysis and OXPHOS at points defined in
-#' patitioned_data and with values calculated using get_energetics_summary
-#' function
+#' @param energetics A table of calculated glycolysis and OXPHOS rates.
+#' Returned by `get_energetics`
+#' @param error_bar Whether to plot error bars as standard deviation (`"sd"`)
+#' or confidence intervals (`"ci"`)
+#' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param bioscope_plot Creates a 2D plot visualizing the mean and standard
 #' deviation basal and maximal ATP production from glycolysis and OXPHOS for
 #' each experimental group
@@ -19,47 +20,67 @@
 #' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
 #' partitioned_data <- partition_data(seahorse_rates)
-#' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-#' energetics_summary <- get_energetics_summary(energetics_list)
-#' bioscope_plot(energetics_summary)
+#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' bioscope_plot(energetics)
 #'
 #' # to change fill, the geom_point shape number should be between 15 and 25
-#' bioscope_plot(energetics_summary, shape = 21) + # filled circle
+#' bioscope_plot(energetics, shape = 21) + # filled circle
 #'   ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 #'
 #' # to change color use ggplot2::scale_color_manual
-#' bioscope_plot(energetics_summary) +
+#' bioscope_plot(energetics) +
 #'   ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 bioscope_plot <- function(
-    energetics_summary,
+    energetics,
+    error_bar = "ci",
+    conf_int = 0.95,
     size = 2,
     shape = 21) {
   # sanity checks
+
   data_cols <- c(
-    "glyc_no_drugs.mean",
-    "glyc_no_drugs.sd",
-    "glyc_max_glyc.mean",
-    "glyc_max_glyc.sd",
-    "ox_no_drugs.mean",
-    "ox_no_drugs.sd",
-    "ox_max_ox.mean",
-    "ox_max_ox.sd"
+    "glyc_no_drugs",
+    "glyc_max_glyc",
+    "ox_no_drugs",
+    "ox_max_ox"
   )
-  missing_cols <- setdiff(data_cols, colnames(energetics_summary))
+
+  if (!error_bar %in% c("sd", "ci")) {
+    stop("'error_bar' should be 'sd' or 'ci'")
+  }
+
+  if (conf_int < 0 || conf_int > 1) {
+    stop("'conf_int' should be between 0 and 1")
+  }
+
+  missing_cols <- setdiff(data_cols, colnames(energetics))
   if (length(missing_cols) != 0) {
     stop(paste0("'", missing_cols, "'", " column was not found in input data\n"))
   }
 
   # suppress "no visible binding for global variable" error
   glyc_max_glyc.mean <- NULL
-  glyc_max_glyc.sd <- NULL
+  glyc_max_glyc.lower_bound <- NULL
+  glyc_max_glyc.higher_bound <- NULL
+
   glyc_no_drugs.mean <- NULL
-  glyc_no_drugs.sd <- NULL
+  glyc_no_drugs.lower_bound <- NULL
+  glyc_no_drugs.higher_bound <- NULL
+
   ox_max_ox.mean <- NULL
-  ox_max_ox.sd <- NULL
+  ox_max_ox.lower_bound <- NULL
+  ox_max_ox.higher_bound <- NULL
+
   ox_no_drugs.mean <- NULL
-  ox_no_drugs.sd <- NULL
+  ox_no_drugs.lower_bound <- NULL
+  ox_no_drugs.higher_bound <- NULL
   cell_line <- NULL
+
+  energetics_summary <- get_energetics_summary(
+    energetics,
+    error_metric = error_bar,
+    conf_int = conf_int
+  )
 
   max_axis <- round(max(
     max(energetics_summary$glyc_max_glyc.mean, energetics_summary$ox_max_ox.mean)
@@ -85,22 +106,22 @@ bioscope_plot <- function(
     ylim(0, max_axis) +
     geom_linerange(aes(
       x = glyc_max_glyc.mean, y = ox_max_ox.mean,
-      ymin = ox_max_ox.mean - ox_max_ox.sd,
-      ymax = ox_max_ox.mean + ox_max_ox.sd
+      ymin = ox_max_ox.lower_bound,
+      ymax = ox_max_ox.higher_bound
     ), data = energetics_summary) +
     geom_linerange(aes(
       x = glyc_max_glyc.mean, y = ox_max_ox.mean,
-      xmin = glyc_max_glyc.mean - glyc_max_glyc.sd,
-      xmax = glyc_max_glyc.mean + glyc_max_glyc.sd
+      xmin = glyc_max_glyc.lower_bound,
+      xmax = glyc_max_glyc.higher_bound
     ), data = energetics_summary) +
     geom_linerange(aes(
       x = glyc_max_glyc.mean, y = ox_no_drugs.mean,
-      xmin = glyc_no_drugs.mean - glyc_no_drugs.sd,
-      xmax = glyc_no_drugs.mean + glyc_no_drugs.sd
+      xmin = glyc_no_drugs.lower_bound,
+      xmax = glyc_no_drugs.higher_bound
     ), data = energetics_summary) +
     geom_linerange(aes(
       x = glyc_no_drugs.mean, y = ox_no_drugs.mean,
-      ymin = ox_no_drugs.mean - ox_no_drugs.sd,
-      ymax = ox_no_drugs.mean + ox_no_drugs.sd
+      ymin = ox_no_drugs.lower_bound,
+      ymax = ox_no_drugs.higher_bound
     ), data = energetics_summary)
 }
