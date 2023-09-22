@@ -25,6 +25,5 @@ make_bioscope_plot <- function(rep_list, ph, pka, buffer) {
   read_data(rep_list) |>
     partition_data() |>
     get_energetics(ph = ph, pka = pka, buffer = buffer) |>
-    get_energetics_summary() |>
     bioscope_plot()
 }
