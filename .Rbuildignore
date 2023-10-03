@@ -4,3 +4,6 @@ default.nix
 .lintr
 ^LICENSE\.md$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
