@@ -68,62 +68,46 @@ partition_data <- function(
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
+  # BASAL CONDITIONS: +glucose, no drugs
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
+  uncoupled_mito_resp <- partitioned_data$uncoupled$OCR - partitioned_data$nonmito$OCR
+  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) / 0.908 # hyperpolarization constant
+  no_glucose_glyc_acidification <- partitioned_data$no_glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
+  glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
+
+  # basal proton efflux rates (PPR)
+  ppr_basal <- glucose_glyc_acidification / buffer
+  ppr_basal_mito <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
+  ppr_basal_glyc <- ppr_basal - ppr_basal_mito
+
+  # basal ATP calculations
+  ATP_basal_glyc <- (ppr_basal_glyc * 1) + (basal_mito_resp * 2 * 0.167)
+  ATP_basal_resp <- (coupled_mito_resp * 2 * 2.486) + (basal_mito_resp * 2 * 0.121)
+
+  # MAX CONDITIONS: +glucose, +drugs, different between Mito and Glyco Stress Tests
   max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
+  max_mito_acidification <- partitioned_data$maxresp$ECAR - partitioned_data$nonmito$ECAR
+  max_glyc_acidification <- partitioned_data$max_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
+  max_glyc_resp <- partitioned_data$max_glyc$OCR - partitioned_data$nonmito$OCR
 
-  max_glyc <- partitioned_data$maxgly$ECAR - partitioned_data$nonmito$OCR
+  # max proton efflux rates (PPR)
+  ppr_max <- max_glyc_acidification / buffer
+  ppr_max_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_glyc_resp
+  ppr_max_glyc <- ppr_max - ppr_max_resp
 
-  ocr_coupled_no_drugs <- (partitioned_data$basal$OCR - partitioned_data$oligo$OCR) / 0.908
-  ocr_coupled_max_ox <- max_mito_resp
-  ocr_coupled_max_glyc <- max_glyc
-
-  ppr_total_no_drugs <- partitioned_data$basal_ecar$ECAR / buffer
-  ppr_total_max_ox <- partitioned_data$fccp_ecar$ECAR / buffer
-  ppr_total_max_glyc <- partitioned_data$oligomon_ecar$ECAR / buffer
-
-  ppr_resp_no_drugs <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
-  ppr_resp_max_ox <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_mito_resp
-  ppr_resp_max_glyc <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_glyc
-
-  ppr_glyc_no_drugs <- ppr_total_no_drugs - ppr_resp_no_drugs
-  ppr_glyc_max_ox <- ppr_total_max_ox - ppr_resp_max_ox
-  ppr_glyc_max_glyc <- ppr_total_max_glyc - ppr_resp_max_glyc
-
-  glyc_no_drugs <- (ppr_glyc_no_drugs * 1) + (basal_mito_resp * 0.167 * 2)
-  glyc_max_ox <- (ppr_glyc_max_ox * 1) + (max_mito_resp * 0.167 * 2)
-  glyc_max_glyc <- (ppr_glyc_max_glyc * 1) + (max_glyc * 0.167 * 2)
-
-  ox_no_drugs <- ((ocr_coupled_no_drugs * 2.486) + (basal_mito_resp * 0.121)) * 2
-  ox_max_ox <- ((ocr_coupled_max_ox * 2.486) + (max_mito_resp * 0.121)) * 2
-  ox_max_glyc <- ((ocr_coupled_max_glyc * 2.486) + (max_glyc * 0.121)) * 2
-
-  total_no_drugs <- ox_no_drugs + glyc_no_drugs
-  total_max_ox <- ox_max_ox + glyc_max_ox
-  total_max_glyc <- ox_max_glyc + glyc_max_glyc
-
-  glyc_ind_no_drugs <- glyc_no_drugs / total_no_drugs * 100
-  glyc_ind_max_ox <- glyc_max_ox / total_max_ox * 100
-  glyc_ind_max_glyc <- glyc_max_glyc / total_max_glyc * 100
-  gi_max <- glyc_max_glyc / (total_max_glyc + ox_max_ox) * 100
-
-  bioenergetic_scope_no_drugs <- glyc_no_drugs * ox_no_drugs
-  bioenergetic_scope_gi_max <- total_max_glyc * ox_max_ox
-
-  ox_index_no_drugs <- ox_no_drugs / total_no_drugs * 100
-  ox_index_max_ox <- ox_max_ox / total_max_ox * 100
-  ox_index_max_glyc <- ox_max_glyc / total_max_glyc * 100
+  # max ATP calculations
+  ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * 0.167)
+  ATP_max_resp <- (coupled_mito_resp * 2 * 2.486) + (max_mito_resp * 2 * 0.121)
 
   seahorse_condition <- factor(partitioned_data$basal$Replicate)
   cell_line <- factor(partitioned_data$basal$cell_line)
 
   data.table(
     cell_line,
-    glyc_no_drugs,
-    glyc_max_ox,
-    glyc_max_glyc,
-    ox_no_drugs,
-    ox_max_ox,
-    ox_max_glyc
+    ATP_basal_glyc,
+    ATP_max_glyc,
+    ATP_basal_resp,
+    ATP_max_resp
   )
 }
 
