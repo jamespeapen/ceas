@@ -1,4 +1,4 @@
-# ceas
+# ceas <a href="https://jamespeapen.github.io/ceas"><img src="man/figures/logo.png" align="right" height="138" /></a>
 
 **Cellular Energetics Analysis Software**
 
