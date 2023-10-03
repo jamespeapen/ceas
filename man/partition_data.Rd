@@ -7,42 +7,43 @@
 partition_data(
   seahorse_rates,
   basal_tp = 3,
-  oligo_tp = 6,
+  uncoupled_tp = 6,
   maxresp_tp = 8,
   nonmito_tp = 12,
-  maxgly_tp = 6,
-  fccp_ecar_tp = 8,
-  basal_ecar_tp = 3,
-  oligomon_ecar_tp = 8
+  no_glucose_glyc_tp = 3,
+  glucose_glyc_tp = 6,
+  max_glyc_tp = 8,
+  twodg_glyc_tp = 12
 )
 }
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
-\item{basal_tp}{Must be less than \code{oligo_tp}}
+\item{basal_tp}{Must be less than \code{uncoupled_tp}}
 
-\item{oligo_tp}{Must be less than \code{maxresp_tp}}
+\item{uncoupled_tp}{Must be less than \code{maxresp_tp}}
 
 \item{maxresp_tp}{Must be less than \code{nonmito_tp}}
 
 \item{nonmito_tp}{Must be larger than \code{maxresp_tp}}
 
-\item{maxgly_tp}{Must be the same as \code{oligo_tp}}
+\item{no_glucose_glyc_tp}{Must be less than \code{glucose_glyc_tp}}
 
-\item{fccp_ecar_tp}{Must be the same as \code{maxresp_tp}}
+\item{glucose_glyc_tp}{Must be less than \code{max_glyc_tp}}
 
-\item{basal_ecar_tp}{Must be the same as \code{basal_tp}}
+\item{max_glyc_tp}{Must be less than \code{twodg_glyc_tp}}
 
-\item{oligomon_ecar_tp}{Must be larger than \code{basal_ecar_tp}}
+\item{twodg_glyc_tp}{Must be larger than \code{max_glyc_tp}}
 }
 \value{
-a list of named timepoints from each assay cycle
+a list of named time points from each assay cycle
 }
 \description{
 Organizes Seahorse OCR and ECAR rates based on defined time points (i.e. the
 Measurement column) during the experiment. This time point can be specified
 if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 per cycle to X measurements)
+TODO: add descriptions of the params
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)

@@ -4,17 +4,17 @@
 #' Measurement column) during the experiment. This time point can be specified
 #' if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 #' per cycle to X measurements)
-#'
+#' TODO: add descriptions of the params
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
-#' @param basal_tp  Must be less than `oligo_tp`
-#' @param oligo_tp Must be less than `maxresp_tp`
+#' @param basal_tp Must be less than `uncoupled_tp`
+#' @param uncoupled_tp Must be less than `maxresp_tp`
 #' @param maxresp_tp Must be less than `nonmito_tp`
 #' @param nonmito_tp Must be larger than `maxresp_tp`
-#' @param maxgly_tp Must be the same as `oligo_tp`
-#' @param fccp_ecar_tp Must be the same as `maxresp_tp`
-#' @param basal_ecar_tp Must be the same as `basal_tp`
-#' @param oligomon_ecar_tp Must be larger than `basal_ecar_tp`
-#' @return a list of named timepoints from each assay cycle
+#' @param no_glucose_glyc_tp Must be less than `glucose_glyc_tp`
+#' @param glucose_glyc_tp Must be less than `max_glyc_tp`
+#' @param max_glyc_tp Must be less than `twodg_glyc_tp`
+#' @param twodg_glyc_tp Must be larger than `max_glyc_tp`
+#' @return a list of named time points from each assay cycle
 #'
 #' @export
 #'
@@ -25,29 +25,30 @@
 partition_data <- function(
     seahorse_rates,
     basal_tp = 3,
-    oligo_tp = 6,
+    uncoupled_tp = 6,
     maxresp_tp = 8,
     nonmito_tp = 12,
-    maxgly_tp = 6,
-    fccp_ecar_tp = 8,
-    basal_ecar_tp = 3,
-    oligomon_ecar_tp = 8) {
+    no_glucose_glyc_tp = 3,
+    glucose_glyc_tp = 6,
+    max_glyc_tp = 8,
+    twodg_glyc_tp = 12) {
   # suppress "no visible binding for global variable" error
   Measurement <- NULL
   assay_type <- NULL
 
   list(
-    basal = seahorse_rates[Measurement == basal_tp & assay_type == "MITO"],
-    oligo = seahorse_rates[Measurement == oligo_tp & assay_type == "MITO"],
-    maxresp = seahorse_rates[Measurement == maxresp_tp & assay_type == "MITO"],
-    nonmito = seahorse_rates[Measurement == nonmito_tp & assay_type == "MITO"],
-    maxgly = seahorse_rates[Measurement == maxgly_tp & assay_type == "MITO"],
-    fccp_ecar = seahorse_rates[Measurement == fccp_ecar_tp & assay_type == "MITO"],
-    basal_ecar = seahorse_rates[Measurement == basal_tp & assay_type == "GLYCO"],
-    oligomon_ecar = seahorse_rates[Measurement == oligomon_ecar_tp & assay_type == "GLYCO"]
+    # Mito Stress Test Variables
+    basal = seahorse_rates[Measurement == 3 & assay_type == "MITO"],
+    uncoupled = seahorse_rates[Measurement == 6 & assay_type == "MITO"],
+    maxresp = seahorse_rates[Measurement == 8 & assay_type == "MITO"],
+    nonmito = seahorse_rates[Measurement == 12 & assay_type == "MITO"],
+    # Glyco Stress Test Variables
+    no_glucose_glyc = seahorse_rates[Measurement == 3 & assay_type == "GLYCO"],
+    glucose_glyc = seahorse_rates[Measurement == 6 & assay_type == "GLYCO"],
+    max_glyc = seahorse_rates[Measurement == 8 & assay_type == "GLYCO"],
+    twodg_glyc = seahorse_rates[Measurement == 12 & assay_type == "GLYCO"]
   )
 }
-
 
 #' Calculate ATP Production from OXPHOS and Glycolysis
 #'
