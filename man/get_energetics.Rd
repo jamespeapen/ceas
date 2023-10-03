@@ -22,6 +22,44 @@ a \code{data.table} of glycolysis and OXPHOS rates
 \description{
 Calculates ATP production from glycolysis and OXPHOS at points defined in patitioned_data
 }
+\details{
+TODO: check that all symbols are defined
+Proton efflux rate (PPR):
+\deqn{\text{PPR} = \frac{\text{ECAR value}}{\text{buffer}}}
+
+\deqn{
+  \text{PPR}_{\text{mito}} = \frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot \frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}
+}
+
+calculates the proton production from glucose \eqn{\longrightarrow} bicarbonate + \eqn{\text{H}^+} assuming max \eqn{\frac{\text{H}}{\text{O}_2}} of 1
+
+\deqn{
+ \text{PPR}_\text{glyc} = \text{PPR} - \text{PPR}_\text{resp}
+}
+
+calculates the proton production from glucose \eqn{\longrightarrow} lactate + \eqn{\text{H}^+}
+
+JATP production:
+
+\deqn{
+  \text{ATP}_{\text{glyc}} =
+   \Bigl(\text{PPR}_\text{glyc} \cdot \frac{\text{ATP}}{\text{lactate}}\Bigl) +
+   \Bigl(\text{MITO}_\text{resp} \cdot 2 \cdot \frac{\text{P}}{\text{O}_\text{glyc}}\Bigl)
+}
+
+\deqn{
+ \frac{\text{ATP}}{\text{lactate}} = 1
+}
+with
+\eqn{\frac{\text{P}}{{\text{O}_\text{glyc}}}} = 0.167 for glucose (0.242 for glycogen).
+
+\deqn{
+ \text{ATP}_\text{resp} =
+  \Bigl(\text{coupled MITO}_\text{resp} \cdot 2 \cdot \frac{\text{P}}{\text{O}_\text{oxphos}}\Bigl) +
+  \Bigl(\text{MITO}_\text{resp} \cdot 2 \cdot \frac{\text{P}}{\text{O}_\text{TCA}}\Bigl)
+}
+with \eqn{\frac{\text{P}}{{\text{O}_\text{oxphos}}}}  = 2.486 and \eqn{\frac{\text{P}}{{\text{O}_\text{TCA}}}} = 0.167.
+}
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
