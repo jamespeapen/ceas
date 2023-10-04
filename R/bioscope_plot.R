@@ -83,14 +83,12 @@ bioscope_plot <- function(
     conf_int = conf_int
   )
 
-  max_axis <- round(max(
-    max(energetics_summary$ATP_max_glyc.mean, energetics_summary$ATP_max_resp.mean)
-  ), -3)
   # Identify numeric columns
   numeric_cols <- names(energetics_summary)[sapply(energetics_summary, is.numeric)]
   # Replace negative values with 0 only in numeric columns
   energetics_summary[, (numeric_cols) := lapply(.SD, function(x) pmax(x, 0)), .SDcols = numeric_cols]
 
+  max_axis <- max(energetics_summary$ATP_max_glyc.higher_bound, energetics_summary$ATP_max_resp.higher_bound)
 
   ggplot(energetics_summary, aes(
     ATP_max_glyc.mean,
