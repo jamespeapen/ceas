@@ -46,7 +46,7 @@ bioscope_plot(energetics)
 bioscope_plot(energetics, shape = 21) + # filled circle
   ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 
-# to change color use ggplot2::scale_color_manual
+# to change color, use ggplot2::scale_color_manual
 bioscope_plot(energetics) +
   ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
 }
