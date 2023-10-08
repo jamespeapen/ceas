@@ -111,7 +111,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   # BASAL CONDITIONS: +glucose, no drugs
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
   uncoupled_mito_resp <- partitioned_data$uncoupled$OCR - partitioned_data$nonmito$OCR
-  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) / 0.908 # hyperpolarization constant
+  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * 0.908 # hyperpolarization constant
   no_glucose_glyc_acidification <- partitioned_data$no_glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
   glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
 
