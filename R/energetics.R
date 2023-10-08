@@ -117,8 +117,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 
   # basal proton efflux rates (PPR)
   ppr_basal <- glucose_glyc_acidification / buffer
-  ppr_basal_mito <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
-  ppr_basal_glyc <- ppr_basal - ppr_basal_mito
+  ppr_basal_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
+  ppr_basal_glyc <- ppr_basal - ppr_basal_resp
 
   # basal ATP calculations
   ATP_basal_glyc <- (ppr_basal_glyc * 1) + (basal_mito_resp * 2 * 0.167)
