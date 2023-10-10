@@ -24,22 +24,23 @@ Calculates ATP production from glycolysis and OXPHOS at points defined in patiti
 }
 \details{
 TODO: check that all symbols are defined
-Proton efflux rate (PPR):
+
+Proton production rate (PPR):
 \deqn{\text{PPR} = \frac{\text{ECAR value}}{\text{buffer}}}
 
 \deqn{
   \text{PPR}_{\text{mito}} = \frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot \frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}
 }
 
-calculates the proton production from glucose \eqn{\longrightarrow} bicarbonate + \eqn{\text{H}^+} assuming max \eqn{\frac{\text{H}}{\text{O}_2}} of 1
+calculates the proton production from glucose during its conversion to bicarbonate and \eqn{\text{H}^+} assuming max \eqn{\frac{\text{H}^+}{\text{O}_2}} of 1
 
 \deqn{
  \text{PPR}_\text{glyc} = \text{PPR} - \text{PPR}_\text{resp}
 }
 
-calculates the proton production from glucose \eqn{\longrightarrow} lactate + \eqn{\text{H}^+}
+calculates the proton production from glucose during its conversion to lactate + \eqn{\text{H}^+}
 
-JATP production:
+Joules of ATP (JATP) production:
 
 \deqn{
   \text{ATP}_{\text{glyc}} =

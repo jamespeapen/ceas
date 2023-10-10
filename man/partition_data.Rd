@@ -19,21 +19,21 @@ partition_data(
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
-\item{basal_tp}{Must be less than \code{uncoupled_tp}}
+\item{basal_tp}{Basal respiration time point. Must be less than \code{uncoupled_tp}}
 
-\item{uncoupled_tp}{Must be less than \code{maxresp_tp}}
+\item{uncoupled_tp}{ATP-coupled respiration time point. Must be less than \code{maxresp_tp}}
 
-\item{maxresp_tp}{Must be less than \code{nonmito_tp}}
+\item{maxresp_tp}{Maximal uncoupled respiration time point. Must be less than \code{nonmito_tp}}
 
-\item{nonmito_tp}{Must be larger than \code{maxresp_tp}}
+\item{nonmito_tp}{Non-mitochondrial respiration time point. Must be larger than \code{maxresp_tp}}
 
-\item{no_glucose_glyc_tp}{Must be less than \code{glucose_glyc_tp}}
+\item{no_glucose_glyc_tp}{No glucose added acidification time point. Must be less than \code{glucose_glyc_tp}}
 
-\item{glucose_glyc_tp}{Must be less than \code{max_glyc_tp}}
+\item{glucose_glyc_tp}{Glucose-associated acidification time point. Must be less than \code{max_glyc_tp}}
 
-\item{max_glyc_tp}{Must be less than \code{twodg_glyc_tp}}
+\item{max_glyc_tp}{Maximal acidification time point. Must be less than \code{twodg_glyc_tp}}
 
-\item{twodg_glyc_tp}{Must be larger than \code{max_glyc_tp}}
+\item{twodg_glyc_tp}{Non-glycolytic acidification time point. Must be larger than \code{max_glyc_tp}}
 }
 \value{
 a list of named time points from each assay cycle
@@ -43,7 +43,6 @@ Organizes Seahorse OCR and ECAR rates based on defined time points (i.e. the
 Measurement column) during the experiment. This time point can be specified
 if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 per cycle to X measurements)
-TODO: add descriptions of the params
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)

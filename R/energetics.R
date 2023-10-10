@@ -4,16 +4,15 @@
 #' Measurement column) during the experiment. This time point can be specified
 #' if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 #' per cycle to X measurements)
-#' TODO: add descriptions of the params
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
-#' @param basal_tp Must be less than `uncoupled_tp`
-#' @param uncoupled_tp Must be less than `maxresp_tp`
-#' @param maxresp_tp Must be less than `nonmito_tp`
-#' @param nonmito_tp Must be larger than `maxresp_tp`
-#' @param no_glucose_glyc_tp Must be less than `glucose_glyc_tp`
-#' @param glucose_glyc_tp Must be less than `max_glyc_tp`
-#' @param max_glyc_tp Must be less than `twodg_glyc_tp`
-#' @param twodg_glyc_tp Must be larger than `max_glyc_tp`
+#' @param basal_tp Basal respiration time point. Must be less than `uncoupled_tp`
+#' @param uncoupled_tp ATP-coupled respiration time point. Must be less than `maxresp_tp`
+#' @param maxresp_tp Maximal uncoupled respiration time point. Must be less than `nonmito_tp`
+#' @param nonmito_tp Non-mitochondrial respiration time point. Must be larger than `maxresp_tp`
+#' @param no_glucose_glyc_tp No glucose added acidification time point. Must be less than `glucose_glyc_tp`
+#' @param glucose_glyc_tp Glucose-associated acidification time point. Must be less than `max_glyc_tp`
+#' @param max_glyc_tp Maximal acidification time point. Must be less than `twodg_glyc_tp`
+#' @param twodg_glyc_tp Non-glycolytic acidification time point. Must be larger than `max_glyc_tp`
 #' @return a list of named time points from each assay cycle
 #'
 #' @export
@@ -56,22 +55,23 @@ partition_data <- function(
 #'
 #' @details
 #' TODO: check that all symbols are defined
-#' Proton efflux rate (PPR):
+#'
+#' Proton production rate (PPR):
 #' \deqn{\text{PPR} = \frac{\text{ECAR value}}{\text{buffer}}}
 #'
 #' \deqn{
 #'   \text{PPR}_{\text{mito}} = \frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot \frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}
 #' }
 #'
-#' calculates the proton production from glucose \eqn{\longrightarrow} bicarbonate + \eqn{\text{H}^+} assuming max \eqn{\frac{\text{H}}{\text{O}_2}} of 1
+#' calculates the proton production from glucose during its conversion to bicarbonate and \eqn{\text{H}^+} assuming max \eqn{\frac{\text{H}^+}{\text{O}_2}} of 1
 #'
 #' \deqn{
 #'  \text{PPR}_\text{glyc} = \text{PPR} - \text{PPR}_\text{resp}
 #' }
 #'
-#' calculates the proton production from glucose \eqn{\longrightarrow} lactate + \eqn{\text{H}^+}
+#' calculates the proton production from glucose during its conversion to lactate + \eqn{\text{H}^+}
 #'
-#'  JATP production:
+#' Joules of ATP (JATP) production:
 #'
 #' \deqn{
 #'   \text{ATP}_{\text{glyc}} =
@@ -115,7 +115,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   no_glucose_glyc_acidification <- partitioned_data$no_glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
   glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
 
-  # basal proton efflux rates (PPR)
+  # basal proton production rates (PPR)
   ppr_basal <- glucose_glyc_acidification / buffer
   ppr_basal_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
   ppr_basal_glyc <- ppr_basal - ppr_basal_resp
@@ -130,7 +130,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   max_glyc_acidification <- partitioned_data$max_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
   max_glyc_resp <- partitioned_data$max_glyc$OCR - partitioned_data$nonmito$OCR
 
-  # max proton efflux rates (PPR)
+  # max proton production rates (PPR)
   ppr_max <- max_glyc_acidification / buffer
   ppr_max_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_glyc_resp
   ppr_max_glyc <- ppr_max - ppr_max_resp
