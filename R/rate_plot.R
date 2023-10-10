@@ -50,7 +50,6 @@ rate_plot <- function(
   Measurement <- NULL
   cell_line <- NULL
   lower_bound <- NULL
-  se <- NULL
   upper_bound <- NULL
 
   plot_data <- get_rate_summary(seahorse_rates, measure, error_bar, conf_int)
