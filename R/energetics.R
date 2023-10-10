@@ -108,10 +108,16 @@ partition_data <- function(
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
+  P_OTCA_RATIO_GLYCOGEN <- 0.121
+  P_OGLYC_RATIO_GLUCOSE <- 0.167
+  P_OGLYC_RATIO_GLYCOGEN <- 0.242
+  P_OOXPHOS_RATIO_GLYCOGEN <- 2.486
+  HYPERPOLARIZATION_CONSTANT <- 0.908
+
   # BASAL CONDITIONS: +glucose, no drugs
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
   uncoupled_mito_resp <- partitioned_data$uncoupled$OCR - partitioned_data$nonmito$OCR
-  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * 0.908 # hyperpolarization constant
+  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * HYPERPOLARIZATION_CONSTANT
   no_glucose_glyc_acidification <- partitioned_data$no_glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
   glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
 
@@ -121,8 +127,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ppr_basal_glyc <- ppr_basal - ppr_basal_resp
 
   # basal ATP calculations
-  ATP_basal_glyc <- (ppr_basal_glyc * 1) + (basal_mito_resp * 2 * 0.167)
-  ATP_basal_resp <- (coupled_mito_resp * 2 * 2.486) + (basal_mito_resp * 2 * 0.121)
+  ATP_basal_glyc <- (ppr_basal_glyc * 1) + (basal_mito_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
+  ATP_basal_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (basal_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
   # MAX CONDITIONS: +glucose, +drugs, different between Mito and Glyco Stress Tests
   max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
@@ -136,8 +142,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ppr_max_glyc <- ppr_max - ppr_max_resp
 
   # max ATP calculations
-  ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * 0.167)
-  ATP_max_resp <- (coupled_mito_resp * 2 * 2.486) + (max_mito_resp * 2 * 0.121)
+  ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
+  ATP_max_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (max_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
   seahorse_condition <- factor(partitioned_data$basal$Replicate)
   cell_line <- factor(partitioned_data$basal$cell_line)
