@@ -13,7 +13,7 @@
 #' @param shape Shape of the points
 #' @return a ggplot
 #'
-#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim
+#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw
 #' @export
 #'
 #' @examples
@@ -127,5 +127,6 @@ bioscope_plot <- function(
       x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean,
       ymin = ATP_basal_resp.lower_bound,
       ymax = ATP_basal_resp.higher_bound
-    ), data = energetics_summary)
+    ), data = energetics_summary) +
+    theme_bw()
 }

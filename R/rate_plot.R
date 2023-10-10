@@ -7,7 +7,7 @@
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @return a ggplot
 #'
-#' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs
+#' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs theme_bw
 #' @export
 #'
 #' @examples
@@ -75,7 +75,8 @@ rate_plot <- function(
     scale_x_continuous(breaks = seq(1, 12, by = 1)) +
     xlab("Measurement") +
     ylab(y_labels[measure]) +
-    labs(color = "Cell line", fill = "Cell line")
+    labs(color = "Cell line", fill = "Cell line") +
+    theme_bw()
 }
 
 #' Rates summary
