@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/index.html</loc>
   </url>
   <url>
-    <loc>/reference/bioscope_plot.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/bioscope_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/ceas-package.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/ceas-package.html</loc>
   </url>
   <url>
-    <loc>/reference/get_energetics.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/get_energetics.html</loc>
   </url>
   <url>
-    <loc>/reference/get_energetics_summary.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/get_energetics_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/get_rate_summary.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/get_rate_summary.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/make_bioscope_plot.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/make_bioscope_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/partition_data.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/partition_data.html</loc>
   </url>
   <url>
-    <loc>/reference/rate_plot.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/rate_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/read_data.html</loc>
+    <loc>https://jamespeapen.github.io/ceas/reference/read_data.html</loc>
   </url>
 </urlset>
