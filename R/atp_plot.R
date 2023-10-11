@@ -82,7 +82,10 @@ atp_plot <- function(
     "basal_glyc" = "ATP_basal_glyc",
     "basal_resp" = "ATP_basal_resp",
     "max_glyc" = "ATP_max_glyc",
-    "max_resp" = "ATP_max_resp"
+    "max_resp" = "ATP_max_resp",
+    stop(
+    "Invalid option: basal_vs_max must be either \"basal\" or \"max\" and glyc_vs_resp must be either \"glyc\" or \"resp\""
+    )
   )
 
   # Set the data columns used for plotting
