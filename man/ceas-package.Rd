@@ -10,6 +10,14 @@
 
 'Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data.'
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://jamespeapen.githu.io/ceas}
+  \item \url{https://github.com/jamespeapen/ceas}
+}
+
+}
 \author{
 \strong{Maintainer}: Rachel House \email{rae.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
 
