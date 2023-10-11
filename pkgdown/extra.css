@@ -1,0 +1,9 @@
+/* Keep the header line around the middle of the logo */
+@media (min-width: 576px) {
+  .page-header {
+    min-height:88px;
+  }
+  .template-home .page-header {
+    min-height:0px;
+  }
+}
