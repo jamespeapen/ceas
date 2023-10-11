@@ -16,6 +16,7 @@ Description: 'Analysis and visualization of cellular energetics data from
              capabilities for such data.'
 URL: https://jamespeapen.github.io/ceas, https://github.com/jamespeapen/ceas
 Imports:
+    stats,
     readxl,
     ggplot2,
     data.table
