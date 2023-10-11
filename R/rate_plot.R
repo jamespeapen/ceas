@@ -95,6 +95,7 @@ rate_plot <- function(
 #' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
 #' rates <- get_rate_summary(seahorse_rates, measure = "OCR", error_metric = "ci", conf_int = 0.95)
+#' knitr::kable(head(rates, n = 10), "simple")
 get_rate_summary <- function(
     seahorse_rates,
     measure = "OCR",

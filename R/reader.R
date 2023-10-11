@@ -18,6 +18,7 @@
 #' @examples
 #' rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
+#' knitr::kable(head(seahorse_rates, n = 10), "simple")
 read_data <- function(rep_list, sheet = 2) {
   data_cols <- c(
     "Measurement",
