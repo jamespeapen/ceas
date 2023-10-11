@@ -22,7 +22,8 @@ a ggplot
 Generate OCR and ECAR plots
 }
 \examples{
-rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+rep_list <- system.file("extdata", package = "ceas") |>
+  list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
 rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95)
 }

@@ -45,7 +45,8 @@ if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 per cycle to X measurements)
 }
 \examples{
-rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+rep_list <- system.file("extdata", package = "ceas") |>
+  list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 }

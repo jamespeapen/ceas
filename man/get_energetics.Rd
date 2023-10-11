@@ -62,7 +62,8 @@ with
 with \eqn{\frac{\text{P}}{{\text{O}_\text{oxphos}}}}  = 2.486 and \eqn{\frac{\text{P}}{{\text{O}_\text{TCA}}}} = 0.167.
 }
 \examples{
-rep_list <- system.file("extdata", package = "ceas") |> list.files(pattern = "*.xlsx", full.names = TRUE)
+rep_list <- system.file("extdata", package = "ceas") |>
+  list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
