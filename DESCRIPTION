@@ -14,6 +14,7 @@ Description: 'Analysis and visualization of cellular energetics data from
              extracellular acidification rate – a proxy of glycolysis. This
              package offers flexible and fast analysis and plotting
              capabilities for such data.'
+URL: https://jamespeapen.github.io/ceas, https://github.com/jamespeapen/ceas
 Imports:
     readxl,
     ggplot2,
