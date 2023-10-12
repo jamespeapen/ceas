@@ -25,7 +25,7 @@ Reads input seahore data from an excel Seahorse Wave File
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>
- list.files(pattern = "*.xlsx", full.names = TRUE)
+  list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
 head(seahorse_rates, n = 10)
 }

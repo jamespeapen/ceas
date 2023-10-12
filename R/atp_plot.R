@@ -41,9 +41,7 @@ atp_plot <- function(
     size = 2,
     shape = 21,
     basal_vs_max = "basal",
-    glyc_vs_resp = "glyc"
-    ) {
-
+    glyc_vs_resp = "glyc") {
   # Sanity checks
   if (!error_bar %in% c("sd", "ci")) {
     stop("'error_bar' should be 'sd' or 'ci'")
@@ -78,14 +76,13 @@ atp_plot <- function(
   energetics_summary[, (numeric_cols) := lapply(.SD, function(x) pmax(x, 0)), .SDcols = numeric_cols]
 
   # Determine which plot to create based on the options
-  data_column <- switch(
-    paste(basal_vs_max, glyc_vs_resp, sep = "_"),
+  data_column <- switch(paste(basal_vs_max, glyc_vs_resp, sep = "_"),
     "basal_glyc" = "ATP_basal_glyc",
     "basal_resp" = "ATP_basal_resp",
     "max_glyc" = "ATP_max_glyc",
     "max_resp" = "ATP_max_resp",
     stop(
-    "Invalid option: basal_vs_max must be either \"basal\" or \"max\" and glyc_vs_resp must be either \"glyc\" or \"resp\""
+      "Invalid option: basal_vs_max must be either \"basal\" or \"max\" and glyc_vs_resp must be either \"glyc\" or \"resp\""
     )
   )
 
@@ -98,8 +95,8 @@ atp_plot <- function(
   basal_vs_max_label <- ifelse(basal_vs_max == "basal", "Basal", "Max")
   glyc_vs_resp_label <- ifelse(glyc_vs_resp == "glyc", "Glycolysis", "Respiration")
 
- # The selected columns are plotted using data masks with the .data[[]] syntax
- # https://adv-r.hadley.nz/evaluation.html#data-masks
+  # The selected columns are plotted using data masks with the .data[[]] syntax
+  # https://adv-r.hadley.nz/evaluation.html#data-masks
   ggplot(
     energetics_summary,
     aes(
