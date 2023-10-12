@@ -13,8 +13,8 @@
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://jamespeapen.github.io/ceas}
-  \item \url{https://github.com/jamespeapen/ceas}
+  \item \url{https://jamespeapen.github.io/ceas/}
+  \item \url{https://github.com/jamespeapen/ceas/}
 }
 
 }

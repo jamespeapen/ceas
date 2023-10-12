@@ -1,4 +1,4 @@
-# ceas <a href="https://jamespeapen.github.io/ceas"><img src="man/figures/logo.png" align="right" height="138" style="float:right; height:138px;"/></a>
+# ceas <a href="https://jamespeapen.github.io/ceas/"><img src="man/figures/logo.png" align="right" height="138" style="float:right; height:138px;"/></a>
 
 **Cellular Energetics Analysis Software**
 
@@ -24,7 +24,7 @@ capabilities for such data.
 You can install from Github by cloning the repo and running
 
 ```bash
-git clone https://github.com/jamespeapen/ceas
+git clone https://github.com/jamespeapen/ceas/
 R CMD INSTALL ceas
 ```
 
