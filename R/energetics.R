@@ -109,7 +109,7 @@ partition_data <- function(
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-#' knitr::kable(head(energetics, n = 10), "simple")
+#' head(energetics, n = 10)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
   P_OTCA_RATIO_GLYCOGEN <- 0.121
   P_OGLYC_RATIO_GLUCOSE <- 0.167
@@ -181,8 +181,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' energetics_summary <- get_energetics_summary(energetics_list)
-#' knitr::kable(head(energetics_summary[, c(1:5)], n = 10), "simple")
-#' knitr::kable(head(energetics_summary[, c(1, 2, 6, 7)], n = 10), "simple")
+#' head(energetics_summary[, c(1:5)], n = 10)
+#' head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
 get_energetics_summary <- function(
     energetics,
     error_metric = "ci",

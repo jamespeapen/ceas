@@ -102,7 +102,7 @@ rate_plot <- function(
 #'   error_metric = "ci",
 #'   conf_int = 0.95
 #' )
-#' knitr::kable(head(rates, n = 10), "simple")
+#' head(rates, n = 10)
 get_rate_summary <- function(
     seahorse_rates,
     measure = "OCR",

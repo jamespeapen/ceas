@@ -27,5 +27,5 @@ Reads input seahore data from an excel Seahorse Wave File
 rep_list <- system.file("extdata", package = "ceas") |>
  list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
-knitr::kable(head(seahorse_rates, n = 10), "simple")
+head(seahorse_rates, n = 10)
 }

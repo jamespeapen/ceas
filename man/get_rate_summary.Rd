@@ -36,5 +36,5 @@ rates <- get_rate_summary(
   error_metric = "ci",
   conf_int = 0.95
 )
-knitr::kable(head(rates, n = 10), "simple")
+head(rates, n = 10)
 }
