@@ -7,3 +7,4 @@ default.nix
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+_test*
