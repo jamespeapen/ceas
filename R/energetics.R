@@ -113,7 +113,6 @@ partition_data <- function(
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
   P_OTCA_RATIO_GLYCOGEN <- 0.121
   P_OGLYC_RATIO_GLUCOSE <- 0.167
-  P_OGLYC_RATIO_GLYCOGEN <- 0.242
   P_OOXPHOS_RATIO_GLYCOGEN <- 2.486
   HYPERPOLARIZATION_CONSTANT <- 0.908
 
