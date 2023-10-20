@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Rachel House \email{rae.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
+\strong{Maintainer}: Rachel House \email{rachel.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
 
 Authors:
 \itemize{
