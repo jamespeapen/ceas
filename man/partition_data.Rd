@@ -12,8 +12,7 @@ partition_data(
   nonmito_tp = 12,
   no_glucose_glyc_tp = 3,
   glucose_glyc_tp = 6,
-  max_glyc_tp = 8,
-  twodg_glyc_tp = 12
+  max_glyc_tp = 8
 )
 }
 \arguments{
@@ -32,8 +31,6 @@ partition_data(
 \item{glucose_glyc_tp}{Glucose-associated acidification time point. Must be less than \code{max_glyc_tp}}
 
 \item{max_glyc_tp}{Maximal acidification time point. Must be less than \code{twodg_glyc_tp}}
-
-\item{twodg_glyc_tp}{Non-glycolytic acidification time point. Must be larger than \code{max_glyc_tp}}
 }
 \value{
 a list of named time points from each assay cycle

@@ -12,9 +12,9 @@
 #' @param no_glucose_glyc_tp No glucose added acidification time point. Must be less than `glucose_glyc_tp`
 #' @param glucose_glyc_tp Glucose-associated acidification time point. Must be less than `max_glyc_tp`
 #' @param max_glyc_tp Maximal acidification time point. Must be less than `twodg_glyc_tp`
-#' @param twodg_glyc_tp Non-glycolytic acidification time point. Must be larger than `max_glyc_tp`
 #' @return a list of named time points from each assay cycle
 #'
+#' @importFrom data.table setkey
 #' @export
 #'
 #' @examples
@@ -30,13 +30,13 @@ partition_data <- function(
     nonmito_tp = 12,
     no_glucose_glyc_tp = 3,
     glucose_glyc_tp = 6,
-    max_glyc_tp = 8,
-    twodg_glyc_tp = 12) {
+    max_glyc_tp = 8) {
   # suppress "no visible binding for global variable" error
   Measurement <- NULL
   assay_type <- NULL
+  cell_line <- NULL
 
-  list(
+  partitioned_data <- list(
     # Mito Stress Test Variables
     basal = seahorse_rates[Measurement == 3 & assay_type == "MITO"],
     uncoupled = seahorse_rates[Measurement == 6 & assay_type == "MITO"],
@@ -45,9 +45,11 @@ partition_data <- function(
     # Glyco Stress Test Variables
     no_glucose_glyc = seahorse_rates[Measurement == 3 & assay_type == "GLYCO"],
     glucose_glyc = seahorse_rates[Measurement == 6 & assay_type == "GLYCO"],
-    max_glyc = seahorse_rates[Measurement == 8 & assay_type == "GLYCO"],
-    twodg_glyc = seahorse_rates[Measurement == 12 & assay_type == "GLYCO"]
+    max_glyc = seahorse_rates[Measurement == 8 & assay_type == "GLYCO"]
   )
+
+  # set a key on the data.tables so they are ordered correctly during the energetics calculations
+  lapply(partitioned_data, function(DT) setkey(DT, cell_line, assay_type))
 }
 
 #' Calculate ATP Production from OXPHOS and Glycolysis
