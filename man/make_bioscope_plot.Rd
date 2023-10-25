@@ -4,7 +4,7 @@
 \alias{make_bioscope_plot}
 \title{Bioenergetic Scope Plot Shortcut}
 \usage{
-make_bioscope_plot(rep_list, ph, pka, buffer)
+make_bioscope_plot(rep_list, ph, pka, buffer, sheet = 2)
 }
 \arguments{
 \item{rep_list}{A list of Seahorse Wave excel export files. One file per
@@ -18,6 +18,10 @@ files.}
 \item{pka}{pKa value for energetics calculation (for XF Media, 6.063)}
 
 \item{buffer}{buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)}
+
+\item{sheet}{The number of the excel sheet containing the long-form Seahorse
+data. Default is 2 because the long-form output from Seahorse Wave is on
+sheet 2}
 }
 \value{
 a ggplot

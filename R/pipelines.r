@@ -13,6 +13,9 @@
 #' @param ph pH value for energetics calculation (for XF Media, 7.5)
 #' @param pka pKa value for energetics calculation (for XF Media, 6.063)
 #' @param buffer buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)
+#' @param sheet The number of the excel sheet containing the long-form Seahorse
+#' data. Default is 2 because the long-form output from Seahorse Wave is on
+#' sheet 2
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim scale_color_discrete
@@ -22,8 +25,8 @@
 #' rep_list <- system.file("extdata", package = "ceas") |>
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' make_bioscope_plot(rep_list, ph = 7.4, pka = 6.093, buffer = 0.1)
-make_bioscope_plot <- function(rep_list, ph, pka, buffer) {
-  read_data(rep_list) |>
+make_bioscope_plot <- function(rep_list, ph, pka, buffer, sheet = 2) {
+  read_data(rep_list, sheet = sheet) |>
     partition_data() |>
     get_energetics(ph = ph, pka = pka, buffer = buffer) |>
     bioscope_plot()
