@@ -102,7 +102,7 @@ partition_data <- function(
 #' @param buffer buffer for energetics calculation (for XF Media, 0.1 mpH/pmol H+)
 #' @return a `data.table` of glycolysis and OXPHOS rates
 #'
-#' @importFrom data.table data.table
+#' @importFrom data.table data.table setkey
 #' @export
 #'
 #' @examples
@@ -113,10 +113,14 @@ partition_data <- function(
 #' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' head(energetics, n = 10)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
+  . <- NULL
+  .I <- NULL
+  ID <- NULL
   OCR <- NULL
   cell_line <- NULL
   assay_type <- NULL
   mean_non_mito <- NULL
+
   P_OTCA_RATIO_GLYCOGEN <- 0.121
   P_OGLYC_RATIO_GLUCOSE <- 0.167
   P_OOXPHOS_RATIO_GLYCOGEN <- 2.486
@@ -157,16 +161,28 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
   ATP_max_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (max_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
-  seahorse_condition <- factor(partitioned_data$basal$Replicate)
-  cell_line <- factor(partitioned_data$basal$cell_line)
+  cell_line_mito <- factor(partitioned_data$basal$cell_line)
 
-  data.table(
-    cell_line,
-    ATP_basal_glyc,
-    ATP_max_glyc,
+  MITO_df <- data.table(
+    cell_line = cell_line_mito,
     ATP_basal_resp,
     ATP_max_resp
   )
+
+  cell_line_glyco <- factor(partitioned_data$no_glucose_glyc$cell_line)
+
+  GLYCO_df <- data.table(
+    cell_line = cell_line_glyco,
+    ATP_basal_glyc,
+    ATP_max_glyc
+  )
+
+  lapply(list(MITO_df, GLYCO_df), function(DT) {
+    DT[, ID := paste(cell_line, .I, sep = "_")]
+    setkey(DT, ID, cell_line)
+  })
+
+  merge(MITO_df, GLYCO_df, all.x = TRUE, all.y = TRUE)[, ID := NULL][]
 }
 
 #' Calculate ATP Production Mean and Standard Deviation
