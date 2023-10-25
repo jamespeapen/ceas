@@ -10,10 +10,11 @@
 #' deviation basal and maximal ATP production from glycolysis and OXPHOS for
 #' each experimental group
 #' @param size Size of the points
-#' @param shape Shape of the points
+#' @param basal_shape Shape of the points for basal values
+#' @param max_shape Shape of the points for max values
 #' @return a ggplot
 #'
-#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw
+#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw scale_shape_manual
 #' @export
 #'
 #' @examples
@@ -27,6 +28,12 @@
 #' # to change fill, the geom_point shape number should be between 15 and 25
 #' bioscope_plot(energetics, shape = 21) + # filled circle
 #'   ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
+#' # to change fill, the geom_point shape should be between 15 and 20.
+#' # These shapes are filled without border and will correctly show on the legend.
+#' bioscope_plot(energetics, size = 3, basal_shape = 2, max_shape = 17) + # empty and filled triangle
+#' ggplot2::scale_fill_manual(
+#'    values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+#' )
 #'
 #' # to change color, use ggplot2::scale_color_manual
 #' bioscope_plot(energetics) +
@@ -36,7 +43,8 @@ bioscope_plot <- function(
     error_bar = "ci",
     conf_int = 0.95,
     size = 2,
-    shape = 21) {
+    basal_shape = 1,
+    max_shape = 19) {
   # sanity checks
 
   data_cols <- c(
@@ -97,12 +105,11 @@ bioscope_plot <- function(
     color = cell_line,
     fill = cell_line
   )) +
-    geom_point(shape = shape, size = size) +
+    geom_point(size = size, aes(shape = "Max")) +
     geom_point(
       data = energetics_summary,
-      aes(x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean, color = cell_line),
-      size = size,
-      shape = shape
+      aes(x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean, color = cell_line, shape = "Basal"),
+      size = size
     ) +
     xlab("ATP Production from Glycolysis (JATP)") +
     ylab("ATP Production from OXPHOS (JATP)") +
@@ -129,5 +136,6 @@ bioscope_plot <- function(
       ymin = ATP_basal_resp.lower_bound,
       ymax = ATP_basal_resp.higher_bound
     ), data = energetics_summary) +
+    scale_shape_manual(values = c("Basal" = basal_shape, "Max" = max_shape)) +
     theme_bw()
 }
