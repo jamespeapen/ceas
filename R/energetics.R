@@ -113,6 +113,10 @@ partition_data <- function(
 #' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' head(energetics, n = 10)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
+  OCR <- NULL
+  cell_line <- NULL
+  assay_type <- NULL
+  mean_non_mito <- NULL
   P_OTCA_RATIO_GLYCOGEN <- 0.121
   P_OGLYC_RATIO_GLUCOSE <- 0.167
   P_OOXPHOS_RATIO_GLYCOGEN <- 2.486
@@ -122,28 +126,32 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
   uncoupled_mito_resp <- partitioned_data$uncoupled$OCR - partitioned_data$nonmito$OCR
   coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * HYPERPOLARIZATION_CONSTANT
-  no_glucose_glyc_acidification <- partitioned_data$no_glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
-  glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
+  glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR
 
-  # basal proton production rates (PPR)
+  mean_group_nonmito_resp <- partitioned_data$nonmito[, .(mean_non_mito = mean(OCR)), by = .(assay_type, cell_line)]
+
+  # Subtract the mean_non_mito based on cell_line group
+  glucose_glyc_resp <- partitioned_data$glucose_glyc[mean_group_nonmito_resp, on = .(cell_line)][, OCR - mean_non_mito]
+
   ppr_basal <- glucose_glyc_acidification / buffer
-  ppr_basal_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * basal_mito_resp
-  ppr_basal_glyc <- ppr_basal - ppr_basal_resp
+  ppr_basal_glyc_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * glucose_glyc_resp
+  ppr_basal_glyc <- ppr_basal - ppr_basal_glyc_resp
 
   # basal ATP calculations
-  ATP_basal_glyc <- (ppr_basal_glyc * 1) + (basal_mito_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
+  ATP_basal_glyc <- (ppr_basal_glyc * 1) + (glucose_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
   ATP_basal_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (basal_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
   # MAX CONDITIONS: +glucose, +drugs, different between Mito and Glyco Stress Tests
   max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
-  max_mito_acidification <- partitioned_data$maxresp$ECAR - partitioned_data$nonmito$ECAR
-  max_glyc_acidification <- partitioned_data$max_glyc$ECAR - partitioned_data$twodg_glyc$ECAR
-  max_glyc_resp <- partitioned_data$max_glyc$OCR - partitioned_data$nonmito$OCR
+  max_glyc_acidification <- partitioned_data$max_glyc$ECAR
+
+  # Subtract the mean_non_mito based on cell_line group
+  max_glyc_resp <- partitioned_data$max_glyc[mean_group_nonmito_resp, on = .(cell_line)][, OCR - mean_non_mito]
 
   # max proton production rates (PPR)
   ppr_max <- max_glyc_acidification / buffer
-  ppr_max_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_glyc_resp
-  ppr_max_glyc <- ppr_max - ppr_max_resp
+  ppr_max_glyc_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * max_glyc_resp
+  ppr_max_glyc <- ppr_max - ppr_max_glyc_resp
 
   # max ATP calculations
   ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
