@@ -227,18 +227,18 @@ get_energetics_summary <- function(
         .SD,
         function(x) {
           list(
-            mean = mean(x),
-            sd = sd(x),
+            mean = mean(x, na.rm = TRUE),
+            sd = sd(x, na.rm = TRUE),
             se = se(x),
             lower_bound = ifelse(
               error_metric == "sd",
-              mean(x) - sd(x),
-              mean(x) - (z_value * se(x))
+              mean(x, na.rm = TRUE) - sd(x, na.rm = TRUE),
+              mean(x, na.rm = TRUE) - (z_value * se(x))
             ),
             higher_bound = ifelse(
               error_metric == "sd",
-              mean(x) + sd(x),
-              mean(x) + (z_value * se(x))
+              mean(x, na.rm = TRUE) + sd(x, na.rm = TRUE),
+              mean(x, na.rm = TRUE) + (z_value * se(x))
             )
           )
         }
@@ -248,5 +248,5 @@ get_energetics_summary <- function(
 }
 
 se <- function(x) {
-  sd(x) / sqrt(length(x))
+  sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x)))
 }
