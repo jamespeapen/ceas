@@ -29,7 +29,7 @@ Summarize OCR and ECAR as mean and bounded standard deviations or standard error
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
-seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
+seahorse_rates <- read_data(rep_list, sheet = 2)
 rates <- get_rate_summary(
   seahorse_rates,
   measure = "OCR",
