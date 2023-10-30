@@ -6,3 +6,19 @@ navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [search, github]
+reference:
+- title: Data import
+  contents:
+    - read_data
+    - partition_data
+- title: Energetics calculations
+  contents:
+    - get_energetics
+    - get_energetics_summary
+    - get_rate_summary
+- title: Plotting
+  contents:
+    - bioscope_plot
+    - rate_plot
+    - atp_plot
+    - make_bioscope_plot
