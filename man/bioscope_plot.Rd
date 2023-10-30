@@ -43,17 +43,24 @@ rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2) # reads in data
 partitioned_data <- partition_data(seahorse_rates)
-energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+energetics <- get_energetics(
+  partitioned_data,
+  ph = 7.4,
+  pka = 6.093,
+  buffer = 0.1
+)
 bioscope_plot(energetics)
 
 # to change fill, the geom_point shape should be between 15 and 20.
 # These shapes are filled without border and will correctly show on the legend.
 bioscope_plot(energetics, size = 3, basal_shape = 2, max_shape = 17) + # empty and filled triangle
-ggplot2::scale_fill_manual(
-   values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
-)
+  ggplot2::scale_fill_manual(
+    values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+  )
 
 # to change color, use ggplot2::scale_color_manual
 bioscope_plot(energetics) +
-  ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
+  ggplot2::scale_color_manual(
+    values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+  )
 }
