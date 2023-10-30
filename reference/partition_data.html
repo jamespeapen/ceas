@@ -16,7 +16,7 @@ per cycle to X measurements)"><meta property="og:image" content="https://jamespe
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,13 +60,12 @@ per cycle to X measurements)</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">partition_data</span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  oligo_tp <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  uncoupled_tp <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  maxresp_tp <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  maxgly_tp <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>  fccp_ecar_tp <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>  basal_ecar_tp <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  oligomon_ecar_tp <span class="op">=</span> <span class="fl">8</span></span>
+<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  max_glyc_tp <span class="op">=</span> <span class="fl">8</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -77,47 +76,44 @@ per cycle to X measurements)</p>
 
 
 <dt>basal_tp</dt>
-<dd><p>Must be less than <code>oligo_tp</code></p></dd>
+<dd><p>Basal respiration time point. Must be less than <code>uncoupled_tp</code></p></dd>
 
 
-<dt>oligo_tp</dt>
-<dd><p>Must be less than <code>maxresp_tp</code></p></dd>
+<dt>uncoupled_tp</dt>
+<dd><p>ATP-coupled respiration time point. Must be less than <code>maxresp_tp</code></p></dd>
 
 
 <dt>maxresp_tp</dt>
-<dd><p>Must be less than <code>nonmito_tp</code></p></dd>
+<dd><p>Maximal uncoupled respiration time point. Must be less than <code>nonmito_tp</code></p></dd>
 
 
 <dt>nonmito_tp</dt>
-<dd><p>Must be larger than <code>maxresp_tp</code></p></dd>
+<dd><p>Non-mitochondrial respiration time point. Must be larger than <code>maxresp_tp</code></p></dd>
 
 
-<dt>maxgly_tp</dt>
-<dd><p>Must be the same as <code>oligo_tp</code></p></dd>
+<dt>no_glucose_glyc_tp</dt>
+<dd><p>No glucose added acidification time point. Must be less than <code>glucose_glyc_tp</code></p></dd>
 
 
-<dt>fccp_ecar_tp</dt>
-<dd><p>Must be the same as <code>maxresp_tp</code></p></dd>
+<dt>glucose_glyc_tp</dt>
+<dd><p>Glucose-associated acidification time point. Must be less than <code>max_glyc_tp</code></p></dd>
 
 
-<dt>basal_ecar_tp</dt>
-<dd><p>Must be the same as <code>basal_tp</code></p></dd>
-
-
-<dt>oligomon_ecar_tp</dt>
-<dd><p>Must be larger than <code>basal_ecar_tp</code></p></dd>
+<dt>max_glyc_tp</dt>
+<dd><p>Maximal acidification time point. Must be less than <code>twodg_glyc_tp</code></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>a list of named timepoints from each assay cycle</p>
+<p>a list of named time points from each assay cycle</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rep_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rep_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">seahorse_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, sheet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu">partition_data</span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">)</span></span></span>
 </code></pre></div>

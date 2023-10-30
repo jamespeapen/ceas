@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,8 @@
 <span>  error_bar <span class="op">=</span> <span class="st">"ci"</span>,</span>
 <span>  conf_int <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  shape <span class="op">=</span> <span class="fl">21</span></span>
+<span>  basal_shape <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  max_shape <span class="op">=</span> <span class="fl">19</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -77,8 +78,12 @@ or confidence intervals (<code>"ci"</code>)</p></dd>
 <dd><p>Size of the points</p></dd>
 
 
-<dt>shape</dt>
-<dd><p>Shape of the points</p></dd>
+<dt>basal_shape</dt>
+<dd><p>Shape of the points for basal values</p></dd>
+
+
+<dt>max_shape</dt>
+<dd><p>Shape of the points for max values</p></dd>
 
 
 <dt>bioscope_plot</dt>
@@ -96,21 +101,32 @@ each experimental group</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rep_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">seahorse_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, sheet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># reads in data</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">rep_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"*.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">seahorse_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, sheet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="partition_data.html">partition_data</a></span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">energetics</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_energetics.html">get_energetics</a></span><span class="op">(</span><span class="va">partitioned_data</span>, ph <span class="op">=</span> <span class="fl">7.4</span>, pka <span class="op">=</span> <span class="fl">6.093</span>, buffer <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">energetics</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_energetics.html">get_energetics</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">partitioned_data</span>,</span></span>
+<span class="r-in"><span>  ph <span class="op">=</span> <span class="fl">7.4</span>,</span></span>
+<span class="r-in"><span>  pka <span class="op">=</span> <span class="fl">6.093</span>,</span></span>
+<span class="r-in"><span>  buffer <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bioscope_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># to change fill, the geom_point shape number should be between 15 and 25</span></span></span>
-<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span>, shape <span class="op">=</span> <span class="fl">21</span><span class="op">)</span> <span class="op">+</span> <span class="co"># filled circle</span></span></span>
-<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># to change fill, the geom_point shape should be between 15 and 20.</span></span></span>
+<span class="r-in"><span><span class="co"># These shapes are filled without border and will correctly show on the legend.</span></span></span>
+<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span>, size <span class="op">=</span> <span class="fl">3</span>, basal_shape <span class="op">=</span> <span class="fl">2</span>, max_shape <span class="op">=</span> <span class="fl">17</span><span class="op">)</span> <span class="op">+</span> <span class="co"># empty and filled triangle</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bioscope_plot-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># to change color use ggplot2::scale_color_manual</span></span></span>
+<span class="r-in"><span><span class="co"># to change color, use ggplot2::scale_color_manual</span></span></span>
 <span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bioscope_plot-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
