@@ -55,10 +55,9 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>rep_list</dt>
 <dd><p>A list of Seahorse Wave excel export files. One file per
-replicate. Group all replicates for a given experiment in a single folder,
-and write that folder's path in "seahorse_data". You can use
-`list.files("seahorse_data") "full.names=TRUE") to get the paths to the
-files.</p></dd>
+replicate. If your data is in a directory called "seahorse_data", use
+<code>list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)</code> to make
+a list of the excel files.</p></dd>
 
 
 <dt>sheet</dt>
