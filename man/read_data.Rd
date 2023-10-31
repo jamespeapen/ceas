@@ -8,10 +8,9 @@ read_data(rep_list, sheet = 2)
 }
 \arguments{
 \item{rep_list}{A list of Seahorse Wave excel export files. One file per
-replicate. Group all replicates for a given experiment in a single folder,
-and write that folder's path in "seahorse_data". You can use
-`list.files("seahorse_data") "full.names=TRUE") to get the paths to the
-files.}
+replicate. If your data is in a directory called "seahorse_data", use
+\code{list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)} to make
+a list of the excel files.}
 
 \item{sheet}{The number of the excel sheet containing the long-form Seahorse
 data. Default is 2 because the long-form output from Seahorse Wave is on
