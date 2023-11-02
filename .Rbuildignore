@@ -3,6 +3,7 @@ default.nix
 .direnv
 .lintr
 ^LICENSE\.md$
+^CITATION\.cff$
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
