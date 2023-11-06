@@ -14,11 +14,12 @@ Description: 'Analysis and visualization of cellular energetics data from
     glycolysis. This package offers flexible and fast analysis and plotting
     capabilities for such data.'
 URL: https://jamespeapen.github.io/ceas/, https://github.com/jamespeapen/ceas/
+BugReports: https://github.com/jamespeapen/ceas/issues/
 Imports:
-    stats,
-    readxl,
+    data.table,
     ggplot2,
-    data.table
+    readxl,
+    stats
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

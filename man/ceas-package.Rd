@@ -15,6 +15,7 @@ Useful links:
 \itemize{
   \item \url{https://jamespeapen.github.io/ceas/}
   \item \url{https://github.com/jamespeapen/ceas/}
+  \item Report bugs at \url{https://github.com/jamespeapen/ceas/issues/}
 }
 
 }
