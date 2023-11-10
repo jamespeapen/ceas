@@ -1,0 +1,297 @@
+---
+title: "Getting started with CEAS"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with CEAS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: refs.bib
+link-citations: yes
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Setup
+
+```{r setup}
+library(ceas)
+```
+
+## Importing Seahorse rates data
+
+The `read_data` function takes a list of Excel files. An easy way to get
+such a list is to put all your data in a directory and list its contents. Here
+we use the package's internal datasets, but `list.files` will take a directory
+name as its first argument.
+
+```{r data}
+rep_list <- system.file("extdata", package = "ceas") |>
+  list.files(pattern = "*.xlsx", full.names = TRUE)
+raw_data <- readxl::read_excel(rep_list[1], sheet = 2)
+knitr::kable(head(raw_data))
+```
+
+The data requires the following columns: `r colnames(raw_data)`. The `Group`
+column needs to be in the format `biological_group<space>Assay_type` as shown
+above. Upon reading with `read_data`, the `Group` column is split into two
+`group` and `assay` columns on the space. This output format can be set in the
+Seahorse machine before starting the experiment. If you already have the data,
+this column will have to be converted to this format to work with ceas.
+
+```{r read_dataformat}
+seahorse_rates <- read_data(rep_list)
+knitr::kable(head(seahorse_rates))
+```
+
+## Calculating energetics
+
+### Partitioning data
+
+The energetics calculation workflow involves partitioning the data into its time
+point and assay intervals.
+
+```{r partition_data}
+partitioned_data <- partition_data(seahorse_rates)
+```
+
+#### Alternative data formats {.tabset}
+
+While the default options are set for an experiment with both a mitochondrial
+and glycolysis assay, if you have only a mitochondrial assay or no glycolysis
+assay, the `assay_types` list parameter can be modified to account for that.
+
+##### Mito + Glyco (our default)
+
+```{r, eval = FALSE}
+partitioned_data <- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = "MITO",
+    nonmito = "MITO",
+    no_glucose_glyc = "GLYCO",
+    glucose_glyc = "GLYCO",
+    max_glyc = "GLYCO"
+  ),
+  basal_tp = 3,
+  uncoupled_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = 3,
+  glucose_glyc_tp = 6,
+  max_glyc_tp = 8
+)
+```
+
+##### Data in the form of @mookerjee2017:
+
+```{r, eval = FALSE}
+partitioned_data <- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = NA,
+    nonmito = "MITO",
+    no_glucose_glyc = NA,
+    glucose_glyc = "MITO",
+    max_glyc = "MITO"
+  ),
+  basal_tp = 5,
+  uncoupled_tp = 10,
+  maxresp_tp = NA,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = 2,
+  glucose_glyc_tp = 5,
+  max_glyc_tp = 10
+)
+```
+
+##### Just Mito
+
+```{r, eval = FALSE}
+partitioned_data <- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = "MITO",
+    nonmito = "MITO",
+    no_glucose_glyc = NA,
+    glucose_glyc = "MITO",
+    max_glyc = "MITO"
+  ),
+  basal_tp = 3,
+  uncoupled_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = NA,
+  glucose_glyc_tp = 3,
+  max_glyc_tp = 6
+)
+```
+
+####
+
+Note that the time point parameters (`maxresp_tp` and `no_glucose_glyc_tp`) also
+need to be changed accordingly.
+
+The `get_energetics` function requires pH, pK$_a$ and buffer values.
+
+```{r get_energetics}
+energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.10)
+```
+
+For more information on the calculations see the article on [ATP
+calculations](atp_calculation.html).
+
+## Plotting
+
+### Bioenergetic scope plot
+
+The `bioscope_plot` function plots a 2D representation of group “bioenergetic
+scope.” Bioenergetic scope describes the theoretical energetic space in which a
+matrix operates. The bioenergetic scope coordinates are JATP from OXPHOS on the
+y-axis and JATP from glycolysis on the x-axis. The points represent mean basal
+and/or max JATP from OXPHOS and glycolysis and the vertical and horizontal lines
+represent the standard deviation or confidence interval of JATP from OXPHOS or
+glycolysis, respectively.
+
+```{r bioscope_plot}
+(bioscope <- bioscope_plot(energetics))
+```
+
+### Rate plots {.tabset}
+
+The `rate_plot` function provides an overview of OCR or ECAR over time, which
+enables cross-group energetic comparisons before and after the addition of
+energetic-modulating compounds. The `rate_plot` line represents mean group OCR
+or ECAR over the sequential measurements (x-axis) and the shaded variance region
+represents standard deviation or specified confidence interval.
+
+#### Oxygen consumption rate (OCR)
+
+```{r ocr}
+(ocr <- rate_plot(seahorse_rates, measure = "OCR"))
+```
+
+#### Extracellular Acidification Rate (ECAR)
+
+```{r ecar}
+(ecar <- rate_plot(seahorse_rates, measure = "ECAR"))
+```
+
+### ATP plots {.tabset}
+
+The `atp_plot` function plots group JATP values, which enables cross-group
+OXPHOS and glycolytic JATP comparisons at basal and max conditions. The
+`atp_plot` symbols represent the mean basal or max JATP from OXPHOS or
+glycolysis, and the crossbar boundaries represent the standard deviation or
+confidence interval JATP variance.
+
+#### Basal glycolysis
+
+```{r basal_glyc}
+(basal_glyc <- atp_plot(energetics, basal_vs_max = "basal", glyc_vs_resp = "glyc"))
+```
+
+#### Basal respiration
+
+```{r basal_resp}
+(basal_resp <- atp_plot(energetics, basal_vs_max = "basal", glyc_vs_resp = "resp"))
+```
+
+
+#### Max glycolysis
+
+```{r max_glyc}
+(max_glyc <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "glyc"))
+```
+
+
+#### Max respiration
+
+```{r max_resp}
+(max_resp <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "resp"))
+```
+
+### Customizing plots
+
+CEAS is designed to work with existing `ggplot2` customization functionality and
+doesn't include more than shape and size options for its plots.
+
+For example, to change the colors used in the plot, simply make the plot and
+add the custom colors you'd like:
+
+#### Colors
+
+```{r custom_colors}
+custom_colors <- c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+```
+
+```{r}
+bioscope +
+ggplot2::scale_color_manual(
+  values = custom_colors
+)
+```
+
+```{r}
+ocr +
+ggplot2::scale_color_manual(
+  values = custom_colors
+)
+```
+
+#### Labels {.tabset}
+
+##### Change axis labels
+
+```{r}
+ecar +
+    ggplot2::labs(x = "Time points")
+```
+
+##### Change label size
+
+```{r}
+basal_glyc +
+    ggplot2::theme(axis.text = ggplot2::element_text(size = 20))
+```
+
+#### Editing functions
+
+We are working on making the plots as customizable as possible. However, if
+there are options that cannot be set in the calls to the plotting functions or
+with `ggplot2` functions, you can get the code used to make the plots by running
+the function name without parenthesis and modify it. Further, since every step
+in the ceas workflow provides a dataset, you can run the modified function or
+your own custom plotting functions on those datasets.
+
+```{r, eval = FALSE}
+rate_plot
+```
+
+
+```{r, results = 'asis', echo = FALSE}
+func_code <- capture.output(dput(rate_plot))
+cat("```r\n")
+cat(func_code, sep = "\n")
+cat("\n```")
+```
+
+In RStudio, you can run `utils::edit` to modify a function.
+
+```{r, eval = FALSE}
+edit(rate_plot)
+```
+
+
+
+## References
