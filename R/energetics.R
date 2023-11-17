@@ -169,7 +169,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
     ATP_max_resp
   )
 
-  cell_line_glyco <- factor(partitioned_data$no_glucose_glyc$cell_line)
+  cell_line_glyco <- factor(partitioned_data$glucose_glyc$cell_line)
 
   GLYCO_df <- data.table(
     cell_line = cell_line_glyco,
