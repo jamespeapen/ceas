@@ -6,6 +6,8 @@
 \usage{
 partition_data(
   seahorse_rates,
+  assay_types = list(basal = "MITO", uncoupled = "MITO", maxresp = "MITO", nonmito =
+    "MITO", no_glucose_glyc = "GLYCO", glucose_glyc = "GLYCO", max_glyc = "GLYCO"),
   basal_tp = 3,
   uncoupled_tp = 6,
   maxresp_tp = 8,
@@ -16,7 +18,9 @@ partition_data(
 )
 }
 \arguments{
-\item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
+\item{seahorse_rates}{A data.table of OCR and ECAR rates returned by \code{read_data}}
+
+\item{assay_types}{A list that configures data partitioning based on the type of assay. See details.}
 
 \item{basal_tp}{Basal respiration time point. Must be less than \code{uncoupled_tp}}
 
@@ -40,6 +44,64 @@ Organizes Seahorse OCR and ECAR rates based on defined time points (i.e. the
 Measurement column) during the experiment. This time point can be specified
 if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 per cycle to X measurements)
+}
+\details{
+\code{partition_data} sets up the rates data for ATP calculations by the
+\code{get_energetics} function. To do this, it takes a list \code{assay_types} with
+the named values \code{basal}, \code{uncoupled}, \code{maxresp}, \code{nonmito},
+\code{no_glucose_glyc}, \code{glucose_glyc}, and \code{max_glyc}. In the default setting,
+it is configured for an experiment with both Mito and Glyco assays. However,
+partitioning can be configured for other experimental conditions.
+\itemize{
+\item Only MITO data:
+}
+
+\preformatted{partitioned_data <- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = "MITO",
+    nonmito = "MITO",
+    no_glucose_glyc = NA,
+    glucose_glyc = "MITO",
+    max_glyc = "MITO"
+  ),
+  basal_tp = 3,
+  uncoupled_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = NA,
+  glucose_glyc_tp = 3,
+  max_glyc_tp = 6
+)
+}
+\itemize{
+\item Data according to Mookerjee \emph{et al.} 2017 \emph{J Biol Chem};\emph{292}:7189-207.
+}
+
+\preformatted{partitioned_data <- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = NA,
+    nonmito = "MITO",
+    no_glucose_glyc = NA,
+    glucose_glyc = "MITO",
+    max_glyc = "MITO"
+  ),
+  basal_tp = 5,
+  uncoupled_tp = 10,
+  maxresp_tp = NA,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = 2,
+  glucose_glyc_tp = 5,
+  max_glyc_tp = 10
+)
+}
+
+Also see the vignette.
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>

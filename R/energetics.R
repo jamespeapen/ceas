@@ -4,7 +4,8 @@
 #' Measurement column) during the experiment. This time point can be specified
 #' if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 #' per cycle to X measurements)
-#' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
+#' @param seahorse_rates A data.table of OCR and ECAR rates returned by `read_data`
+#' @param assay_types A list that configures data partitioning based on the type of assay. See details.
 #' @param basal_tp Basal respiration time point. Must be less than `uncoupled_tp`
 #' @param uncoupled_tp ATP-coupled respiration time point. Must be less than `maxresp_tp`
 #' @param maxresp_tp Maximal uncoupled respiration time point. Must be less than `nonmito_tp`
@@ -12,6 +13,61 @@
 #' @param no_glucose_glyc_tp No glucose added acidification time point. Must be less than `glucose_glyc_tp`
 #' @param glucose_glyc_tp Glucose-associated acidification time point. Must be less than `max_glyc_tp`
 #' @param max_glyc_tp Maximal acidification time point. Must be less than `twodg_glyc_tp`
+#' @details
+#' `partition_data` sets up the rates data for ATP calculations by the
+#' `get_energetics` function. To do this, it takes a list `assay_types` with
+#' the named values `basal`, `uncoupled`, `maxresp`, `nonmito`,
+#' `no_glucose_glyc`, `glucose_glyc`, and `max_glyc`. In the default setting,
+#' it is configured for an experiment with both Mito and Glyco assays. However,
+#' partitioning can be configured for other experimental conditions.
+#' * Only MITO data:
+#'
+#' \preformatted{partitioned_data <- partition_data(
+#'   seahorse_rates,
+#'   assay_types = list(
+#'     basal = "MITO",
+#'     uncoupled = "MITO",
+#'     maxresp = "MITO",
+#'     nonmito = "MITO",
+#'     no_glucose_glyc = NA,
+#'     glucose_glyc = "MITO",
+#'     max_glyc = "MITO"
+#'   ),
+#'   basal_tp = 3,
+#'   uncoupled_tp = 6,
+#'   maxresp_tp = 8,
+#'   nonmito_tp = 12,
+#'   no_glucose_glyc_tp = NA,
+#'   glucose_glyc_tp = 3,
+#'   max_glyc_tp = 6
+#' )
+#' }
+#'
+#' * Data according to Mookerjee \emph{et al.} 2017 \emph{J Biol Chem};\emph{292}:7189-207.
+#'
+#' \preformatted{partitioned_data <- partition_data(
+#'   seahorse_rates,
+#'   assay_types = list(
+#'     basal = "MITO",
+#'     uncoupled = "MITO",
+#'     maxresp = NA,
+#'     nonmito = "MITO",
+#'     no_glucose_glyc = NA,
+#'     glucose_glyc = "MITO",
+#'     max_glyc = "MITO"
+#'   ),
+#'   basal_tp = 5,
+#'   uncoupled_tp = 10,
+#'   maxresp_tp = NA,
+#'   nonmito_tp = 12,
+#'   no_glucose_glyc_tp = 2,
+#'   glucose_glyc_tp = 5,
+#'   max_glyc_tp = 10
+#' )
+#' }
+#'
+#' Also see the vignette.
+#'
 #' @return a list of named time points from each assay cycle
 #'
 #' @importFrom data.table setkey
@@ -24,6 +80,15 @@
 #' partitioned_data <- partition_data(seahorse_rates)
 partition_data <- function(
     seahorse_rates,
+    assay_types = list(
+      basal = "MITO",
+      uncoupled = "MITO",
+      maxresp = "MITO",
+      nonmito = "MITO",
+      no_glucose_glyc = "GLYCO",
+      glucose_glyc = "GLYCO",
+      max_glyc = "GLYCO"
+    ),
     basal_tp = 3,
     uncoupled_tp = 6,
     maxresp_tp = 8,
@@ -38,14 +103,14 @@ partition_data <- function(
 
   partitioned_data <- list(
     # Mito Stress Test Variables
-    basal = seahorse_rates[Measurement == 3 & assay_type == "MITO"],
-    uncoupled = seahorse_rates[Measurement == 6 & assay_type == "MITO"],
-    maxresp = seahorse_rates[Measurement == 8 & assay_type == "MITO"],
-    nonmito = seahorse_rates[Measurement == 12 & assay_type == "MITO"],
+    basal = seahorse_rates[Measurement == basal_tp & assay_type == assay_types$basal],
+    uncoupled = seahorse_rates[Measurement == uncoupled_tp & assay_type == assay_types$uncoupled],
+    maxresp = seahorse_rates[Measurement == maxresp_tp & assay_type == assay_types$maxresp],
+    nonmito = seahorse_rates[Measurement == nonmito_tp & assay_type == assay_types$nonmito],
     # Glyco Stress Test Variables
-    no_glucose_glyc = seahorse_rates[Measurement == 3 & assay_type == "GLYCO"],
-    glucose_glyc = seahorse_rates[Measurement == 6 & assay_type == "GLYCO"],
-    max_glyc = seahorse_rates[Measurement == 8 & assay_type == "GLYCO"]
+    no_glucose_glyc = seahorse_rates[Measurement == no_glucose_glyc_tp & assay_type == assay_types$no_glucose_glyc],
+    glucose_glyc = seahorse_rates[Measurement == glucose_glyc_tp & assay_type == assay_types$glucose_glyc],
+    max_glyc = seahorse_rates[Measurement == max_glyc_tp & assay_type == assay_types$max_glyc]
   )
 
   # set a key on the data.tables so they are ordered correctly during the energetics calculations
