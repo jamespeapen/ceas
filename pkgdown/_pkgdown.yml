@@ -2,6 +2,9 @@ url: https://jamespeapen.github.io/ceas
 template:
   bootstrap: 5
 
+development:
+  mode: auto
+
 navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
