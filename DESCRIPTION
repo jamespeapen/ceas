@@ -1,6 +1,6 @@
 Package: ceas
 Title: Cellular Energetics Analysis Software
-Version: 0.0.9
+Version: 0.0.0.9
 Authors@R: c(
     person("Rachel", "House", email = "rachel.house@vai.org", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-2176-0431")),
     person("James", "Eapen", email = "james.eapen@vai.org", role = c("aut"), comment = c(ORCID = "0000-0001-6016-3598")))
