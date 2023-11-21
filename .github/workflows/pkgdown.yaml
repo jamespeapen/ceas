@@ -4,6 +4,8 @@ on:
   workflow_run:
     workflows: [R-CMD-check]
     types: [completed]
+  push:
+    branches: [dev]
 
 name: pkgdown
 
