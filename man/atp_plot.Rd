@@ -11,7 +11,8 @@ atp_plot(
   size = 2,
   shape = 21,
   basal_vs_max = "basal",
-  glyc_vs_resp = "glyc"
+  glyc_vs_resp = "glyc",
+  group_label = "Experimental group"
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ or confidence intervals (\code{"ci"})}
 \item{basal_vs_max}{Whether to plot \code{"basal"} or \code{"max"} respiration}
 
 \item{glyc_vs_resp}{Whether to plot glycolysis (\code{"glyc"})  or respiration (\code{"resp"})}
+
+\item{group_label}{Label for the experimental group to populate the legend title}
 }
 \value{
 a ggplot

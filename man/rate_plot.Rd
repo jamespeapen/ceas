@@ -4,7 +4,13 @@
 \alias{rate_plot}
 \title{Rate plot}
 \usage{
-rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95)
+rate_plot(
+  seahorse_rates,
+  measure = "OCR",
+  error_bar = "ci",
+  conf_int = 0.95,
+  group_label = "Experimental group"
+)
 }
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
@@ -14,6 +20,8 @@ rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95)
 \item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"}) or confidence intervals (\code{"ci"})}
 
 \item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
+
+\item{group_lab}{Label for the experimental group to populate the legend title}
 }
 \value{
 a ggplot

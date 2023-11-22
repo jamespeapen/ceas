@@ -12,6 +12,7 @@
 #' @param size Size of the points
 #' @param basal_shape Shape of the points for basal values
 #' @param max_shape Shape of the points for max values
+#' @param group_label Label for the experimental group to populate the legend title
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw scale_shape_manual
@@ -48,7 +49,8 @@ bioscope_plot <- function(
     conf_int = 0.95,
     size = 2,
     basal_shape = 1,
-    max_shape = 19) {
+    max_shape = 19,
+    group_label = "Experimental Group") {
   # sanity checks
 
   data_cols <- c(
@@ -117,7 +119,7 @@ bioscope_plot <- function(
     ) +
     xlab("ATP Production from Glycolysis (JATP)") +
     ylab("ATP Production from OXPHOS (JATP)") +
-    labs(color = "Cell line", fill = "Cell line") +
+    labs(color = group_label, fill = group_label) +
     xlim(0, max_axis) +
     ylim(0, max_axis) +
     geom_linerange(aes(

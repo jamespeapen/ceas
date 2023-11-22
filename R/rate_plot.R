@@ -5,6 +5,7 @@
 #' @param measure Whether to plot `"OCR"` or `"ECAR"`
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
+#' @param group_lab Label for the experimental group to populate the legend title
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs theme_bw
@@ -19,7 +20,8 @@ rate_plot <- function(
     seahorse_rates,
     measure = "OCR",
     error_bar = "ci",
-    conf_int = 0.95) {
+    conf_int = 0.95,
+    group_label = "Experimental group") {
   # sanity checks
   if (!measure %in% c("OCR", "ECAR")) {
     stop("'measure' should be 'OCR' or 'ECAR'")
@@ -76,7 +78,7 @@ rate_plot <- function(
     scale_x_continuous(breaks = seq(1, 12, by = 1)) +
     xlab("Measurement") +
     ylab(y_labels[measure]) +
-    labs(color = "Cell line", fill = "Cell line") +
+    labs(color = group_label, fill = group_label) +
     theme_bw()
 }
 

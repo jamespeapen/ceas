@@ -10,7 +10,8 @@ bioscope_plot(
   conf_int = 0.95,
   size = 2,
   basal_shape = 1,
-  max_shape = 19
+  max_shape = 19,
+  group_label = "Experimental Group"
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ or confidence intervals (\code{"ci"})}
 \item{basal_shape}{Shape of the points for basal values}
 
 \item{max_shape}{Shape of the points for max values}
+
+\item{group_label}{Label for the experimental group to populate the legend title}
 
 \item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard
 deviation basal and maximal ATP production from glycolysis and OXPHOS for

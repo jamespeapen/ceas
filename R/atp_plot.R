@@ -10,6 +10,7 @@
 #' @param shape Shape of the points
 #' @param basal_vs_max Whether to plot `"basal"` or `"max"` respiration
 #' @param glyc_vs_resp Whether to plot glycolysis (`"glyc"`)  or respiration (`"resp"`)
+#' @param group_label Label for the experimental group to populate the legend title
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim geom_crossbar theme_bw .data
@@ -41,7 +42,8 @@ atp_plot <- function(
     size = 2,
     shape = 21,
     basal_vs_max = "basal",
-    glyc_vs_resp = "glyc") {
+    glyc_vs_resp = "glyc",
+    group_label = "Experimental group") {
   # Sanity checks
   if (!error_bar %in% c("sd", "ci")) {
     stop("'error_bar' should be 'sd' or 'ci'")
@@ -116,9 +118,9 @@ atp_plot <- function(
       alpha = 0.5,
       data = energetics_summary
     ) +
-    xlab("Experimental Group") +
+    xlab(group_label) +
     ylab("ATP Production (JATP)") +
     labs(title = paste0("ATP Production from ", basal_vs_max_label, " ", glyc_vs_resp_label)) +
-    labs(color = "Cell line", fill = "Cell line") +
+    labs(color = "Experimental Group", fill = "Experimental Group") +
     theme_bw()
 }
