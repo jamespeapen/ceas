@@ -90,7 +90,7 @@ bioscope_plot <- function(
   ATP_basal_resp.lower_bound <- NULL
   ATP_basal_resp.higher_bound <- NULL
 
-  cell_line <- NULL
+  exp_group <- NULL
 
   energetics_summary <- get_energetics_summary(
     energetics,
@@ -108,13 +108,13 @@ bioscope_plot <- function(
   ggplot(energetics_summary, aes(
     ATP_max_glyc.mean,
     ATP_max_resp.mean,
-    color = cell_line,
-    fill = cell_line
+    color = exp_group,
+    fill = exp_group
   )) +
     geom_point(size = size, aes(shape = "Max")) +
     geom_point(
       data = energetics_summary,
-      aes(x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean, color = cell_line, shape = "Basal"),
+      aes(x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean, color = exp_group, shape = "Basal"),
       size = size
     ) +
     xlab("ATP Production from Glycolysis (JATP)") +

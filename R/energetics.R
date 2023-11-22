@@ -34,7 +34,7 @@ partition_data <- function(
   # suppress "no visible binding for global variable" error
   Measurement <- NULL
   assay_type <- NULL
-  cell_line <- NULL
+  exp_group <- NULL
 
   partitioned_data <- list(
     # Mito Stress Test Variables
@@ -49,7 +49,7 @@ partition_data <- function(
   )
 
   # set a key on the data.tables so they are ordered correctly during the energetics calculations
-  lapply(partitioned_data, function(DT) setkey(DT, cell_line, assay_type))
+  lapply(partitioned_data, function(DT) setkey(DT, exp_group, assay_type))
 }
 
 #' Calculate ATP Production from OXPHOS and Glycolysis
@@ -117,7 +117,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   .I <- NULL
   ID <- NULL
   OCR <- NULL
-  cell_line <- NULL
+  exp_group <- NULL
   assay_type <- NULL
   mean_non_mito <- NULL
 
@@ -132,10 +132,10 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * HYPERPOLARIZATION_CONSTANT
   glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR
 
-  mean_group_nonmito_resp <- partitioned_data$nonmito[, .(mean_non_mito = mean(OCR)), by = .(assay_type, cell_line)]
+  mean_group_nonmito_resp <- partitioned_data$nonmito[, .(mean_non_mito = mean(OCR)), by = .(assay_type, exp_group)]
 
-  # Subtract the mean_non_mito based on cell_line group
-  glucose_glyc_resp <- partitioned_data$glucose_glyc[mean_group_nonmito_resp, on = .(cell_line)][, OCR - mean_non_mito]
+  # Subtract the mean_non_mito based on exp_group group
+  glucose_glyc_resp <- partitioned_data$glucose_glyc[mean_group_nonmito_resp, on = .(exp_group)][, OCR - mean_non_mito]
 
   ppr_basal <- glucose_glyc_acidification / buffer
   ppr_basal_glyc_resp <- (10^(ph - pka)) / (1 + (10^(ph - pka))) * 1 * glucose_glyc_resp
@@ -149,8 +149,8 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   max_mito_resp <- partitioned_data$maxresp$OCR - partitioned_data$nonmito$OCR
   max_glyc_acidification <- partitioned_data$max_glyc$ECAR
 
-  # Subtract the mean_non_mito based on cell_line group
-  max_glyc_resp <- partitioned_data$max_glyc[mean_group_nonmito_resp, on = .(cell_line)][, OCR - mean_non_mito]
+  # Subtract the mean_non_mito based on exp_group group
+  max_glyc_resp <- partitioned_data$max_glyc[mean_group_nonmito_resp, on = .(exp_group)][, OCR - mean_non_mito]
 
   # max proton production rates (PPR)
   ppr_max <- max_glyc_acidification / buffer
@@ -161,25 +161,25 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
   ATP_max_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (max_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
-  cell_line_mito <- factor(partitioned_data$basal$cell_line)
+  exp_group_mito <- factor(partitioned_data$basal$exp_group)
 
   MITO_df <- data.table(
-    cell_line = cell_line_mito,
+    exp_group = exp_group_mito,
     ATP_basal_resp,
     ATP_max_resp
   )
 
-  cell_line_glyco <- factor(partitioned_data$glucose_glyc$cell_line)
+  exp_group_glyco <- factor(partitioned_data$glucose_glyc$exp_group)
 
   GLYCO_df <- data.table(
-    cell_line = cell_line_glyco,
+    exp_group = exp_group_glyco,
     ATP_basal_glyc,
     ATP_max_glyc
   )
 
   lapply(list(MITO_df, GLYCO_df), function(DT) {
-    DT[, ID := paste(cell_line, .I, sep = "_")]
-    setkey(DT, ID, cell_line)
+    DT[, ID := paste(exp_group, .I, sep = "_")]
+    setkey(DT, ID, exp_group)
   })
 
   merge(MITO_df, GLYCO_df, all.x = TRUE, all.y = TRUE)[, ID := NULL][]
@@ -215,13 +215,13 @@ get_energetics_summary <- function(
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
-  cell_line <- NULL
+  exp_group <- NULL
   se <- NULL
 
   z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
   sdcols <- colnames(energetics)[-1]
   merge(
-    energetics[, .(count = .N), by = cell_line],
+    energetics[, .(count = .N), by = exp_group],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
       lapply(
         .SD,
@@ -243,7 +243,7 @@ get_energetics_summary <- function(
           )
         }
       )
-    )), .SDcols = sdcols, by = cell_line]
+    )), .SDcols = sdcols, by = exp_group]
   )
 }
 

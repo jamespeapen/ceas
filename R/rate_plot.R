@@ -41,7 +41,7 @@ rate_plot <- function(
     "OCR",
     "ECAR",
     "PER",
-    "cell_line",
+    "exp_group",
     "assay_type",
     "replicate"
   )
@@ -51,7 +51,7 @@ rate_plot <- function(
   }
 
   Measurement <- NULL
-  cell_line <- NULL
+  exp_group <- NULL
   lower_bound <- NULL
   upper_bound <- NULL
 
@@ -62,9 +62,9 @@ rate_plot <- function(
   ggplot(plot_data, aes(
     x = Measurement,
     y = mean,
-    color = cell_line,
-    group = cell_line,
-    fill = cell_line
+    color = exp_group,
+    group = exp_group,
+    fill = exp_group
   )) +
     geom_line(size = 2) +
     geom_ribbon(
@@ -111,15 +111,15 @@ get_rate_summary <- function(
     error_metric = "ci",
     conf_int = 0.95) {
   Measurement <- NULL
-  cell_line <- NULL
+  exp_group <- NULL
   se <- NULL
   . <- NULL
 
-  plot_data <- seahorse_rates[cell_line != "Background"][, .(
+  plot_data <- seahorse_rates[exp_group != "Background"][, .(
     mean = mean(get(measure)),
     sd = sd(get(measure)),
     se = sd(get(measure)) / sqrt(length(get(measure)))
-  ), by = list(cell_line, Measurement)]
+  ), by = list(exp_group, Measurement)]
 
   z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
 

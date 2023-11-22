@@ -66,7 +66,7 @@ atp_plot <- function(
   }
 
   # suppress "no visible binding for global variable" error
-  cell_line <- NULL
+  exp_group <- NULL
 
   energetics_summary <- get_energetics_summary(
     energetics,
@@ -102,16 +102,16 @@ atp_plot <- function(
   ggplot(
     energetics_summary,
     aes(
-      x = cell_line, y = .data[[data_column.mean]],
-      cell_line,
-      color = cell_line,
-      fill = cell_line
+      x = exp_group, y = .data[[data_column.mean]],
+      exp_group,
+      color = exp_group,
+      fill = exp_group
     )
   ) +
     geom_point(size = size, shape = shape) +
     geom_crossbar(
       aes(
-        x = cell_line, y = .data[[data_column.mean]],
+        x = exp_group, y = .data[[data_column.mean]],
         ymin = .data[[data_column.lower_bound]],
         ymax = .data[[data_column.higher_bound]],
       ),
