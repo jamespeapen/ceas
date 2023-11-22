@@ -215,7 +215,7 @@ ceas.</p>
 <th align="right">OCR</th>
 <th align="right">ECAR</th>
 <th align="right">PER</th>
-<th align="left">cell_line</th>
+<th align="left">exp_group</th>
 <th align="left">assay_type</th>
 <th align="right">replicate</th>
 </tr></thead>
@@ -542,36 +542,33 @@ own custom plotting functions on those datasets.</p>
 <code class="sourceCode R"><span><span class="va">rate_plot</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, </span>
-<span>    <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> </span>
+<span>    <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span><span class="op">)</span> </span>
 <span><span class="op">{</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">measure</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OCR"</span>, <span class="st">"ECAR"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"'measure' should be 'OCR' or 'ECAR'"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">error_bar</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sd"</span>, <span class="st">"ci"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"'error_bar' should be 'sd' or 'ci'"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">conf_int</span> <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">||</span> <span class="va">conf_int</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"'conf_int' should be between 0 and 1"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'measure' should be 'OCR' or 'ECAR'` <span class="op">=</span> <span class="va">measure</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OCR"</span>, <span class="st">"ECAR"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'error_bar' should be 'sd' or 'ci'` <span class="op">=</span> <span class="va">error_bar</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sd"</span>, <span class="st">"ci"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'conf_int' should be between 0 and 1` <span class="op">=</span> <span class="va">conf_int</span> <span class="op">&gt;</span> </span>
+<span>        <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="va">conf_int</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>    <span class="va">data_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Measurement"</span>, <span class="st">"Well"</span>, <span class="st">"OCR"</span>, <span class="st">"ECAR"</span>, <span class="st">"PER"</span>, </span>
-<span>        <span class="st">"cell_line"</span>, <span class="st">"assay_type"</span>, <span class="st">"replicate"</span><span class="op">)</span></span>
+<span>        <span class="st">"exp_group"</span>, <span class="st">"assay_type"</span>, <span class="st">"replicate"</span><span class="op">)</span></span>
 <span>    <span class="va">missing_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="va">data_cols</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">missing_cols</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"'"</span>, <span class="va">missing_cols</span>, <span class="st">"'"</span>, <span class="st">" column was not found in input data\n"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="va">Measurement</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span>    <span class="va">cell_line</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span>    <span class="va">exp_group</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>    <span class="va">lower_bound</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>    <span class="va">upper_bound</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>    <span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_rate_summary.html">get_rate_summary</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span>, <span class="va">error_bar</span>, </span>
 <span>        <span class="va">conf_int</span><span class="op">)</span></span>
 <span>    <span class="va">y_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>OCR <span class="op">=</span> <span class="st">"OCR (pmol/min)"</span>, ECAR <span class="op">=</span> <span class="st">"ECAR (mpH/min)"</span><span class="op">)</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Measurement</span>, y <span class="op">=</span> <span class="va">mean</span>, color <span class="op">=</span> <span class="va">cell_line</span>, </span>
-<span>        group <span class="op">=</span> <span class="va">cell_line</span>, fill <span class="op">=</span> <span class="va">cell_line</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Measurement</span>, y <span class="op">=</span> <span class="va">mean</span>, color <span class="op">=</span> <span class="va">exp_group</span>, </span>
+<span>        group <span class="op">=</span> <span class="va">exp_group</span>, fill <span class="op">=</span> <span class="va">exp_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu">geom_ribbon</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_bound</span>, ymax <span class="op">=</span> <span class="va">upper_bound</span><span class="op">)</span>, </span>
 <span>            alpha <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, </span>
 <span>        <span class="fl">12</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">"Measurement"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="va">y_labels</span><span class="op">[</span><span class="va">measure</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>        <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Cell line"</span>, fill <span class="op">=</span> <span class="st">"Cell line"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
+<span>        <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="va">group_label</span>, fill <span class="op">=</span> <span class="va">group_label</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In RStudio, you can run <code><a href="https://rdrr.io/r/utils/edit.html" class="external-link">utils::edit</a></code> to modify a
 function.</p>
@@ -589,7 +586,7 @@ Mookerjee, Shona A., Akos A. Gerencser, David G. Nicholls, and Martin D.
 Brand. 2017. <span>“Quantifying Intracellular Rates of Glycolytic and
 Oxidative ATP Production and Consumption Using Extracellular Flux
 Measurements.”</span> <em>Journal of Biological Chemistry</em> 292 (17):
-7189–7207. https://doi.org/<a href="https://doi.org/10.1074/jbc.M116.774471" class="external-link">https://doi.org/10.1074/jbc.M116.774471</a>.
+7189–7207. <a href="https://doi.org/10.1074/jbc.M116.774471" class="external-link">https://doi.org/10.1074/jbc.M116.774471</a>.
 </div>
 </div>
 </div>

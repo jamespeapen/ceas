@@ -91,7 +91,52 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jamespeapen.github.io/ceas/">ceas</a></span><span class="op">)</span></span></code></pre></div>
-<p><img src="mito_glyco_tests.png" title="GLYCO and MITO stress tests"></p>
+<!--Needed to load the mchem library for correct chemical equation rendering-->
+<script>
+window.MathJax = {
+  tex: {
+    // inlineMath: [['$', '$'], ['\\(', '\\)']],
+    packages: {'[+]': ['mhchem']}
+  },
+  loader: {load: ['[tex]/mhchem']},
+};
+</script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><!----><p><img src="mito_glyco_tests.png" title="GLYCO and MITO stress tests"></p>
+<p>Proton production rate (PPR):</p>
+<p><span class="math display">\[\text{PPR} = \frac{\text{ECAR
+value}}{\text{buffer}}\]</span></p>
+<p><span class="math display">\[\text{PPR}_{\text{mito}} =
+\frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot
+\frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}\]</span></p>
+<p>Calculates the proton production from glucose during its conversion
+to bicarbonate and assuming max <span class="math inline">\(\frac{\ce{H}^+}{\ce{O2}}\)</span> of 1</p>
+<p><span class="math display">\[\text{PPR}_\text{glyc} = \text{PPR} -
+\text{PPR}_\text{resp}\]</span></p>
+<p><span class="math display">\[
+\ce{2H2 + O2 -&gt; 2H2O}
+\]</span></p>
+<p>Calculates the proton production from glucose during its conversion
+to <span class="math inline">\(\ce{lactate + H+}\)</span>.</p>
+<p>Joules of ATP (JATP) production:</p>
+<p><span class="math display">\[
+\text{ATP}_{\text{glyc}} = \Bigl(\text{PPR}_\text{glyc} \cdot
+\frac{\text{ATP}}{\text{lactate}}\Bigl) + \Bigl(\text{MITO}_\text{resp}
+\cdot 2 \cdot \frac{\text{P}}{\text{O}_\text{glyc}}\Bigl)
+\]</span></p>
+<p><span class="math display">\[
+\frac{\text{ATP}}{\text{lactate}} = 1
+\]</span></p>
+<p>with <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{glyc}}}\)</span> =
+0.167 for glucose (0.242 for glycogen).</p>
+<p><span class="math display">\[
+\text{ATP}_\text{resp} =
+\Bigl(\text{coupled MITO}_\text{resp} \cdot 2 \cdot
+\frac{\text{P}}{\text{O}_\text{oxphos}}\Bigl) +
+\Bigl(\text{MITO}_\text{resp} \cdot 2 \cdot
+\frac{\text{P}}{\text{O}_\text{TCA}}\Bigl)
+\]</span></p>
+<p>with <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{oxphos}}}\)</span>
+= 2.486 and <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{TCA}}}\)</span> =
+0.167.</p>
   </main>
 </div>
 
