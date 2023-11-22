@@ -45,13 +45,8 @@ atp_plot <- function(
     glyc_vs_resp = "glyc",
     group_label = "Experimental group") {
   # Sanity checks
-  if (!error_bar %in% c("sd", "ci")) {
-    stop("'error_bar' should be 'sd' or 'ci'")
-  }
-
-  if (conf_int < 0 || conf_int > 1) {
-    stop("'conf_int' should be between 0 and 1")
-  }
+  stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
+  stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   data_cols <- c(
     "ATP_basal_glyc",

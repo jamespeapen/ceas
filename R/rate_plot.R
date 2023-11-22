@@ -23,17 +23,10 @@ rate_plot <- function(
     conf_int = 0.95,
     group_label = "Experimental group") {
   # sanity checks
-  if (!measure %in% c("OCR", "ECAR")) {
-    stop("'measure' should be 'OCR' or 'ECAR'")
-  }
 
-  if (!error_bar %in% c("sd", "ci")) {
-    stop("'error_bar' should be 'sd' or 'ci'")
-  }
-
-  if (conf_int < 0 || conf_int > 1) {
-    stop("'conf_int' should be between 0 and 1")
-  }
+  stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
+  stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
+  stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   data_cols <- c(
     "Measurement",
