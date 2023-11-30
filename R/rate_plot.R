@@ -5,7 +5,7 @@
 #' @param measure Whether to plot `"OCR"` or `"ECAR"`
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
-#' @param group_lab Label for the experimental group to populate the legend title
+#' @param group_label Label for the experimental group to populate the legend title
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs theme_bw

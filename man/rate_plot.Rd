@@ -21,7 +21,7 @@ rate_plot(
 
 \item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
 
-\item{group_lab}{Label for the experimental group to populate the legend title}
+\item{group_label}{Label for the experimental group to populate the legend title}
 }
 \value{
 a ggplot
