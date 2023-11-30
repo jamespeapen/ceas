@@ -68,6 +68,8 @@ per cycle to X measurements)</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">partition_data</span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
+<span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>basal <span class="op">=</span> <span class="st">"MITO"</span>, uncoupled <span class="op">=</span> <span class="st">"MITO"</span>, maxresp <span class="op">=</span> <span class="st">"MITO"</span>, nonmito <span class="op">=</span></span>
+<span>    <span class="st">"MITO"</span>, no_glucose_glyc <span class="op">=</span> <span class="st">"GLYCO"</span>, glucose_glyc <span class="op">=</span> <span class="st">"GLYCO"</span>, max_glyc <span class="op">=</span> <span class="st">"GLYCO"</span><span class="op">)</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  uncoupled_tp <span class="op">=</span> <span class="fl">6</span>,</span>
 <span>  maxresp_tp <span class="op">=</span> <span class="fl">8</span>,</span>
@@ -81,7 +83,11 @@ per cycle to X measurements)</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>seahorse_rates</dt>
-<dd><p>data.table Seahorse OCR and ECAR rates (imported using <code>read_data</code> function)</p></dd>
+<dd><p>A data.table of OCR and ECAR rates returned by <code>read_data</code></p></dd>
+
+
+<dt>assay_types</dt>
+<dd><p>A list that configures data partitioning based on the type of assay. See details.</p></dd>
 
 
 <dt>basal_tp</dt>
@@ -117,6 +123,56 @@ per cycle to X measurements)</p>
     
 
 <p>a list of named time points from each assay cycle</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>partition_data</code> sets up the rates data for ATP calculations by the
+<code>get_energetics</code> function. To do this, it takes a list <code>assay_types</code> with
+the named values <code>basal</code>, <code>uncoupled</code>, <code>maxresp</code>, <code>nonmito</code>,
+<code>no_glucose_glyc</code>, <code>glucose_glyc</code>, and <code>max_glyc</code>. In the default setting,
+it is configured for an experiment with both Mito and Glyco assays. However,
+partitioning can be configured for other experimental conditions.</p><ul><li><p>Only MITO data:</p></li>
+</ul><div class="sourceCode"><pre><code><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    basal <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    uncoupled <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    maxresp <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  basal_tp <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  uncoupled_tp <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  maxresp_tp <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  max_glyc_tp <span class="op">=</span> <span class="fl">6</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ul><li><p>Data according to Mookerjee <em>et al.</em> 2017 <em>J Biol Chem</em>;<em>292</em>:7189-207.</p></li>
+</ul><div class="sourceCode"><pre><code><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    basal <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    uncoupled <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    maxresp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  basal_tp <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  uncoupled_tp <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  maxresp_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  max_glyc_tp <span class="op">=</span> <span class="fl">10</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+
+<p>Also see the vignette.</p>
     </div>
 
     <div class="section level2">
