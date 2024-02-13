@@ -194,7 +194,7 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   # BASAL CONDITIONS: +glucose, no drugs
   basal_mito_resp <- partitioned_data$basal$OCR - partitioned_data$nonmito$OCR
   uncoupled_mito_resp <- partitioned_data$uncoupled$OCR - partitioned_data$nonmito$OCR
-  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) * HYPERPOLARIZATION_CONSTANT
+  coupled_mito_resp <- (basal_mito_resp - uncoupled_mito_resp) / HYPERPOLARIZATION_CONSTANT
   glucose_glyc_acidification <- partitioned_data$glucose_glyc$ECAR
 
   mean_group_nonmito_resp <- partitioned_data$nonmito[, .(mean_non_mito = mean(OCR)), by = .(assay_type, exp_group)]
