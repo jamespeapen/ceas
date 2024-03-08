@@ -1,10 +1,10 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   atp_calculation: atp_calculation.html
   ceas: ceas.html
-last_built: 2023-12-28T17:12Z
+last_built: 2024-03-08T19:52Z
 urls:
   reference: https://jamespeapen.github.io/ceas/reference
   article: https://jamespeapen.github.io/ceas/articles

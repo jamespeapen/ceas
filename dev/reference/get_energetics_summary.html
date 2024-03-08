@@ -14,7 +14,7 @@ using the get_energetics function"><meta property="og:image" content="https://ja
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,9 @@ using the get_energetics function"><meta property="og:image" content="https://ja
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/atp_calculation.html">ATP calculation</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -96,17 +99,21 @@ using the <code>get_energetics</code> function</p>
 <span class="r-in"><span><span class="va">energetics_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_energetics.html">get_energetics</a></span><span class="op">(</span><span class="va">partitioned_data</span>, ph <span class="op">=</span> <span class="fl">7.4</span>, pka <span class="op">=</span> <span class="fl">6.093</span>, buffer <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">energetics_summary</span> <span class="op">&lt;-</span> <span class="fu">get_energetics_summary</span><span class="op">(</span><span class="va">energetics_list</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">energetics_summary</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;exp_group&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    exp_group count ATP_basal_resp.mean ATP_basal_resp.sd ATP_basal_resp.se</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   Group_1    22            916.9071          60.22935         12.840940</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   Group_2    24            947.7950          34.48831          7.039897</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   Group_3    24           1098.4939          43.78564          8.937706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   Group_4    22            523.5337          70.74827         15.083581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;fctr&gt; &lt;int&gt;               &lt;num&gt;             &lt;num&gt;             &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   Group_1    22           1100.0468          72.25935         15.405746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   Group_2    24           1136.0653          41.34070          8.438635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   Group_3    24           1317.1044          52.53006         10.722653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   Group_4    22            626.1267          85.60314         18.250651</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">energetics_summary</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Key: &lt;exp_group&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    exp_group count ATP_basal_resp.lower_bound ATP_basal_resp.higher_bound</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   Group_1    22                   891.7393                    942.0748</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   Group_2    24                   933.9971                    961.5930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   Group_3    24                  1080.9763                   1116.0114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   Group_4    22                   493.9704                    553.0970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;fctr&gt; &lt;int&gt;                      &lt;num&gt;                       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   Group_1    22                  1069.8521                   1130.2415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   Group_2    24                  1119.5259                   1152.6047</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   Group_3    24                  1296.0883                   1338.1204</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   Group_4    22                   590.3561                    661.8973</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
