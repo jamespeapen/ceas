@@ -35,3 +35,15 @@ You can also use the R [`devtools`](https://devtools.r-lib.org/) package:
 ```r
 devtools::install_github("jamespeapen/ceas")
 ```
+
+## Usage
+
+A user guide is available on the [package website](https://jamespeapen.github.io/ceas/).
+Bug reports may be submitted through [GitHub issues](https://github.com/jamespeapen/ceas/issues).
+
+## Contributing
+
+Submit patches using GitHub pull requests or by sending a patch file to
+<james.eapen@vai.org>. We follow the [tidyverse style guide](https://style.tidyverse.org/)
+using [styler](http://styler.r-lib.org/) and [lintr](https://github.com/jimhester/lintr).
+
