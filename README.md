@@ -19,6 +19,10 @@ proxy of oxidative phosphorylation – and extracellular acidification rate – 
 proxy of glycolysis. This package offers flexible and fast analysis and plotting
 capabilities for such data.
 
+#### Pronounciation
+
+'ceas' is pronounced like the word 'seas' (siːz, SEEZ).
+
 ## Installation
 
 ### Github
