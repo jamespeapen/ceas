@@ -27,5 +27,12 @@ Authors:
   \item James Eapen \email{james.eapen@vai.org} (\href{https://orcid.org/0000-0001-6016-3598}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Hui Shen \email{hui.shen@vai.org} (\href{https://orcid.org/0000-0001-9767-4084}{ORCID}) [funder]
+  \item Carrie Graveel \email{carrie.graveel@vai.org} (\href{https://orcid.org/0000-0001-7251-5642}{ORCID}) [funder]
+  \item Matthew Steensma \email{matthew.steensma@vai.org} (\href{https://orcid.org/0000-0002-9003-6730}{ORCID}) [funder]
+}
+
 }
 \keyword{internal}
