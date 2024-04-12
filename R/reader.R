@@ -1,10 +1,13 @@
 #' Read Seahorse Wave Excel File
 #'
-#' Reads input seahore data from an excel Seahorse Wave File
+#' Reads input seahore data from an excel Seahorse Wave File. It  assumes your
+#' data is background normalized.
 #' @param rep_list A list of Seahorse Wave excel export files. One file per
 #' replicate. If your data is in a directory called "seahorse_data", use
 #' `list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)` to make
 #' a list of the excel files.
+#' @param norm A csv file with the experimental groups and their normalization
+#' values. Leave unset if normalization is not required. See [normalize()].
 #' @param sheet The number of the excel sheet containing the long-form Seahorse
 #' data. Default is 2 because the long-form output from Seahorse Wave is on
 #' sheet 2
@@ -22,7 +25,13 @@
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' head(seahorse_rates, n = 10)
-read_data <- function(rep_list, sheet = 2, delimiter = " ") {
+#'
+#' # normalization
+#' norm_csv <- system.file("extdata", package = "ceas") |>
+#'   list.files(pattern = "norm.csv", full.names = TRUE)
+#' seahorse_rates.norm <- read_data(rep_list, norm = norm_csv, sheet = 2)
+#' head(seahorse_rates.norm, n = 10)
+read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
   data_cols <- c(
     "Measurement",
     "Group",
@@ -45,5 +54,9 @@ read_data <- function(rep_list, sheet = 2, delimiter = " ") {
       , c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
     ][, replicate := i][, Group := NULL]
   })
-  rbindlist(reps)
+  rates_dt <- rbindlist(reps)
+  if (!is.null(norm)) {
+    rates_dt <- normalize(rates_dt, norm)
+  }
+  rates_dt
 }
