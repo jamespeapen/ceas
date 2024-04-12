@@ -8,6 +8,9 @@
 #' @param sheet The number of the excel sheet containing the long-form Seahorse
 #' data. Default is 2 because the long-form output from Seahorse Wave is on
 #' sheet 2
+#' @param delimiter The delimiter between the group name and the assay type in
+#' the Group column of the wave output. e.g. "Group1 MITO" would use a space
+#' character as delimiter.
 #' @return a seahorse_rates table
 #'
 #' @importFrom data.table setDT := tstrsplit rbindlist
@@ -19,7 +22,7 @@
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' head(seahorse_rates, n = 10)
-read_data <- function(rep_list, sheet = 2) {
+read_data <- function(rep_list, sheet = 2, delimiter = " ") {
   data_cols <- c(
     "Measurement",
     "Group",
@@ -39,7 +42,7 @@ read_data <- function(rep_list, sheet = 2) {
     Group <- NULL # suppress "no visible binding for global variable" error
 
     setDT(rep.i)[
-      , c("exp_group", "assay_type") := tstrsplit(Group, " ", fixed = TRUE)
+      , c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
     ][, replicate := i][, Group := NULL]
   })
   rbindlist(reps)

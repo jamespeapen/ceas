@@ -4,7 +4,7 @@
 \alias{read_data}
 \title{Read Seahorse Wave Excel File}
 \usage{
-read_data(rep_list, sheet = 2)
+read_data(rep_list, sheet = 2, delimiter = " ")
 }
 \arguments{
 \item{rep_list}{A list of Seahorse Wave excel export files. One file per
@@ -15,6 +15,10 @@ a list of the excel files.}
 \item{sheet}{The number of the excel sheet containing the long-form Seahorse
 data. Default is 2 because the long-form output from Seahorse Wave is on
 sheet 2}
+
+\item{delimiter}{The delimiter between the group name and the assay type in
+the Group column of the wave output. e.g. "Group1 MITO" would use a space
+character as delimiter.}
 }
 \value{
 a seahorse_rates table
