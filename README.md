@@ -49,5 +49,5 @@ Bug reports may be submitted through [GitHub issues](https://github.com/jamespea
 
 Submit patches using GitHub pull requests or by sending a patch file to
 <james.eapen@vai.org>. We follow the [tidyverse style guide](https://style.tidyverse.org/)
-using [styler](http://styler.r-lib.org/) and [lintr](https://github.com/jimhester/lintr).
+using [styler](https://styler.r-lib.org/) and [lintr](https://github.com/r-lib/lintr).
 
