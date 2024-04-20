@@ -1,5 +1,10 @@
 # ceas (development version)
 
+# ceas 0.2.1
+
+ - Add delimiter between group and assay labels as argument in `read_data()` to
+   support delimiters other than <Space>.
+
 # ceas 0.1.1
 
 - Fix the calculation of coupled mitochondrial respiration
