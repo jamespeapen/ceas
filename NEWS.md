@@ -1,5 +1,19 @@
 # ceas (development version)
 
+# ceas 0.3.1
+
+ - Add `normalize()`, a cell count/protein mass normalization function.
+   `read_data` now can take a csv file with cell counts or protein mass ($\mu$g)
+   for each of the experimental groups to normalize the data.
+   An example csv is provided below for a dataset with 4 experimental groups:
+
+   |exp_group | measure|
+   |:---------|-------:|
+   |Group_1   |   30000|
+   |Group_2   |   30000|
+   |Group_3   |    5000|
+   |Group_4   |    5000|
+
 # ceas 0.2.1
 
  - Add delimiter between group and assay labels as argument in `read_data()` to
