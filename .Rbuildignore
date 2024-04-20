@@ -9,3 +9,4 @@ default.nix
 ^docs$
 ^pkgdown$
 _test*
+.git
