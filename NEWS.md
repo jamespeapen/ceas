@@ -1,5 +1,10 @@
 # ceas (development version)
 
+# ceas 0.3.1
+
+ - Add assay type as argument to plot ECAR/OCR meaningfully as all assay types
+   were previously being summarized instead of just one.
+
 # ceas 0.3.0
 
  - Add `normalize()`, a cell count/protein mass normalization function.

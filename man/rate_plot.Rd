@@ -7,6 +7,7 @@
 rate_plot(
   seahorse_rates,
   measure = "OCR",
+  assay = "MITO",
   error_bar = "ci",
   conf_int = 0.95,
   group_label = "Experimental group"
@@ -16,6 +17,8 @@ rate_plot(
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
 \item{measure}{Whether to plot \code{"OCR"} or \code{"ECAR"}}
+
+\item{assay}{What assay to plot (e.g. "MITO" or "GLYCO")}
 
 \item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"}) or confidence intervals (\code{"ci"})}
 

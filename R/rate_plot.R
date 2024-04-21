@@ -3,6 +3,7 @@
 #' Generate OCR and ECAR plots
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
 #' @param measure Whether to plot `"OCR"` or `"ECAR"`
+#' @param assay What assay to plot (e.g. "MITO" or "GLYCO")
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param group_label Label for the experimental group to populate the legend title
@@ -19,6 +20,7 @@
 rate_plot <- function(
     seahorse_rates,
     measure = "OCR",
+    assay = "MITO",
     error_bar = "ci",
     conf_int = 0.95,
     group_label = "Experimental group") {
@@ -48,9 +50,12 @@ rate_plot <- function(
   lower_bound <- NULL
   upper_bound <- NULL
 
-  plot_data <- get_rate_summary(seahorse_rates, measure, error_bar, conf_int)
+  plot_data <- get_rate_summary(seahorse_rates, measure, assay, error_bar, conf_int)
 
-  y_labels <- list("OCR" = "OCR (pmol/min)", "ECAR" = "ECAR (mpH/min)")
+  y_labels <- list(
+    "OCR" = paste0(assay, " OCR (pmol/min)"),
+    "ECAR" = paste0(assay, " ECAR (mpH/min)")
+  )
   # plot function
   ggplot(plot_data, aes(
     x = Measurement,
@@ -80,6 +85,7 @@ rate_plot <- function(
 #' Summarize OCR and ECAR as mean and bounded standard deviations or standard error with confidence intervals
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
 #' @param measure Whether to plot `"OCR"` or `"ECAR"`
+#' @param assay What assay to calculate summary for (e.g. "MITO" or "GLYCO")
 #' @param error_metric Whether to calculate error as standard deviations (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @return a data.table with means, standard deviations/standard error with bounds around the mean(sd or confidence intervals)
@@ -94,6 +100,7 @@ rate_plot <- function(
 #' rates <- get_rate_summary(
 #'   seahorse_rates,
 #'   measure = "OCR",
+#'   assay = "MCIO",
 #'   error_metric = "ci",
 #'   conf_int = 0.95
 #' )
@@ -101,6 +108,7 @@ rate_plot <- function(
 get_rate_summary <- function(
     seahorse_rates,
     measure = "OCR",
+    assay,
     error_metric = "ci",
     conf_int = 0.95) {
   Measurement <- NULL
@@ -108,7 +116,7 @@ get_rate_summary <- function(
   se <- NULL
   . <- NULL
 
-  plot_data <- seahorse_rates[exp_group != "Background"][, .(
+  plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][, .(
     mean = mean(get(measure)),
     sd = sd(get(measure)),
     se = sd(get(measure)) / sqrt(length(get(measure)))

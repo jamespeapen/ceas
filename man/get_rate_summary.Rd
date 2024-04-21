@@ -7,6 +7,7 @@
 get_rate_summary(
   seahorse_rates,
   measure = "OCR",
+  assay,
   error_metric = "ci",
   conf_int = 0.95
 )
@@ -15,6 +16,8 @@ get_rate_summary(
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
 \item{measure}{Whether to plot \code{"OCR"} or \code{"ECAR"}}
+
+\item{assay}{What assay to calculate summary for (e.g. "MITO" or "GLYCO")}
 
 \item{error_metric}{Whether to calculate error as standard deviations (\code{"sd"}) or confidence intervals (\code{"ci"})}
 
@@ -33,6 +36,7 @@ seahorse_rates <- read_data(rep_list, sheet = 2)
 rates <- get_rate_summary(
   seahorse_rates,
   measure = "OCR",
+  assay = "MCIO",
   error_metric = "ci",
   conf_int = 0.95
 )
