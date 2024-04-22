@@ -55,8 +55,22 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
     ][, replicate := i][, Group := NULL]
   })
   rates_dt <- rbindlist(reps)
+
+  norm_warning <- "'Background' is not 0 in the rows shown below - check that background normalization was performed by Wave\n"
+  background_dt <- rates_dt[exp_group == "Background"]
+  if (!all(background_dt[, .(OCR, ECAR, PER)] == 0)) {
+    warning(
+      norm_warning,
+      paste(
+        capture.output(rates_dt[exp_group == "Background"][OCR != 0 | ECAR != 0 | PER != 0]),
+        collapse = "\n"
+      )
+    )
+  }
+
   if (!is.null(norm)) {
     rates_dt <- normalize(rates_dt, norm)
   }
+
   rates_dt
 }

@@ -1,5 +1,10 @@
 # ceas (development version)
 
+# ceas 0.3.2
+
+ - Warn if data are not normalized by checking that the "Background" group's
+   OCR, ECAR, and PER values are 0.
+
 # ceas 0.3.1
 
  - Add assay type as argument to plot ECAR/OCR meaningfully as all assay types
