@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rate_plot</span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"MITO"</span>,</span>
 <span>  error_bar <span class="op">=</span> <span class="st">"ci"</span>,</span>
 <span>  conf_int <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  group_label <span class="op">=</span> <span class="st">"Experimental group"</span></span>
@@ -77,6 +78,10 @@
 
 <dt>measure</dt>
 <dd><p>Whether to plot <code>"OCR"</code> or <code>"ECAR"</code></p></dd>
+
+
+<dt>assay</dt>
+<dd><p>What assay to plot (e.g. "MITO" or "GLYCO")</p></dd>
 
 
 <dt>error_bar</dt>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_rate_summary</span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
+<span>  <span class="va">assay</span>,</span>
 <span>  error_metric <span class="op">=</span> <span class="st">"ci"</span>,</span>
 <span>  conf_int <span class="op">=</span> <span class="fl">0.95</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -75,7 +76,11 @@
 
 
 <dt>measure</dt>
-<dd><p>Whether to plot <code>"OCR"</code> or <code>"ECAR"</code></p></dd>
+<dd><p>Whether to calculate summary for <code>"OCR"</code> or <code>"ECAR"</code></p></dd>
+
+
+<dt>assay</dt>
+<dd><p>What assay to calculate summary for (e.g. "MITO" or "GLYCO")</p></dd>
 
 
 <dt>error_metric</dt>
@@ -104,19 +109,9 @@
 <span class="r-in"><span>  error_metric <span class="op">=</span> <span class="st">"ci"</span>,</span></span>
 <span class="r-in"><span>  conf_int <span class="op">=</span> <span class="fl">0.95</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(stub[[3L]], x, enclos):</span> argument "assay" is missing, with no default</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rates</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     exp_group Measurement     mean       sd       se lower_bound upper_bound</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;char&gt;       &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;       &lt;num&gt;       &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:   Group_1           1 306.4486 17.65435 2.661494    301.2322    311.6650</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:   Group_2           1 363.0852 23.20204 3.348926    356.5215    369.6490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:   Group_3           1 409.0223 28.67433 4.138782    400.9104    417.1342</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:   Group_4           1 229.7457 18.53215 2.793827    224.2699    235.2215</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:   Group_1           2 292.2111 16.33149 2.462065    287.3855    297.0366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   Group_2           2 345.1178 21.95538 3.168987    338.9067    351.3289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:   Group_3           2 390.6030 27.84976 4.019766    382.7244    398.4816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   Group_4           2 219.6930 16.79214 2.531511    214.7313    224.6547</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   Group_1           3 288.0009 15.74350 2.373422    283.3491    292.6527</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   Group_2           3 339.4649 21.40811 3.089995    333.4086    345.5212</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'rates' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
