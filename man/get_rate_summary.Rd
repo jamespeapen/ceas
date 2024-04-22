@@ -15,7 +15,7 @@ get_rate_summary(
 \arguments{
 \item{seahorse_rates}{data.table Seahorse OCR and ECAR rates (imported using \code{read_data} function)}
 
-\item{measure}{Whether to plot \code{"OCR"} or \code{"ECAR"}}
+\item{measure}{Whether to calculate summary for \code{"OCR"} or \code{"ECAR"}}
 
 \item{assay}{What assay to calculate summary for (e.g. "MITO" or "GLYCO")}
 

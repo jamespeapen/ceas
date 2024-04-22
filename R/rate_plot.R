@@ -84,7 +84,7 @@ rate_plot <- function(
 #'
 #' Summarize OCR and ECAR as mean and bounded standard deviations or standard error with confidence intervals
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
-#' @param measure Whether to plot `"OCR"` or `"ECAR"`
+#' @param measure Whether to calculate summary for `"OCR"` or `"ECAR"`
 #' @param assay What assay to calculate summary for (e.g. "MITO" or "GLYCO")
 #' @param error_metric Whether to calculate error as standard deviations (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
