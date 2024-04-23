@@ -48,6 +48,31 @@ seahorse_rates <- read_data(rep_list)
 knitr::kable(head(seahorse_rates))
 ```
 
+### Normalization
+
+There are two types of normalization involved in Seahorse data analysis. One is
+background normalization done by the Wave software. *ceas* will produce a
+warning if it finds that the "Background" data are not 0 (see first row of the
+table above).
+
+The other is biological normalization based on the cell count or the mass of
+protein. If the data is not already biologically normalized, you will need a csv
+file containing experimental groups and cell counts or $\mu$g of protein in this
+format:
+
+```{r, norm_csv}
+norm_csv <- system.file("extdata", package = "ceas") |>
+  list.files(pattern = "norm.csv", full.names = TRUE)
+read.csv(norm_csv) |> knitr::kable()
+```
+
+Your csv file's full path may be passed into `read_data()` using the `norm`
+argument.
+
+```{r normalized_read}
+read_data(rep_list, norm = norm_csv) |> head() |> knitr::kable()
+```
+
 ## Calculating energetics
 
 ### Partitioning data
