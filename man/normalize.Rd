@@ -20,6 +20,11 @@ a normalzed seahorse_rates data.table
 Normalizes input data according to cell number or \eqn{\mu}g of protein. It
 assumes your data is background normalized.
 }
+\details{
+This normalization is distinct from the background normalization done by the
+Wave software. If the data are not background normalized, \code{read_data()} will
+output a warning showing rows with OCR, ECAR and PER values greater than 0.
+}
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
@@ -27,6 +32,7 @@ norm_csv <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "norm.csv", full.names = TRUE)
 read.csv(norm_csv)
 seahorse_rates <- read_data(rep_list, sheet = 2)
+head(seahorse_rates, n = 10)
 seahorse_rates.normalized <- normalize(seahorse_rates, norm_csv)
 head(seahorse_rates.normalized, n = 10)
 }

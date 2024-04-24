@@ -8,6 +8,12 @@
 #' count or \eqn{\mu}g of protein in column 2. Headers are ignored.
 #' @return a normalzed seahorse_rates data.table
 #'
+#' @details
+#'
+#' This normalization is distinct from the background normalization done by the
+#' Wave software. If the data are not background normalized, `read_data()` will
+#' output a warning showing rows with OCR, ECAR and PER values greater than 0.
+#'
 #' @importFrom data.table fread := copy
 #' @export
 #'
@@ -18,6 +24,7 @@
 #'   list.files(pattern = "norm.csv", full.names = TRUE)
 #' read.csv(norm_csv)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
+#' head(seahorse_rates, n = 10)
 #' seahorse_rates.normalized <- normalize(seahorse_rates, norm_csv)
 #' head(seahorse_rates.normalized, n = 10)
 normalize <- function(seahorse_rates, norm_csv) {
