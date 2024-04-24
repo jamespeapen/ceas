@@ -26,6 +26,7 @@ normalize <- function(seahorse_rates, norm_csv) {
   measure <- NULL
   ECAR <- NULL
   OCR <- NULL
+  PER <- NULL
 
   norm_dt <- fread(norm_csv, col.names = c("exp_group", "measure"))
   norm_dt[, norm_const := measure / min(measure)]
@@ -33,7 +34,11 @@ normalize <- function(seahorse_rates, norm_csv) {
   (
     copy(seahorse_rates)
     [norm_dt, on = "exp_group", norm_const := i.norm_const]
-    [, `:=`(ECAR = ECAR / norm_const, OCR = OCR / norm_const)]
+    [, `:=`(
+        ECAR = ifelse(ECAR == 0, ECAR, ECAR / norm_const),
+        OCR = ifelse(OCR == 0, OCR, OCR / norm_const),
+        PER = ifelse(PER == 0, PER, PER / norm_const)
+      )]
     [, norm_const := NULL][]
   )
 }

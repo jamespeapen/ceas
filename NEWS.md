@@ -1,5 +1,10 @@
 # ceas (development version)
 
+# ceas 0.3.3
+
+ - Don't divide by 0 when normalizing if already 0; PER is now normalized with
+   OCR and ECAR.
+
 # ceas 0.3.2
 
  - Warn if data are not normalized by checking that the "Background" group's
