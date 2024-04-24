@@ -46,6 +46,10 @@ if you are modifying the Mito and Glyco Stress Test (i.e. from 3 measurements
 per cycle to X measurements)
 }
 \details{
+\strong{Note:}
+When we use the term 'max' in the package documentation we mean the maximal
+experimental OCR and ECAR values rather than absolute biological maximums.
+
 \code{partition_data} sets up the rates data for ATP calculations by the
 \code{get_energetics} function. To do this, it takes a list \code{assay_types} with
 the named values \code{basal}, \code{uncoupled}, \code{maxresp}, \code{nonmito},

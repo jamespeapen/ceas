@@ -16,6 +16,12 @@
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim geom_crossbar theme_bw .data
 #' @export
 #'
+#' @details
+#'
+#' **Note:**
+#' When we use the term 'max' in the package documentation we mean the maximal
+#' experimental OCR and ECAR values rather than absolute biological maximums.
+#'
 #' @examples
 #' rep_list <- system.file("extdata", package = "ceas") |>
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)

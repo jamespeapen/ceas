@@ -77,6 +77,10 @@ read_data(rep_list, norm = norm_csv) |> head() |> knitr::kable()
 
 ### Partitioning data
 
+**Note:**  
+When we use the term 'max' in the package documentation we mean the maximal
+experimental OCR and ECAR values rather than absolute biological maximums.
+
 The energetics calculation workflow involves partitioning the data into its time
 point and assay intervals.
 
@@ -203,13 +207,13 @@ represents standard deviation or specified confidence interval.
 #### Oxygen consumption rate (OCR)
 
 ```{r ocr}
-(ocr <- rate_plot(seahorse_rates, measure = "OCR"))
+(ocr <- rate_plot(seahorse_rates, measure = "OCR", assay = "MITO"))
 ```
 
 #### Extracellular Acidification Rate (ECAR)
 
 ```{r ecar}
-(ecar <- rate_plot(seahorse_rates, measure = "ECAR"))
+(ecar <- rate_plot(seahorse_rates, measure = "ECAR", assay = "GLYCO"))
 ```
 
 ### ATP plots {.tabset}
@@ -233,14 +237,14 @@ confidence interval JATP variance.
 ```
 
 
-#### Max glycolysis
+#### Maximal glycolysis
 
 ```{r max_glyc}
 (max_glyc <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "glyc"))
 ```
 
 
-#### Max respiration
+#### Maximal respiration
 
 ```{r max_resp}
 (max_resp <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "resp"))

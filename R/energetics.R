@@ -14,6 +14,10 @@
 #' @param glucose_glyc_tp Glucose-associated acidification time point. Must be less than `max_glyc_tp`
 #' @param max_glyc_tp Maximal acidification time point. Must be less than `twodg_glyc_tp`
 #' @details
+#' **Note:**
+#' When we use the term 'max' in the package documentation we mean the maximal
+#' experimental OCR and ECAR values rather than absolute biological maximums.
+#'
 #' `partition_data` sets up the rates data for ATP calculations by the
 #' `get_energetics` function. To do this, it takes a list `assay_types` with
 #' the named values `basal`, `uncoupled`, `maxresp`, `nonmito`,
