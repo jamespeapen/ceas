@@ -35,7 +35,7 @@
 #'     nonmito = "MITO",
 #'     no_glucose_glyc = NA,
 #'     glucose_glyc = "MITO",
-#'     max_glyc = "MITO"
+#'     max_glyc = NA
 #'   ),
 #'   basal_tp = 3,
 #'   uncoupled_tp = 6,
@@ -43,7 +43,30 @@
 #'   nonmito_tp = 12,
 #'   no_glucose_glyc_tp = NA,
 #'   glucose_glyc_tp = 3,
-#'   max_glyc_tp = 6
+#'   max_glyc_tp = NA
+#' )
+#' }
+#'
+#' Respiratory control ratio (RCR) and glycolytic capacity (GC) assay:
+#'
+#' \preformatted{partitioned_data <- partition_data(
+#'   seahorse_rates,
+#'   assay_types = list(
+#'     basal = "RCR",
+#'     uncoupled = "RCR",
+#'     maxresp = "RCR,"
+#'     nonmito = "RCR",
+#'     no_glucose_glyc = NA,
+#'     glucose_glyc = "GC",
+#'     max_glyc = "GC"
+#'   ),
+#'   basal_tp = 3,
+#'   uncoupled_tp = 6,
+#'   maxresp_tp = 8,
+#'   nonmito_tp = 12,
+#'   no_glucose_glyc = NA,
+#'   glucose_glyc_tp = 3,
+#'   max_glyc_tp = 9
 #' )
 #' }
 #'
@@ -52,21 +75,21 @@
 #' \preformatted{partitioned_data <- partition_data(
 #'   seahorse_rates,
 #'   assay_types = list(
-#'     basal = "MITO",
-#'     uncoupled = "MITO",
+#'     basal = "RefAssay",
+#'     uncoupled = "RefAssay",
 #'     maxresp = NA,
-#'     nonmito = "MITO",
-#'     no_glucose_glyc = NA,
-#'     glucose_glyc = "MITO",
-#'     max_glyc = "MITO"
+#'     nonmito = "RefAssay",
+#'     no_glucose_glyc = "RefAssay",
+#'     glucose_glyc = "RefAssay",
+#'     max_glyc = NA
 #'   ),
 #'   basal_tp = 5,
 #'   uncoupled_tp = 10,
-#'   maxresp_tp = NA,
 #'   nonmito_tp = 12,
-#'   no_glucose_glyc_tp = 2,
+#'   maxresp = NA,
+#'   no_glucose_glyc_tp = 1,
 #'   glucose_glyc_tp = 5,
-#'   max_glyc_tp = 10
+#'   max_glyc = NA
 #' )
 #' }
 #'
