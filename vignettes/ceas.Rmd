@@ -223,11 +223,11 @@ glycolysis, respectively.
 
 ### Rate plots {.tabset}
 
-The `rate_plot` function provides an overview of OCR or ECAR over time, which
-enables cross-group energetic comparisons before and after the addition of
-energetic-modulating compounds. The `rate_plot` line represents mean group OCR
-or ECAR over the sequential measurements (x-axis) and the shaded variance region
-represents standard deviation or specified confidence interval.
+The `rate_plot` function provides an overview of OCR or ECAR for each assay type
+over time, which enables cross-group energetic comparisons before and after the
+addition of energetic-modulating compounds. The `rate_plot` line represents mean
+group OCR or ECAR over the sequential measurements (x-axis) and the shaded
+variance region represents standard deviation or specified confidence interval.
 
 #### Oxygen consumption rate (OCR)
 
