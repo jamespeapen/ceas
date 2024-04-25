@@ -452,10 +452,13 @@ parameter can be modified to account for that.</p>
 
 
 
+
 <ul class="nav nav-tabs" id="alternative-data-formats" role="tablist">
 <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#mito-glyco-our-default" id="mito-glyco-our-default-tab" type="button" role="tab" aria-controls="mito-glyco-our-default" aria-selected="true" class="active nav-link">Mito + Glyco (our default)</button></li>
 <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#data-in-the-form-of-mookerjee2017" id="data-in-the-form-of-mookerjee2017-tab" type="button" role="tab" aria-controls="data-in-the-form-of-mookerjee2017" aria-selected="false" class="nav-link">Data in the form of <span class="citation">Mookerjee et al. (<a href="#ref-mookerjee2017">2017</a>)</span>:</button></li>
 <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#just-mito" id="just-mito-tab" type="button" role="tab" aria-controls="just-mito" aria-selected="false" class="nav-link">Just Mito</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#respiratory-control-ratio-rcr-and-glycolytic-capacity-gc-assay" id="respiratory-control-ratio-rcr-and-glycolytic-capacity-gc-assay-tab" type="button" role="tab" aria-controls="respiratory-control-ratio-rcr-and-glycolytic-capacity-gc-assay" aria-selected="false" class="nav-link">Respiratory control ratio (RCR) and glycolytic capacity (GC)
+assay:</button></li>
 </ul>
 <div class="tab-content">
 <div class="active  tab-pane" id="mito-glyco-our-default" role="tabpanel" aria-labelledby="mito-glyco-our-default-tab">
@@ -487,21 +490,21 @@ parameter can be modified to account for that.</p>
 <code class="sourceCode R"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    basal <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    uncoupled <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    basal <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    uncoupled <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
 <span>    maxresp <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>    nonmito <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    no_glucose_glyc <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    glucose_glyc <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  uncoupled_tp <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  maxresp_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  maxresp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  max_glyc_tp <span class="op">=</span> <span class="fl">10</span></span>
+<span>  max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="tab-pane" id="just-mito" role="tabpanel" aria-labelledby="just-mito-tab">
@@ -516,7 +519,7 @@ parameter can be modified to account for that.</p>
 <span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
 <span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>    max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  uncoupled_tp <span class="op">=</span> <span class="fl">6</span>,</span>
@@ -524,8 +527,30 @@ parameter can be modified to account for that.</p>
 <span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  no_glucose_glyc_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  max_glyc_tp <span class="op">=</span> <span class="fl">6</span></span>
+<span>  max_glyc_tp <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="tab-pane" id="respiratory-control-ratio-rcr-and-glycolytic-capacity-gc-assay" role="tabpanel" aria-labelledby="respiratory-control-ratio-rcr-and-glycolytic-capacity-gc-assay-tab">
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>partitioned_data <span class="ot">&lt;-</span> <span class="fu">partition_data</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  seahorse_rates,</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="at">assay_types =</span> <span class="fu">list</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    <span class="at">basal =</span> <span class="st">"RCR"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="at">uncoupled =</span> <span class="st">"RCR"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>    <span class="at">maxresp =</span> <span class="st">"RCR,"</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>    <span class="at">nonmito =</span> <span class="st">"RCR"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    <span class="at">no_glucose_glyc =</span> <span class="cn">NA</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>    <span class="at">glucose_glyc =</span> <span class="st">"GC"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>    <span class="at">max_glyc =</span> <span class="st">"GC"</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  ),</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  <span class="at">basal_tp =</span> <span class="dv">3</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>  <span class="at">uncoupled_tp =</span> <span class="dv">6</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="at">maxresp_tp =</span> <span class="dv">8</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="at">nonmito_tp =</span> <span class="dv">12</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="at">no_glucose_glyc =</span> <span class="cn">NA</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="at">glucose_glyc_tp =</span> <span class="dv">3</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>  <span class="at">max_glyc_tp =</span> <span class="dv">9</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -535,7 +560,7 @@ parameter can be modified to account for that.</p>
 <code>no_glucose_glyc_tp</code>) also need to be changed
 accordingly.</p>
 <p>The <code>get_energetics</code> function requires pH, pK<span class="math inline">\(_a\)</span> and buffer values.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">energetics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_energetics.html">get_energetics</a></span><span class="op">(</span><span class="va">partitioned_data</span>, ph <span class="op">=</span> <span class="fl">7.4</span>, pka <span class="op">=</span> <span class="fl">6.093</span>, buffer <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span></span></code></pre></div>
 <p>For more information on the calculations see the article on <a href="atp_calculation.html">ATP calculations</a>.</p>
 </div>
@@ -555,7 +580,7 @@ on the x-axis. The points represent mean basal and/or max JATP from
 OXPHOS and glycolysis and the vertical and horizontal lines represent
 the standard deviation or confidence interval of JATP from OXPHOS or
 glycolysis, respectively.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">bioscope</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/bioscope_plot-1.png" width="700"></p>
 </div>
@@ -577,13 +602,13 @@ represents standard deviation or specified confidence interval.</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="oxygen-consumption-rate-ocr" role="tabpanel" aria-labelledby="oxygen-consumption-rate-ocr-tab">
 
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">ocr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"OCR"</span>, assay <span class="op">=</span> <span class="st">"MITO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/ocr-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="extracellular-acidification-rate-ecar" role="tabpanel" aria-labelledby="extracellular-acidification-rate-ecar-tab">
 
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">ecar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"ECAR"</span>, assay <span class="op">=</span> <span class="st">"GLYCO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/ecar-1.png" width="700"></p>
 </div>
@@ -611,25 +636,25 @@ variance.</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="basal-glycolysis" role="tabpanel" aria-labelledby="basal-glycolysis-tab">
 
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/basal_glyc-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="basal-respiration" role="tabpanel" aria-labelledby="basal-respiration-tab">
 
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/basal_resp-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="maximal-glycolysis" role="tabpanel" aria-labelledby="maximal-glycolysis-tab">
 
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">max_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/max_glyc-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="maximal-respiration" role="tabpanel" aria-labelledby="maximal-respiration-tab">
 
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">max_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/max_resp-1.png" width="700"></p>
 </div>
@@ -646,20 +671,20 @@ plot and add the custom colors you’d like:</p>
 <div class="section level4">
 <h4 id="colors">Colors<a class="anchor" aria-label="anchor" href="#colors"></a>
 </h4>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">custom_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">custom_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 <div class="section level4 tabset">
 <h4 class="tabset" id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
@@ -673,17 +698,17 @@ plot and add the custom colors you’d like:</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="change-axis-labels" role="tabpanel" aria-labelledby="change-axis-labels-tab">
 
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="change-label-size" role="tabpanel" aria-labelledby="change-label-size-tab">
 
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 </div>
 </div>
 </div>
@@ -697,9 +722,9 @@ the code used to make the plots by running the function name without
 parenthesis and modify it. Further, since every step in the ceas
 workflow provides a dataset, you can run the modified function or your
 own custom plotting functions on those datasets.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rate_plot</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rate_plot</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">assay</span> <span class="op">=</span> <span class="st">"MITO"</span>, <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, </span>
 <span>    <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span><span class="op">)</span> </span>
 <span><span class="op">{</span></span>
@@ -732,7 +757,7 @@ own custom plotting functions on those datasets.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In RStudio, you can run <code><a href="https://rdrr.io/r/utils/edit.html" class="external-link">utils::edit</a></code> to modify a
 function.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/edit.html" class="external-link">edit</a></span><span class="op">(</span><span class="va">rate_plot</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

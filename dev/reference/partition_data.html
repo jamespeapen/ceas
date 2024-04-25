@@ -147,7 +147,7 @@ partitioning can be configured for other experimental conditions.</p><ul><li><p>
 <span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
 <span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>    max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  uncoupled_tp <span class="op">=</span> <span class="fl">6</span>,</span>
@@ -155,27 +155,49 @@ partitioning can be configured for other experimental conditions.</p><ul><li><p>
 <span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  no_glucose_glyc_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>  max_glyc_tp <span class="op">=</span> <span class="fl">6</span></span>
+<span>  max_glyc_tp <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+
+<p>Respiratory control ratio (RCR) and glycolytic capacity (GC) assay:</p>
+<div class="sourceCode"><pre><code>partitioned_data &lt;- partition_data(
+  seahorse_rates,
+  assay_types = list(
+    basal = "RCR",
+    uncoupled = "RCR",
+    maxresp = "RCR,"
+    nonmito = "RCR",
+    no_glucose_glyc = NA,
+    glucose_glyc = "GC",
+    max_glyc = "GC"
+  ),
+  basal_tp = 3,
+  uncoupled_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  no_glucose_glyc = NA,
+  glucose_glyc_tp = 3,
+  max_glyc_tp = 9
+)
+</code></pre></div>
 <ul><li><p>Data according to Mookerjee <em>et al.</em> 2017 <em>J Biol Chem</em>;<em>292</em>:7189-207.</p></li>
 </ul><div class="sourceCode"><pre><code><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    basal <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    uncoupled <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>    basal <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    uncoupled <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
 <span>    maxresp <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    nonmito <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    no_glucose_glyc <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>    glucose_glyc <span class="op">=</span> <span class="st">"MITO"</span>,</span>
-<span>    max_glyc <span class="op">=</span> <span class="st">"MITO"</span></span>
+<span>    nonmito <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    no_glucose_glyc <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    glucose_glyc <span class="op">=</span> <span class="st">"RefAssay"</span>,</span>
+<span>    max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  basal_tp <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  uncoupled_tp <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  maxresp_tp <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  nonmito_tp <span class="op">=</span> <span class="fl">12</span>,</span>
-<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  maxresp <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  no_glucose_glyc_tp <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  glucose_glyc_tp <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  max_glyc_tp <span class="op">=</span> <span class="fl">10</span></span>
+<span>  max_glyc <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 
 <p>Also see the vignette.</p>
