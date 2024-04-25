@@ -5,6 +5,16 @@ template:
 development:
   mode: auto
 
+authors:
+  Van Andel Institute:
+    href: https://vai.org
+    html: >-
+      <img src='man/figures/vai_logo.png' alt='VAI' width='80' style="margin-bottom: 3px;" />
+  sidebar:
+    roles: [aut, fnd, cph]
+  footer:
+    roles: [cre, aut]
+
 navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
