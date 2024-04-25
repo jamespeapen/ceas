@@ -25,9 +25,15 @@ capabilities for such data.
 
 ## Installation
 
+### CRAN
+
+```r
+install.packages("ceas")
+```
+
 ### Github
 
-You can install from Github by cloning the repo and running
+You can install the development version from Github by cloning the repo and running
 
 ```bash
 git clone https://github.com/jamespeapen/ceas/
@@ -38,6 +44,12 @@ You can also use the R [`devtools`](https://devtools.r-lib.org/) package:
 
 ```r
 devtools::install_github("jamespeapen/ceas")
+```
+
+or [`pak`](https://pak.r-lib.org/):
+
+```r
+pak::pkg_install("jamespeapen/ceas")
 ```
 
 ## Usage

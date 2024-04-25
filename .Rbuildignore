@@ -11,3 +11,4 @@ default.nix
 _test*
 ^cran-comments\.md$
 .git
+=======
