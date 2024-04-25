@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -291,6 +291,142 @@ ceas.</p>
 </tr>
 </tbody>
 </table>
+<div class="section level3">
+<h3 id="normalization">Normalization<a class="anchor" aria-label="anchor" href="#normalization"></a>
+</h3>
+<p>There are two types of normalization involved in Seahorse data
+analysis. One is background normalization done by the Wave software.
+<em>ceas</em> will produce a warning if it finds that the “Background”
+data are not 0 (see first row of the table above).</p>
+<p>The other is biological normalization based on the cell count or the
+mass of protein. If the data is not already biologically normalized, you
+will need a csv file containing experimental groups and cell counts or
+<span class="math inline">\(\mu\)</span>g of protein in this format:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">norm_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"norm.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">norm_csv</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">exp_group</th>
+<th align="right">measure</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Group_1</td>
+<td align="right">30000</td>
+</tr>
+<tr class="even">
+<td align="left">Group_2</td>
+<td align="right">30000</td>
+</tr>
+<tr class="odd">
+<td align="left">Group_3</td>
+<td align="right">5000</td>
+</tr>
+<tr class="even">
+<td align="left">Group_4</td>
+<td align="right">5000</td>
+</tr>
+</tbody>
+</table>
+<p>Your csv file’s full path may be passed into <code><a href="../reference/read_data.html">read_data()</a></code>
+using the <code>norm</code> argument.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, norm <span class="op">=</span> <span class="va">norm_csv</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="5%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="12%">
+<col width="12%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">Measurement</th>
+<th align="left">Well</th>
+<th align="right">Time</th>
+<th align="right">OCR</th>
+<th align="right">ECAR</th>
+<th align="right">PER</th>
+<th align="left">exp_group</th>
+<th align="left">assay_type</th>
+<th align="right">replicate</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">A01</td>
+<td align="right">1.304765</td>
+<td align="right">0.00000</td>
+<td align="right">0.000000</td>
+<td align="right">0.00000</td>
+<td align="left">Background</td>
+<td align="left">NA</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">A02</td>
+<td align="right">1.304765</td>
+<td align="right">50.87376</td>
+<td align="right">5.107549</td>
+<td align="right">55.74619</td>
+<td align="left">Group_1</td>
+<td align="left">MITO</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">A03</td>
+<td align="right">1.304765</td>
+<td align="right">51.33103</td>
+<td align="right">5.546114</td>
+<td align="right">59.74590</td>
+<td align="left">Group_1</td>
+<td align="left">MITO</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">A04</td>
+<td align="right">1.304765</td>
+<td align="right">56.55665</td>
+<td align="right">8.196252</td>
+<td align="right">83.91516</td>
+<td align="left">Group_2</td>
+<td align="left">MITO</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">A05</td>
+<td align="right">1.304765</td>
+<td align="right">53.65663</td>
+<td align="right">7.991003</td>
+<td align="right">82.04329</td>
+<td align="left">Group_2</td>
+<td align="left">MITO</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">A06</td>
+<td align="right">1.304765</td>
+<td align="right">53.96603</td>
+<td align="right">7.807053</td>
+<td align="right">80.36566</td>
+<td align="left">Group_2</td>
+<td align="left">MITO</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level2">
 <h2 id="calculating-energetics">Calculating energetics<a class="anchor" aria-label="anchor" href="#calculating-energetics"></a>
@@ -298,9 +434,13 @@ ceas.</p>
 <div class="section level3">
 <h3 id="partitioning-data">Partitioning data<a class="anchor" aria-label="anchor" href="#partitioning-data"></a>
 </h3>
+<p><strong>Note:</strong><br>
+When we use the term ‘max’ in the package documentation we mean the
+maximal experimental OCR and ECAR values rather than absolute biological
+maximums.</p>
 <p>The energetics calculation workflow involves partitioning the data
 into its time point and assay intervals.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4 tabset">
 <h4 class="tabset" id="alternative-data-formats">Alternative data formats<a class="anchor" aria-label="anchor" href="#alternative-data-formats"></a>
@@ -320,7 +460,7 @@ parameter can be modified to account for that.</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="mito-glyco-our-default" role="tabpanel" aria-labelledby="mito-glyco-our-default-tab">
 
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -343,7 +483,7 @@ parameter can be modified to account for that.</p>
 </div>
 <div class="tab-pane" id="data-in-the-form-of-mookerjee2017" role="tabpanel" aria-labelledby="data-in-the-form-of-mookerjee2017-tab">
 
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -366,7 +506,7 @@ parameter can be modified to account for that.</p>
 </div>
 <div class="tab-pane" id="just-mito" role="tabpanel" aria-labelledby="just-mito-tab">
 
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">partitioned_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/partition_data.html">partition_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">seahorse_rates</span>,</span>
 <span>  assay_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
@@ -395,7 +535,7 @@ parameter can be modified to account for that.</p>
 <code>no_glucose_glyc_tp</code>) also need to be changed
 accordingly.</p>
 <p>The <code>get_energetics</code> function requires pH, pK<span class="math inline">\(_a\)</span> and buffer values.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">energetics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_energetics.html">get_energetics</a></span><span class="op">(</span><span class="va">partitioned_data</span>, ph <span class="op">=</span> <span class="fl">7.4</span>, pka <span class="op">=</span> <span class="fl">6.093</span>, buffer <span class="op">=</span> <span class="fl">0.10</span><span class="op">)</span></span></code></pre></div>
 <p>For more information on the calculations see the article on <a href="atp_calculation.html">ATP calculations</a>.</p>
 </div>
@@ -415,7 +555,7 @@ on the x-axis. The points represent mean basal and/or max JATP from
 OXPHOS and glycolysis and the vertical and horizontal lines represent
 the standard deviation or confidence interval of JATP from OXPHOS or
 glycolysis, respectively.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">bioscope</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/bioscope_plot-1.png" width="700"></p>
 </div>
@@ -437,14 +577,14 @@ represents standard deviation or specified confidence interval.</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="oxygen-consumption-rate-ocr" role="tabpanel" aria-labelledby="oxygen-consumption-rate-ocr-tab">
 
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">ocr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"OCR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">ocr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"OCR"</span>, assay <span class="op">=</span> <span class="st">"MITO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/ocr-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="extracellular-acidification-rate-ecar" role="tabpanel" aria-labelledby="extracellular-acidification-rate-ecar-tab">
 
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">ecar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"ECAR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">ecar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"ECAR"</span>, assay <span class="op">=</span> <span class="st">"GLYCO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/ecar-1.png" width="700"></p>
 </div>
 </div>
@@ -465,31 +605,31 @@ variance.</p>
 <ul class="nav nav-tabs" id="atp-plots" role="tablist">
 <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#basal-glycolysis" id="basal-glycolysis-tab" type="button" role="tab" aria-controls="basal-glycolysis" aria-selected="true" class="active nav-link">Basal glycolysis</button></li>
 <li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#basal-respiration" id="basal-respiration-tab" type="button" role="tab" aria-controls="basal-respiration" aria-selected="false" class="nav-link">Basal respiration</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#max-glycolysis" id="max-glycolysis-tab" type="button" role="tab" aria-controls="max-glycolysis" aria-selected="false" class="nav-link">Max glycolysis</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#max-respiration" id="max-respiration-tab" type="button" role="tab" aria-controls="max-respiration" aria-selected="false" class="nav-link">Max respiration</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#maximal-glycolysis" id="maximal-glycolysis-tab" type="button" role="tab" aria-controls="maximal-glycolysis" aria-selected="false" class="nav-link">Maximal glycolysis</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#maximal-respiration" id="maximal-respiration-tab" type="button" role="tab" aria-controls="maximal-respiration" aria-selected="false" class="nav-link">Maximal respiration</button></li>
 </ul>
 <div class="tab-content">
 <div class="active  tab-pane" id="basal-glycolysis" role="tabpanel" aria-labelledby="basal-glycolysis-tab">
 
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/basal_glyc-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="basal-respiration" role="tabpanel" aria-labelledby="basal-respiration-tab">
 
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/basal_resp-1.png" width="700"></p>
 </div>
-<div class="tab-pane" id="max-glycolysis" role="tabpanel" aria-labelledby="max-glycolysis-tab">
+<div class="tab-pane" id="maximal-glycolysis" role="tabpanel" aria-labelledby="maximal-glycolysis-tab">
 
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">max_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/max_glyc-1.png" width="700"></p>
 </div>
-<div class="tab-pane" id="max-respiration" role="tabpanel" aria-labelledby="max-respiration-tab">
+<div class="tab-pane" id="maximal-respiration" role="tabpanel" aria-labelledby="maximal-respiration-tab">
 
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">max_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/max_resp-1.png" width="700"></p>
 </div>
@@ -506,15 +646,15 @@ plot and add the custom colors you’d like:</p>
 <div class="section level4">
 <h4 id="colors">Colors<a class="anchor" aria-label="anchor" href="#colors"></a>
 </h4>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
@@ -533,14 +673,14 @@ plot and add the custom colors you’d like:</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="change-axis-labels" role="tabpanel" aria-labelledby="change-axis-labels-tab">
 
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="change-label-size" role="tabpanel" aria-labelledby="change-label-size-tab">
 
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
@@ -557,9 +697,9 @@ the code used to make the plots by running the function name without
 parenthesis and modify it. Further, since every step in the ceas
 workflow provides a dataset, you can run the modified function or your
 own custom plotting functions on those datasets.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rate_plot</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">assay</span> <span class="op">=</span> <span class="st">"MITO"</span>, <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, </span>
 <span>    <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span><span class="op">)</span> </span>
 <span><span class="op">{</span></span>
@@ -592,7 +732,7 @@ own custom plotting functions on those datasets.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In RStudio, you can run <code><a href="https://rdrr.io/r/utils/edit.html" class="external-link">utils::edit</a></code> to modify a
 function.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/edit.html" class="external-link">edit</a></span><span class="op">(</span><span class="va">rate_plot</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

@@ -16,7 +16,7 @@ per cycle to X measurements)"><meta property="og:image" content="https://jamespe
     
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.3.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,7 +129,10 @@ per cycle to X measurements)</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>partition_data</code> sets up the rates data for ATP calculations by the
+    <p><strong>Note:</strong>
+When we use the term 'max' in the package documentation we mean the maximal
+experimental OCR and ECAR values rather than absolute biological maximums.</p>
+<p><code>partition_data</code> sets up the rates data for ATP calculations by the
 <code>get_energetics</code> function. To do this, it takes a list <code>assay_types</code> with
 the named values <code>basal</code>, <code>uncoupled</code>, <code>maxresp</code>, <code>nonmito</code>,
 <code>no_glucose_glyc</code>, <code>glucose_glyc</code>, and <code>max_glyc</code>. In the default setting,
