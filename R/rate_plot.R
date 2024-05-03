@@ -112,6 +112,7 @@ get_rate_summary <- function(
     error_metric = "ci",
     conf_int = 0.95) {
   Measurement <- NULL
+  assay_type <- NULL
   exp_group <- NULL
   se <- NULL
   . <- NULL

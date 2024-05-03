@@ -18,6 +18,7 @@
 #'
 #' @importFrom data.table setDT := tstrsplit rbindlist
 #' @importFrom readxl read_excel
+#' @importFrom utils capture.output
 #' @export
 #'
 #' @examples
@@ -32,6 +33,14 @@
 #' seahorse_rates.norm <- read_data(rep_list, norm = norm_csv, sheet = 2)
 #' head(seahorse_rates.norm, n = 10)
 read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
+  # suppress "no visible binding for global variable" error
+  exp_group <- NULL
+  Group <- NULL
+  ECAR <- NULL
+  OCR <- NULL
+  PER <- NULL
+  . <- NULL
+
   data_cols <- c(
     "Measurement",
     "Group",
@@ -48,8 +57,6 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
     }
 
     # setup columns for partitioning
-    Group <- NULL # suppress "no visible binding for global variable" error
-
     setDT(rep.i)[
       , c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
     ][, replicate := i][, Group := NULL]
