@@ -9,3 +9,5 @@ default.nix
 ^docs$
 ^pkgdown$
 _test*
+^cran-comments\.md$
+.git
