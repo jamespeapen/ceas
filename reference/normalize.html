@@ -104,8 +104,6 @@ output a warning showing rows with OCR, ECAR and PER values greater than 0.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   Group_3    5000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   Group_4    5000</span>
 <span class="r-in"><span><span class="va">seahorse_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, sheet <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'Background' is not 0 in the rows shown below - check that background normalization was performed by Wave</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Empty data.table (0 rows and 9 cols): Measurement,Well,Time,OCR,ECAR,PER...</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Measurement   Well     Time      OCR     ECAR      PER  exp_group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt; &lt;char&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;    &lt;num&gt;     &lt;char&gt;</span>
