@@ -197,6 +197,8 @@ this column will have to be converted to this format to work with
 ceas.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seahorse_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in read_data(rep_list): 'Background' is not 0 in the rows shown below - check that background normalization was performed by Wave</span></span>
+<span><span class="co">#&gt; Empty data.table (0 rows and 9 cols): Measurement,Well,Time,OCR,ECAR,PER...</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -332,7 +334,9 @@ will need a csv file containing experimental groups and cell counts or
 <p>Your csv file’s full path may be passed into <code><a href="../reference/read_data.html">read_data()</a></code>
 using the <code>norm</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, norm <span class="op">=</span> <span class="va">norm_csv</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/read_data.html">read_data</a></span><span class="op">(</span><span class="va">rep_list</span>, norm <span class="op">=</span> <span class="va">norm_csv</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in read_data(rep_list, norm = norm_csv): 'Background' is not 0 in the rows shown below - check that background normalization was performed by Wave</span></span>
+<span><span class="co">#&gt; Empty data.table (0 rows and 9 cols): Measurement,Well,Time,OCR,ECAR,PER...</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="14%">
