@@ -8,7 +8,7 @@ Authors@R: c(
     person("Carrie", "Graveel", email = "carrie.graveel@vai.org", role = c("fnd"), comment = c(ORCID = "0000-0001-7251-5642")),
     person("Matthew", "Steensma", email = "matthew.steensma@vai.org", role = c("fnd"), comment = c(ORCID = "0000-0002-9003-6730")),
     person("Van Andel Institute", role = c("cph")))
-Description: 'Analysis and visualization of cellular energetics data from
+Description: Analysis and visualization of cellular energetics data from
     Agilent Seahorse XF96. Cellular energetics is how cells make, use, and
     distribute units of energy (primarily ATP). Measuring real-time cellular
     energetics is essential to understanding a tissue or cell’s bioenergetic
@@ -16,7 +16,8 @@ Description: 'Analysis and visualization of cellular energetics data from
     matrix’s oxygen consumption rate (OCR) – a proxy of oxidative
     phosphorylation – and extracellular acidification rate – a proxy of
     glycolysis. This package offers flexible and fast analysis and plotting
-    capabilities for such data.'
+    capabilities for such data using the methods described by Mookerjee et al.
+    (2017) <doi:10.1074/jbc.m116.774471>.
 URL: https://jamespeapen.github.io/ceas/, https://github.com/jamespeapen/ceas/
 BugReports: https://github.com/jamespeapen/ceas/issues/
 Imports:

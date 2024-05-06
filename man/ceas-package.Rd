@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-'Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data.'
+Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data using the methods described by Mookerjee et al. (2017) \doi{10.1074/jbc.m116.774471}.
 }
 \seealso{
 Useful links:
