@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   atp_calculation: atp_calculation.html
   ceas: ceas.html
-last_built: 2024-05-03T20:20Z
+last_built: 2024-05-07T16:20Z
 urls:
   reference: https://jamespeapen.github.io/ceas/reference
   article: https://jamespeapen.github.io/ceas/articles
