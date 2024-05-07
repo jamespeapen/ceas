@@ -11,6 +11,7 @@ authors:
     html: >-
       <img src='man/figures/vai_logo.png' alt='VAI' width='80' style="margin-bottom: 3px;" />
   sidebar:
+    structure: [links, license, community, citation, authors, dev]
     roles: [aut, fnd, cph]
   footer:
     roles: [cre, aut]
