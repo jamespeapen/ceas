@@ -1,4 +1,6 @@
-# ceas (development version)
+# ceas 1.0.0
+
+ - First CRAN release.
 
 # ceas 0.3.3
 
