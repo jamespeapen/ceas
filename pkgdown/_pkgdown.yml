@@ -2,9 +2,6 @@ url: https://jamespeapen.github.io/ceas
 template:
   bootstrap: 5
 
-development:
-  mode: auto
-
 authors:
   Van Andel Institute:
     href: https://vai.org
