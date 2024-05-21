@@ -4,11 +4,9 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10067116.svg)](https://doi.org/10.5281/zenodo.10067116)
 
-[![CRAN](https://www.r-pkg.org/badges/version/ceas)](https://cran.r-project.org/package=ceas)
-[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/ceas)](https://cran.r-project.org/package=ceas)
-
 <!-- badges: start -->
-[![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/web//packages//ceas/index.html)
+[![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/web/packages/ceas/index.html)
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/ceas)](https://cran.r-project.org/package=ceas)
 [![R-CMD-check](https://github.com/jamespeapen/ceas/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jamespeapen/ceas/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
