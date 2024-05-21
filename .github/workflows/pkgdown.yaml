@@ -9,6 +9,9 @@ on:
 
 name: pkgdown
 
+env:
+  PKGDOWN_DEV_MODE: ${{ github.ref == 'refs/heads/dev' && 'devel' || 'default' }}
+
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
@@ -32,6 +35,9 @@ jobs:
         with:
           extra-packages: any::pkgdown, local::.
           needs: website
+
+      - name: Check dev mode
+        run: echo "$GITHUB_ENV"
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
