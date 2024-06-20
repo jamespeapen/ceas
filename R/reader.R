@@ -5,7 +5,7 @@
 #' @param rep_list A list of Seahorse Wave excel export files. One file per
 #' replicate. If your data is in a directory called "seahorse_data", use
 #' `list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)` to make
-#' a list of the excel files.
+#' a list of the excel files. Add multiple replicates with care - see details.
 #' @param norm A csv file with the experimental groups and their normalization
 #' values. Leave unset if normalization is not required. See [normalize()].
 #' @param sheet The number of the excel sheet containing the long-form Seahorse
@@ -15,6 +15,19 @@
 #' the Group column of the wave output. e.g. "Group1 MITO" would use a space
 #' character as delimiter.
 #' @return a seahorse_rates table
+#'
+#' @details
+#' Although ceas enables integration of multiple biological and/or technical
+#' replicates, previous work has reported high inter-plate variation (Yepez et.
+#' al 2018). If you don't want your replicate data combined, make sure that the
+#' names of the common groups between the replicates are different.
+#'
+#' @references
+#' Yépez \emph{et al.} 2018
+#' \emph{OCR-Stats: Robust estimation and statistical testing of mitochondrial
+#' respiration activities using Seahorse XF Analyzer}
+#' \emph{PLOS ONE} 2018;\strong{13}:e0199938.
+#' \doi{10.1371/journal.pone.0199938}
 #'
 #' @importFrom data.table setDT := tstrsplit rbindlist
 #' @importFrom readxl read_excel

@@ -10,7 +10,7 @@ read_data(rep_list, norm = NULL, sheet = 2, delimiter = " ")
 \item{rep_list}{A list of Seahorse Wave excel export files. One file per
 replicate. If your data is in a directory called "seahorse_data", use
 \code{list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)} to make
-a list of the excel files.}
+a list of the excel files. Add multiple replicates with care - see details.}
 
 \item{norm}{A csv file with the experimental groups and their normalization
 values. Leave unset if normalization is not required. See \code{\link[=normalize]{normalize()}}.}
@@ -30,6 +30,12 @@ a seahorse_rates table
 Reads input seahore data from an excel Seahorse Wave File. It  assumes your
 data is background normalized.
 }
+\details{
+Although ceas enables integration of multiple biological and/or technical
+replicates, previous work has reported high inter-plate variation (Yepez et.
+al 2018). If you don't want your replicate data combined, make sure that the
+names of the common groups between the replicates are different.
+}
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
@@ -41,4 +47,11 @@ norm_csv <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "norm.csv", full.names = TRUE)
 seahorse_rates.norm <- read_data(rep_list, norm = norm_csv, sheet = 2)
 head(seahorse_rates.norm, n = 10)
+}
+\references{
+Yépez \emph{et al.} 2018
+\emph{OCR-Stats: Robust estimation and statistical testing of mitochondrial
+respiration activities using Seahorse XF Analyzer}
+\emph{PLOS ONE} 2018;\strong{13}:e0199938.
+\doi{10.1371/journal.pone.0199938}
 }
