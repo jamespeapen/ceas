@@ -72,7 +72,7 @@ data is background normalized.</p>
 <dd><p>A list of Seahorse Wave excel export files. One file per
 replicate. If your data is in a directory called "seahorse_data", use
 <code>list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)</code> to make
-a list of the excel files.</p></dd>
+a list of the excel files. Add multiple replicates with care - see details.</p></dd>
 
 
 <dt>norm</dt>
@@ -97,6 +97,21 @@ character as delimiter.</p></dd>
     
 
 <p>a seahorse_rates table</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Although ceas enables integration of multiple biological and/or technical
+replicates, previous work has reported high inter-plate variation (Yepez et.
+al 2018). If you don't want your replicate data combined, make sure that the
+names of the common groups between the replicates are different.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Yépez <em>et al.</em> 2018
+<em>OCR-Stats: Robust estimation and statistical testing of mitochondrial
+respiration activities using Seahorse XF Analyzer</em>
+<em>PLOS ONE</em> 2018;<strong>13</strong>:e0199938.
+<a href="https://doi.org/10.1371/journal.pone.0199938" class="external-link">doi:10.1371/journal.pone.0199938</a></p>
     </div>
 
     <div class="section level2">
