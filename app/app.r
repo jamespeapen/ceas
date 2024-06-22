@@ -1,18 +1,20 @@
 library(shiny)
 library(ceas)
 library(readxl)
+library(ggplot2)
 
 rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
 
 ui <- fluidPage(
+  tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.ico")),
   titlePanel(
-  h1("CEAS"),
+    "High CEAS",
   ),
   sidebarLayout(
     sidebarPanel(
       fileInput("file", "Choose Seahorse wave file", accept = ".xlsx"),
-      selectInput("dataset", label = "Upload data", choices = rep_list),
+      selectInput("dataset", label = "Example data", choices = rep_list),
       numericInput("ph", "pH", 7.4, min = 1, max = 14),
       numericInput("pka", "pka", 6.093),
       numericInput("buffer", "buffer", 0.1),
@@ -29,38 +31,43 @@ ui <- fluidPage(
       ),
     ),
     mainPanel(
-      h3("bioscope"),
-      plotOutput("bioscope"),
-      h3("ECAR"),
-      plotOutput("ecar_plot"),
-      h3("OCR"),
-      plotOutput("ocr_plot"),
-      verbatimTextOutput("summary"),
+      plotOutput("plot", width = "60%"),
+      downloadButton("plot_download"),
       dataTableOutput("table")
     ),
   ),
 )
+
 server <- function(input, output, session) {
   dataset <- reactive({
-    read_data(input$dataset)
+    if (is.null(input$file)) {
+      read_data(input$dataset)
+    } else {
+      read_data(input$file$datapath)
+    }
   })
   energetics <- reactive({
     get_energetics(partition_data(dataset()), input$ph, input$pka, input$buffer)
   })
-  output$summary <- renderDataTable({
+  output$table <- renderDataTable({
     get_energetics_summary(energetics())
   })
-  output$table <- renderDataTable({
-    dataset()
+  plotter <- reactive({
+    if (input$plot == "Bioenergetic Scope") {
+      bioscope_plot(energetics())
+    } else if (input$plot %in% c("OCR", "ECAR")) {
+      rate_plot(dataset(), measure = input$plot, assay = ifelse(input$plot == "OCR", "MITO", "GLYCO"))
+    } else {
+      a <- sapply(strsplit(input$plot, " "), tolower)
+      atp_plot(energetics(), basal_vs_max = a[1], glyc_vs_resp = substr(a[2], 1, 4))
+    }
   })
-  output$ecar_plot <- renderPlot({
-    rate_plot(dataset(), measure = "ECAR")
+  output$plot <- renderPlot({
+    plotter() + theme(text = element_text(size = 15))
   })
-  output$ocr_plot <- renderPlot({
-    rate_plot(dataset(), measure = "OCR")
-  })
-  output$bioscope <- renderPlot({
-    bioscope_plot(energetics())
-  })
+  output$plot_download <- downloadHandler(
+    filename = function() {paste0("plot.png")},
+    content = function(file) ggsave(file, plot = plotter(), device = "png", dpi = 300)
+  )
 }
 shinyApp(ui, server)
