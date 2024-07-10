@@ -13,9 +13,13 @@
 #' @param basal_shape Shape of the points for basal values
 #' @param max_shape Shape of the points for max values
 #' @param group_label Label for the experimental group to populate the legend title
+#' @param sep_reps Whether to calculate summary statistics on the groups with
+#' replicates combined. The current default `FALSE` combines replicates, but
+#' future releases will default to `TRUE` providing replicate-specific
+#' summaries.
 #' @return a ggplot
 #'
-#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw scale_shape_manual
+#' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim theme_bw scale_shape_manual facet_grid label_both
 #' @export
 #'
 #' @examples
@@ -29,17 +33,23 @@
 #'   pka = 6.093,
 #'   buffer = 0.1
 #' )
-#' bioscope_plot(energetics)
+#' bioscope_plot(energetics, sep_reps = FALSE)
 #'
 #' # to change fill, the geom_point shape should be between 15 and 20.
 #' # These shapes are filled without border and will correctly show on the legend.
-#' bioscope_plot(energetics, size = 3, basal_shape = 2, max_shape = 17) + # empty and filled triangle
+#' bioscope_plot(
+#'   energetics,
+#'   sep_reps = TRUE,
+#'   size = 3,
+#'   basal_shape = 2,
+#'   max_shape = 17 # empty and filled triangle
+#' ) +
 #'   ggplot2::scale_fill_manual(
 #'     values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 #'   )
 #'
 #' # to change color, use ggplot2::scale_color_manual
-#' bioscope_plot(energetics) +
+#' bioscope_plot(energetics, sep_reps = FALSE) +
 #'   ggplot2::scale_color_manual(
 #'     values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 #'   )
@@ -50,7 +60,8 @@ bioscope_plot <- function(
     size = 2,
     basal_shape = 1,
     max_shape = 19,
-    group_label = "Experimental Group") {
+    group_label = "Experimental Group",
+    sep_reps = FALSE) {
   # sanity checks
 
   data_cols <- c(
@@ -87,10 +98,15 @@ bioscope_plot <- function(
 
   exp_group <- NULL
 
+  # TODO: make sep_reps = TRUE the default
+  multi_rep <- length(unique(energetics$replicate)) > 1
+  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+
   energetics_summary <- get_energetics_summary(
     energetics,
     error_metric = error_bar,
-    conf_int = conf_int
+    conf_int = conf_int,
+    sep_reps = sep_reps
   )
 
   # Identify numeric columns
@@ -100,7 +116,7 @@ bioscope_plot <- function(
 
   max_axis <- max(energetics_summary$ATP_max_glyc.higher_bound, energetics_summary$ATP_max_resp.higher_bound)
 
-  ggplot(energetics_summary, aes(
+  p <- ggplot(energetics_summary, aes(
     ATP_max_glyc.mean,
     ATP_max_resp.mean,
     color = exp_group,
@@ -114,7 +130,7 @@ bioscope_plot <- function(
     ) +
     xlab("ATP Production from Glycolysis (JATP)") +
     ylab("ATP Production from OXPHOS (JATP)") +
-    labs(color = group_label, fill = group_label) +
+    labs(color = group_label, fill = group_label, linetype = "Replicate") +
     xlim(0, max_axis) +
     ylim(0, max_axis) +
     geom_linerange(aes(
@@ -139,4 +155,10 @@ bioscope_plot <- function(
     ), data = energetics_summary) +
     scale_shape_manual(name = "Value", values = c("Basal" = basal_shape, "Max" = max_shape)) +
     theme_bw()
+
+  if (sep_reps && multi_rep) {
+    p + facet_grid(~replicate, labeller = label_both)
+  } else {
+    p
+  }
 }
