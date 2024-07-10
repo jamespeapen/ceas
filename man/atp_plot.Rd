@@ -9,10 +9,11 @@ atp_plot(
   error_bar = "ci",
   conf_int = 0.95,
   size = 2,
-  shape = 21,
+  shape = 16,
   basal_vs_max = "basal",
   glyc_vs_resp = "glyc",
-  group_label = "Experimental group"
+  group_label = "Experimental group",
+  sep_reps = FALSE
 )
 }
 \arguments{
@@ -33,6 +34,11 @@ or confidence intervals (\code{"ci"})}
 \item{glyc_vs_resp}{Whether to plot glycolysis (\code{"glyc"})  or respiration (\code{"resp"})}
 
 \item{group_label}{Label for the experimental group to populate the legend title}
+
+\item{sep_reps}{Whether to calculate summary statistics on the groups with
+replicates combined. The current default \code{FALSE} combines replicates, but
+future releases will default to \code{TRUE} providing replicate-specific
+summaries.}
 }
 \value{
 a ggplot
@@ -51,17 +57,28 @@ rep_list <- system.file("extdata", package = "ceas") |>
 seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-atp_plot(energetics)
+atp_plot(energetics, sep_reps = FALSE)
 
-atp_plot(energetics, basal_vs_max = "max")
+atp_plot(energetics, basal_vs_max = "max", sep_reps = FALSE)
 
-atp_plot(energetics, basal_vs_max = "basal", glyc_vs_resp = "resp")
-
+atp_plot(
+  energetics,
+  basal_vs_max = "basal",
+  glyc_vs_resp = "resp",
+  sep_reps = TRUE
+)
 # to change fill, the geom_point shape number should be between 15 and 25
-atp_plot(energetics, shape = 21) + # filled circle
-  ggplot2::scale_fill_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
+atp_plot(
+  energetics,
+  sep_reps = FALSE
+) +
+  ggplot2::scale_fill_manual(
+    values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+  )
 
 # to change color, use ggplot2::scale_color_manual
-atp_plot(energetics) +
-  ggplot2::scale_color_manual(values = c("#e36500", "#b52356", "#3cb62d", "#328fe1"))
+atp_plot(energetics, sep_reps = FALSE) +
+  ggplot2::scale_color_manual(
+    values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
+  )
 }
