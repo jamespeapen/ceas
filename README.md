@@ -5,7 +5,7 @@
 [![DOI](https://img.shields.io/badge/DOI-10.1093%2Fbioinformatics%2Fbtae503-blue)](https://doi.org/10.1093/bioinformatics/btae503)
 
 <!-- badges: start -->
-[![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/web/packages/ceas/index.html)
+[![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/package=ceas)
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/ceas)](https://cran.r-project.org/package=ceas)
 [![R-CMD-check](https://github.com/jamespeapen/ceas/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jamespeapen/ceas/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
