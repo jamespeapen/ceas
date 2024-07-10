@@ -33,8 +33,17 @@ data is background normalized.
 \details{
 Although ceas enables integration of multiple biological and/or technical
 replicates, previous work has reported high inter-plate variation (Yepez et.
-al 2018). If you don't want your replicate data combined, make sure that the
-names of the common groups between the replicates are different.
+al 2018). If you don't want your replicate data combined, you can either:
+\itemize{
+\item make sure that the names of the common groups between the replicates are
+different.
+\item in downstream analyses (\code{get_energetics_summary}, \code{bioscope_plot},
+\code{rate_plot}, \code{atp_plot}), use \code{sep_reps = TRUE} to do all calculations and
+plotting separately for each replicate.
+}
+
+\strong{NOTE:} to maintain backwards compatibility \code{sep_reps} is currently
+\code{FALSE} by default, but will be set to \code{TRUE} in a future release.
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>

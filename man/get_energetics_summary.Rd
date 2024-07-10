@@ -4,7 +4,12 @@
 \alias{get_energetics_summary}
 \title{Calculate ATP Production Mean and Standard Deviation}
 \usage{
-get_energetics_summary(energetics, error_metric = "ci", conf_int = 0.95)
+get_energetics_summary(
+  energetics,
+  error_metric = "ci",
+  conf_int = 0.95,
+  sep_reps = FALSE
+)
 }
 \arguments{
 \item{energetics}{a data.table of Seahorse OCR and ECAR rates (from \code{get_energetics})}
@@ -12,6 +17,11 @@ get_energetics_summary(energetics, error_metric = "ci", conf_int = 0.95)
 \item{error_metric}{Whether to calculate error as standard deviation (\code{"sd"}) or confidence intervals (\code{"ci"})}
 
 \item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
+
+\item{sep_reps}{Whether to calculate summary statistics on the groups with
+replicates combined. The current default \code{FALSE} combines replicates, but
+future releases will default to \code{TRUE} providing replicate-specific
+summaries.}
 }
 \value{
 a list of groups from the data
@@ -27,7 +37,7 @@ rep_list <- system.file("extdata", package = "ceas") |>
 seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
 energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-energetics_summary <- get_energetics_summary(energetics_list)
+energetics_summary <- get_energetics_summary(energetics_list, sep_reps = FALSE)
 head(energetics_summary[, c(1:5)], n = 10)
 head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
 }

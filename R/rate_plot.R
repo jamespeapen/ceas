@@ -88,6 +88,10 @@ rate_plot <- function(
 #' @param assay What assay to calculate summary for (e.g. "MITO" or "GLYCO")
 #' @param error_metric Whether to calculate error as standard deviations (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
+#' @param sep_reps Whether to calculate summary statistics on the groups with
+#' replicates combined. The current default `FALSE` combines replicates, but
+#' future releases will default to `TRUE` providing replicate-specific
+#' summaries.
 #' @return a data.table with means, standard deviations/standard error with bounds around the mean(sd or confidence intervals)
 #'
 #' @importFrom stats qnorm
@@ -102,7 +106,8 @@ rate_plot <- function(
 #'   measure = "OCR",
 #'   assay = "MCIO",
 #'   error_metric = "ci",
-#'   conf_int = 0.95
+#'   conf_int = 0.95,
+#'   sep_reps = FALSE
 #' )
 #' head(rates, n = 10)
 get_rate_summary <- function(
@@ -110,18 +115,26 @@ get_rate_summary <- function(
     measure = "OCR",
     assay,
     error_metric = "ci",
-    conf_int = 0.95) {
+    conf_int = 0.95,
+    sep_reps = FALSE) {
   Measurement <- NULL
   assay_type <- NULL
   exp_group <- NULL
   se <- NULL
   . <- NULL
 
+  # TODO: make sep_reps = TRUE the default
+  multi_rep <- length(unique(seahorse_rates$replicate)) > 1
+  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+
+  summary_cols <- c("exp_group", "Measurement", "replicate")
+  summary_cols <- if (sep_reps) summary_cols else summary_cols[-3]
+
   plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][, .(
     mean = mean(get(measure)),
     sd = sd(get(measure)),
     se = sd(get(measure)) / sqrt(length(get(measure)))
-  ), by = list(exp_group, Measurement)]
+  ), by = summary_cols]
 
   z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
 

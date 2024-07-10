@@ -1,3 +1,17 @@
+# ceas 1.1.0
+
+- Separating replicates is now supported for getting `get_energetics_summary()`,
+  `bioscope_plot()`, `atp_plot()` and `rate_plot()` with `sep_reps = TRUE`. This will
+  calculate summary statistics for each replicate within a group instead of
+  combining them. `atp_plot()` now uses a linerange plot instead of a crossbar
+  plot and color to distinguish between replicates instead of experimental
+  groups. There is no color if there are no replicates or if they are combined.
+
+  **Note:** the current default is to combine replicates (`sep_reps = FALSE`) to
+  maintain backwards compatibility, but future releases will separate them by
+  default. If `sep_reps` is not explicitly set to `FALSE`, the functions will
+  warn the user about this future change in defaults.
+
 # ceas 1.0.3
 
 - Preserve the replicate column when returning energetics from `get_energetics()`

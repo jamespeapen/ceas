@@ -9,7 +9,8 @@ get_rate_summary(
   measure = "OCR",
   assay,
   error_metric = "ci",
-  conf_int = 0.95
+  conf_int = 0.95,
+  sep_reps = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,11 @@ get_rate_summary(
 \item{error_metric}{Whether to calculate error as standard deviations (\code{"sd"}) or confidence intervals (\code{"ci"})}
 
 \item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
+
+\item{sep_reps}{Whether to calculate summary statistics on the groups with
+replicates combined. The current default \code{FALSE} combines replicates, but
+future releases will default to \code{TRUE} providing replicate-specific
+summaries.}
 }
 \value{
 a data.table with means, standard deviations/standard error with bounds around the mean(sd or confidence intervals)
@@ -38,7 +44,8 @@ rates <- get_rate_summary(
   measure = "OCR",
   assay = "MCIO",
   error_metric = "ci",
-  conf_int = 0.95
+  conf_int = 0.95,
+  sep_reps = FALSE
 )
 head(rates, n = 10)
 }
