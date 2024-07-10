@@ -42,7 +42,7 @@ seahorse_rates <- read_data(rep_list, sheet = 2)
 rates <- get_rate_summary(
   seahorse_rates,
   measure = "OCR",
-  assay = "MCIO",
+  assay = "MITO",
   error_metric = "ci",
   conf_int = 0.95,
   sep_reps = FALSE
