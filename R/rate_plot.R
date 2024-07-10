@@ -7,6 +7,10 @@
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param group_label Label for the experimental group to populate the legend title
+#' @param sep_reps Whether to calculate summary statistics on the groups with
+#' replicates combined. The current default `FALSE` combines replicates, but
+#' future releases will default to `TRUE` providing replicate-specific
+#' summaries.
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs theme_bw
@@ -16,14 +20,16 @@
 #' rep_list <- system.file("extdata", package = "ceas") |>
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
-#' rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95)
+#' rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95, sep_reps = FALSE)
+#' rate_plot(seahorse_rates, measure = "OCR", error_bar = "ci", conf_int = 0.95, sep_reps = TRUE)
 rate_plot <- function(
     seahorse_rates,
     measure = "OCR",
     assay = "MITO",
     error_bar = "ci",
     conf_int = 0.95,
-    group_label = "Experimental group") {
+    group_label = "Experimental group",
+    sep_reps = FALSE) {
   # sanity checks
 
   stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
@@ -50,21 +56,24 @@ rate_plot <- function(
   lower_bound <- NULL
   upper_bound <- NULL
 
-  plot_data <- get_rate_summary(seahorse_rates, measure, assay, error_bar, conf_int)
+  # TODO: make sep_reps = TRUE the default
+  multi_rep <- length(unique(seahorse_rates$replicate)) > 1
+  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+
+  plot_data <- get_rate_summary(seahorse_rates, measure, assay, error_bar, conf_int, sep_reps)
 
   y_labels <- list(
     "OCR" = paste0(assay, " OCR (pmol/min)"),
     "ECAR" = paste0(assay, " ECAR (mpH/min)")
   )
   # plot function
-  ggplot(plot_data, aes(
+  p <- ggplot(plot_data, aes(
     x = Measurement,
     y = mean,
     color = exp_group,
-    group = exp_group,
+    group = if (sep_reps && multi_rep) interaction(exp_group, replicate) else exp_group,
     fill = exp_group
   )) +
-    geom_line(linewidth = 2) +
     geom_ribbon(
       aes(
         ymin = lower_bound,
@@ -76,8 +85,14 @@ rate_plot <- function(
     scale_x_continuous(breaks = seq(1, 12, by = 1)) +
     xlab("Measurement") +
     ylab(y_labels[measure]) +
-    labs(color = group_label, fill = group_label) +
+    labs(color = group_label, fill = group_label, linetype = "Replicate") +
     theme_bw()
+
+  if (sep_reps && multi_rep) {
+    p + geom_line(aes(linetype = replicate), linewidth = 2)
+  } else {
+    p + geom_line(linewidth = 2)
+  }
 }
 
 #' Rates summary
@@ -104,7 +119,7 @@ rate_plot <- function(
 #' rates <- get_rate_summary(
 #'   seahorse_rates,
 #'   measure = "OCR",
-#'   assay = "MCIO",
+#'   assay = "MITO",
 #'   error_metric = "ci",
 #'   conf_int = 0.95,
 #'   sep_reps = FALSE
