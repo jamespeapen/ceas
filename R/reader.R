@@ -19,8 +19,15 @@
 #' @details
 #' Although ceas enables integration of multiple biological and/or technical
 #' replicates, previous work has reported high inter-plate variation (Yepez et.
-#' al 2018). If you don't want your replicate data combined, make sure that the
-#' names of the common groups between the replicates are different.
+#' al 2018). If you don't want your replicate data combined, you can either:
+#'  - make sure that the names of the common groups between the replicates are
+#'  different.
+#'  - in downstream analyses (`get_energetics_summary`, `bioscope_plot`,
+#'  `rate_plot`, `atp_plot`), use `sep_reps = TRUE` to do all calculations and
+#'  plotting separately for each replicate.
+#'
+#' \strong{NOTE:} to maintain backwards compatibility `sep_reps` is currently
+#' `FALSE` by default, but will be set to `TRUE` in a future release.
 #'
 #' @references
 #' Yépez \emph{et al.} 2018

@@ -294,6 +294,10 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
 #' @param error_metric Whether to calculate error as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
+#' @param sep_reps Whether to calculate summary statistics on the groups with
+#' replicates combined. The current default `FALSE` combines replicates, but
+#' future releases will default to `TRUE` providing replicate-specific
+#' summaries.
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table .SD
@@ -306,23 +310,30 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
 #' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
-#' energetics_summary <- get_energetics_summary(energetics_list)
+#' energetics_summary <- get_energetics_summary(energetics_list, sep_reps = FALSE)
 #' head(energetics_summary[, c(1:5)], n = 10)
 #' head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
 get_energetics_summary <- function(
     energetics,
     error_metric = "ci",
-    conf_int = 0.95) {
+    conf_int = 0.95,
+    sep_reps = FALSE) {
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
-  exp_group <- NULL
   se <- NULL
 
+  # TODO: make sep_reps = TRUE the default
+  multi_rep <- length(unique(energetics$replicate)) > 1
+  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+
+  summary_cols <- c("exp_group", "replicate")
+  summary_cols <- if (sep_reps) summary_cols else summary_cols[1]
+
   z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
-  sdcols <- colnames(energetics)[-1]
+  sdcols <- colnames(energetics)[-1:-2]
   merge(
-    energetics[, .(count = .N), by = exp_group],
+    energetics[, .(count = .N), by = summary_cols],
     energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
       lapply(
         .SD,
@@ -344,7 +355,7 @@ get_energetics_summary <- function(
           )
         }
       )
-    )), .SDcols = sdcols, by = exp_group]
+    )), .SDcols = sdcols, by = summary_cols]
   )
 }
 
