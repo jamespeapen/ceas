@@ -72,7 +72,7 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
     # setup columns for partitioning
     setDT(rep.i)[
       , c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
-    ][, replicate := i][, Group := NULL]
+    ][, replicate := as.factor(i)][, Group := NULL]
   })
   rates_dt <- rbindlist(reps)
 
