@@ -253,15 +253,24 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   ATP_max_glyc <- (ppr_max_glyc * 1) + (max_glyc_resp * 2 * P_OGLYC_RATIO_GLUCOSE)
   ATP_max_resp <- (coupled_mito_resp * 2 * P_OOXPHOS_RATIO_GLYCOGEN) + (max_mito_resp * 2 * P_OTCA_RATIO_GLYCOGEN)
 
+  # these two replicate id sets should always match, but any mismatch needs to be reported
+  rep_mito <- factor(partitioned_data$basal$replicate)
+  rep_glyco <- factor(partitioned_data$glucose_glyc$replicate)
+  rep_matching_error <- paste(
+    "'mito' and 'glyco' replicate ids don't match.",
+    "Please submit a bug report at https://github.com/jamespeapen/iscream/issues"
+  )
+  stopifnot(rep_matching_error = all.equal(rep_mito, rep_glyco))
+
   exp_group_mito <- factor(partitioned_data$basal$exp_group)
+  exp_group_glyco <- factor(partitioned_data$glucose_glyc$exp_group)
 
   MITO_df <- data.table(
     exp_group = exp_group_mito,
+    replicate = rep_mito,
     ATP_basal_resp,
     ATP_max_resp
   )
-
-  exp_group_glyco <- factor(partitioned_data$glucose_glyc$exp_group)
 
   GLYCO_df <- data.table(
     exp_group = exp_group_glyco,
