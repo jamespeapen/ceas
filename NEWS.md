@@ -1,3 +1,7 @@
+# ceas 1.0.2
+
+- `read_data()` returns the `replicate` column as a factor instead of numeric
+
 # ceas 1.0.1
 
 - Replace `geom_line`'s deprecated `size` option with `linewidth` in `rate_plot`
