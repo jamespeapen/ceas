@@ -64,7 +64,7 @@ rate_plot <- function(
     group = exp_group,
     fill = exp_group
   )) +
-    geom_line(size = 2) +
+    geom_line(linewidth = 2) +
     geom_ribbon(
       aes(
         ymin = lower_bound,
