@@ -1,3 +1,7 @@
+# ceas 1.0.1
+
+- Replace `geom_line`'s deprecated `size` option with `linewidth` in `rate_plot`
+
 # ceas 1.0.0
 
  - First CRAN release.
