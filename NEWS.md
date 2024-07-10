@@ -1,3 +1,7 @@
+# ceas 1.0.3
+
+- Preserve the replicate column when returning energetics from `get_energetics()`
+
 # ceas 1.0.2
 
 - `read_data()` returns the `replicate` column as a factor instead of numeric
