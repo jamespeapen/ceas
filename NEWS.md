@@ -1,3 +1,9 @@
+# ceas 1.1.2
+
+- `get_energetics()` now warns about possible mismatches between the replicates
+  in the MITO and GLYCO groups instead of stopping as datasets with different
+  replicate counts can cause a mismatch that may not be erroneous.
+
 # ceas 1.1.1
 
 - `rate_plot()` now has a `linewidth` parameter to set the width of its
