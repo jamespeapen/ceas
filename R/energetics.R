@@ -256,11 +256,14 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
   # these two replicate id sets should always match, but any mismatch needs to be reported
   rep_mito <- factor(partitioned_data$basal$replicate)
   rep_glyco <- factor(partitioned_data$glucose_glyc$replicate)
-  rep_matching_error <- paste(
+  replicate_id_mismatch <- paste(
     "'mito' and 'glyco' replicate ids don't match.",
-    "Please submit a bug report at https://github.com/jamespeapen/iscream/issues"
+    "This can happen if there are unequal replicate counts within groups and may be okay.",
+    "Please submit a bug report at https://github.com/jamespeapen/ceas/issues/ if you believe the calculations are not correct."
   )
-  stopifnot(rep_matching_error = all.equal(rep_mito, rep_glyco))
+  if (length(rep_mito) != length(rep_glyco) || !all.equal(rep_mito, rep_glyco)) {
+    warning(replicate_id_mismatch)
+  }
 
   exp_group_mito <- factor(partitioned_data$basal$exp_group)
   exp_group_glyco <- factor(partitioned_data$glucose_glyc$exp_group)
