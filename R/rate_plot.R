@@ -103,12 +103,16 @@ rate_plot <- function(
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
 #' @param measure Whether to calculate summary for `"OCR"` or `"ECAR"`
 #' @param assay What assay to calculate summary for (e.g. "MITO" or "GLYCO")
+#' @param model The model used to estimate mean and confidence intervals:
 #' @param error_metric Whether to calculate error as standard deviations (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param sep_reps Whether to calculate summary statistics on the groups with
 #' replicates combined. The current default `FALSE` combines replicates, but
 #' future releases will default to `TRUE` providing replicate-specific
 #' summaries.
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
 #' @return a data.table with means, standard deviations/standard error with bounds around the mean(sd or confidence intervals)
 #'
 #' @importFrom stats qnorm
@@ -118,27 +122,57 @@ rate_plot <- function(
 #' rep_list <- system.file("extdata", package = "ceas") |>
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
-#' rates <- get_rate_summary(
+#' combined_reps <- get_rate_summary(
 #'   seahorse_rates,
 #'   measure = "OCR",
 #'   assay = "MITO",
+#'   model = "ols",
 #'   error_metric = "ci",
 #'   conf_int = 0.95,
 #'   sep_reps = FALSE
 #' )
-#' head(rates, n = 10)
+#' head(combined_reps, n = 10)
+#'
+#' # separate replicates
+#' sep_reps <- get_rate_summary(
+#'   seahorse_rates,
+#'   measure = "OCR",
+#'   assay = "MITO",
+#'   model = "ols",
+#'   error_metric = "ci",
+#'   conf_int = 0.95,
+#'   sep_reps = TRUE
+#' )
+#' head(sep_reps, n = 10)
+#'
+#' # mixed effects model
+#' reps_as_random_effects <- get_rate_summary(
+#'   seahorse_rates,
+#'   measure = "OCR",
+#'   assay = "MITO",
+#'   model = "mixed",
+#'   error_metric = "ci",
+#'   conf_int = 0.95,
+#'   sep_reps = FALSE
+#' )
+#' head(reps_as_random_effects, n = 10)
 get_rate_summary <- function(
     seahorse_rates,
     measure = "OCR",
     assay,
+    model = "ols",
     error_metric = "ci",
     conf_int = 0.95,
-    sep_reps = FALSE) {
-  Measurement <- NULL
+    sep_reps = FALSE,
+    ci_method = "Wald") {
   assay_type <- NULL
   exp_group <- NULL
   se <- NULL
   . <- NULL
+
+  stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
+  stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
+  stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(seahorse_rates$replicate)) > 1
@@ -147,23 +181,102 @@ get_rate_summary <- function(
   summary_cols <- c("exp_group", "Measurement", "replicate")
   summary_cols <- if (sep_reps) summary_cols else summary_cols[-3]
 
-  plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][, .(
-    mean = mean(get(measure)),
-    sd = sd(get(measure)),
-    se = sd(get(measure)) / sqrt(length(get(measure)))
-  ), by = summary_cols]
+  if (model == "ols") {
+    plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][, .(
+      mean = mean(get(measure)),
+      sd = sd(get(measure)),
+      se = sd(get(measure)) / sqrt(length(get(measure)))
+    ), by = summary_cols]
 
-  z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
+    z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
 
-  if (error_metric == "sd") {
-    plot_data[, `:=`(
-      lower_bound = mean - sd,
-      upper_bound = mean + sd
-    )][]
+    if (error_metric == "sd") {
+      plot_data[, `:=`(
+        lower_bound = mean - sd,
+        upper_bound = mean + sd
+      )][]
+    } else {
+      plot_data[, `:=`(
+        lower_bound = mean - (z_value * se),
+        upper_bound = mean + (z_value * se)
+      )][]
+    }
   } else {
-    plot_data[, `:=`(
-      lower_bound = mean - (z_value * se),
-      upper_bound = mean + (z_value * se)
-    )][]
+    rates_lme_summary(
+      measure = measure,
+      assay = assay,
+      rates = seahorse_rates,
+      conf_int = conf_int,
+      ci_method = ci_method
+    )
   }
+}
+
+#' Estimate mean and confidence intervals for ATP measures using a mixed-effects model
+#'
+#' Estimates mean and standard deviation of ATP production from glycolysis and
+#' OXPHOS at points defined in `partition_data` and with values calculated
+#' using the `get_energetics` function
+#' @param measure Whether to plot `"OCR"` or `"ECAR"`
+#' @param assay What assay to plot (e.g. "MITO" or "GLYCO")
+#' @param rates a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
+#' @param conf_int The confidence interval percentage. Should be between 0 and 1
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
+#' @return a list of groups from the data
+#'
+#' @importFrom stats model.frame confint as.formula
+#' @importFrom utils tail
+#' @importFrom lme4 lmer fixef
+#' @importFrom data.table data.table rbindlist :=
+#' @export
+#'
+#' @examples
+#' rep_list <- system.file("extdata", package = "ceas") |>
+#'   list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
+#' rates_lme_summary(
+#'   measure = "OCR",
+#'   assay = "MITO",
+#'   rates = seahorse_rates,
+#'   conf_int = 0.95,
+#'   ci_method = "Wald"
+#' )
+rates_lme_summary <- function(measure, assay, rates, conf_int, ci_method) {
+  . <- NULL
+  exp_group <- NULL
+  upper_bound <- NULL
+  lower_bound <- NULL
+  Measurement <- NULL
+  assay_type <- NULL
+
+  rbindlist(lapply(unique(rates$Measurement), function(i) {
+    rates <- rates[exp_group != "Background" & assay_type == assay & Measurement == i]
+    model <- fit_lme(data_col = measure, input = rates)
+    coefs <- unname(fixef(model))
+    intercept <- coefs[1]
+
+    groups <- levels(model.frame(model)$exp_group)
+    means <- coefs |> data.table()
+    colnames(means) <- c("mean")
+    means[, `:=`(exp_group = groups, Measurement = i)]
+
+    ci <- data.table(tail(
+      confint(model, level = conf_int, method = ci_method),
+      length(groups)
+    ))
+    colnames(ci) <- c("lower_bound", "upper_bound")
+    ci[, exp_group := groups]
+    summary <- means[ci, on = .(exp_group), .(exp_group, Measurement, mean, lower_bound, upper_bound)]
+    summary[
+      2:nrow(summary),
+      `:=`(
+        mean = mean + intercept,
+        lower_bound = lower_bound + intercept,
+        upper_bound = upper_bound + intercept
+      )
+    ]
+    summary
+  }))
 }
