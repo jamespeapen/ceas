@@ -342,6 +342,10 @@ get_energetics_summary <- function(
   .N <- NULL
 
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
+  stopifnot(
+    "cannot run mixed-effects model with `sep_reps = TRUE`" =
+      (model == "mixed" & !sep_reps) | (model == "ols")
+  )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   # TODO: make sep_reps = TRUE the default

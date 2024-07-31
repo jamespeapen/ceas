@@ -76,6 +76,10 @@ atp_plot <- function(
   # Sanity checks
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
+  stopifnot(
+    "cannot run mixed-effects model with `sep_reps = TRUE`" =
+      (model == "mixed" & !sep_reps) | (model == "ols")
+  )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   data_cols <- c(
