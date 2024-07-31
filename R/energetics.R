@@ -293,14 +293,28 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #'
 #' Calculates mean and standard deviation of ATP production from glycolysis and
 #' OXPHOS at points defined in `partition_data` and with values calculated
-#' using the `get_energetics` function
+#' using the `get_energetics` function via ordinary least squares or a
+#' mixed-effects model
+
+#' @details
+#' To get the means and confidence intervals for experiments with replicates,
+#' users can either use `sep_reps = TRUE` to get replicate-level summary
+#' statistics or set `model = "mixed"` to use a linear mixed-effects model on
+#' with replicate as the random-effect. The confidence intervals are generated
+#' using `confint(method = "Wald")`.
+
 #' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
+#' @param model The model used to estimate mean and confidence intervals:
+#' ordinary least squares (`"ols"`) or mixed-effects (`"mixed"`)
 #' @param error_metric Whether to calculate error as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param sep_reps Whether to calculate summary statistics on the groups with
 #' replicates combined. The current default `FALSE` combines replicates, but
 #' future releases will default to `TRUE` providing replicate-specific
 #' summaries.
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
 #' @return a list of groups from the data
 #'
 #' @importFrom data.table .SD
@@ -318,13 +332,17 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
 get_energetics_summary <- function(
     energetics,
+    model = "ols",
     error_metric = "ci",
     conf_int = 0.95,
-    sep_reps = FALSE) {
+    sep_reps = FALSE,
+    ci_method = "Wald") {
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
-  se <- NULL
+
+  stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
+  stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(energetics$replicate)) > 1
@@ -333,35 +351,140 @@ get_energetics_summary <- function(
   summary_cols <- c("exp_group", "replicate")
   summary_cols <- if (sep_reps) summary_cols else summary_cols[1]
 
-  z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
   sdcols <- colnames(energetics)[-1:-2]
+
+  if (model == "ols") {
+    summary <- energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
+      lapply(.SD, function(col) energetics_ols_summary(col, error_metric, conf_int))
+    )),
+    .SDcols = sdcols,
+    by = summary_cols
+    ]
+  } else {
+    summary <- Reduce(merge, x = lapply(sdcols, function(col) {
+      energetics_lme_summary(col, energetics, conf_int, ci_method)
+    }))
+  }
   merge(
     energetics[, .(count = .N), by = summary_cols],
-    energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
-      lapply(
-        .SD,
-        function(x) {
-          list(
-            mean = mean(x, na.rm = TRUE),
-            sd = sd(x, na.rm = TRUE),
-            se = se(x),
-            lower_bound = ifelse(
-              error_metric == "sd",
-              mean(x, na.rm = TRUE) - sd(x, na.rm = TRUE),
-              mean(x, na.rm = TRUE) - (z_value * se(x))
-            ),
-            higher_bound = ifelse(
-              error_metric == "sd",
-              mean(x, na.rm = TRUE) + sd(x, na.rm = TRUE),
-              mean(x, na.rm = TRUE) + (z_value * se(x))
-            )
-          )
-        }
-      )
-    )), .SDcols = sdcols, by = summary_cols]
+    summary
   )
 }
 
 se <- function(x) {
   sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x)))
+}
+
+#' Get ordinary least squares mean and confidence intervals from energetics
+#'
+#' Helper function to calculate mean and standard deviation of ATP production
+#' from glycolysis and OXPHOS at points defined in `partition_data` and with
+#' values calculated using the `get_energetics` function. Should only be called
+#' from `get_energetics_summary` as the function itself only operaes on a
+#' vector without any of the grouping that `get_energetics` does.
+#' @param atp_col The column name of the ATP measure - one of "ATP_basal_resp",
+#' "ATP_max_resp", "ATP_basal_glyc", "ATP_max_glyc"
+#' @param error_metric Whether to calculate error as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
+#' @param conf_int The confidence interval percentage. Should be between 0 and
+#' 1
+#' @return a data.table with mean and the confidence interval bounds by
+#' experimental group
+#'
+#' @importFrom lme4 fixef
+#' @importFrom data.table data.table :=
+#' @export
+#'
+#' @examples
+#' rep_list <- system.file("extdata", package = "ceas") |>
+#'   list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
+#' partitioned_data <- partition_data(seahorse_rates)
+#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' # Only for one row and across all groups and replicates.
+#' # For the full correctly grouped energetics table run
+#' # `get_energetics_summary` with `model = "ols"`.
+#' energetics_ols_summary(energetics$ATP_max_resp, error_metric = "ci", conf_int = 0.95)
+energetics_ols_summary <- function(atp_col, error_metric, conf_int) {
+  z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
+  list(
+    mean = mean(atp_col, na.rm = TRUE),
+    sd = sd(atp_col, na.rm = TRUE),
+    se = se(atp_col),
+    lower_bound = ifelse(
+      error_metric == "sd",
+      mean(atp_col, na.rm = TRUE) - sd(atp_col, na.rm = TRUE),
+      mean(atp_col, na.rm = TRUE) - (z_value * se(atp_col))
+    ),
+    higher_bound = ifelse(
+      error_metric == "sd",
+      mean(atp_col, na.rm = TRUE) + sd(atp_col, na.rm = TRUE),
+      mean(atp_col, na.rm = TRUE) + (z_value * se(atp_col))
+    )
+  )
+}
+
+#' Get mean and confidence intervals from energetics mixed-effects models
+#'
+#' Runs linear mixed-effects models on the ATP measure columns from
+#' `get_energetics` with replicates as the random-effect. Estimates mean and
+#' confidence intervals for ATP production from glycolysis and OXPHOS at points
+#' defined in `partition_data`
+#' @param atp_col The column name of the ATP measure - one of "ATP_basal_resp",
+#' "ATP_max_resp", "ATP_basal_glyc", "ATP_max_glyc"
+#' @param conf_int The confidence interval percentage. Should be between 0 and
+#' 1
+#' @param energetics a data.table of Seahorse OCR and ECAR rates (from `get_energetics`)
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
+#' @return a data.table with mean and the confidence interval bounds by
+#' experimental group
+#'
+#' @importFrom stats model.frame confint as.formula
+#' @importFrom utils tail
+#' @importFrom lme4 fixef
+#' @importFrom data.table data.table :=
+#' @export
+#'
+#' @examples
+#' rep_list <- system.file("extdata", package = "ceas") |>
+#'   list.files(pattern = "*.xlsx", full.names = TRUE)
+#' seahorse_rates <- read_data(rep_list, sheet = 2)
+#' partitioned_data <- partition_data(seahorse_rates)
+#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' # Only for one column. For the full energetics table run
+#' # `get_energetics_summary` with `model = "mixed"`.
+#' energetics_lme_summary("ATP_max_resp", energetics, conf_int = 0.95, ci_method = "Wald")
+energetics_lme_summary <- function(atp_col, energetics, conf_int, ci_method) {
+  . <- NULL
+  exp_group <- NULL
+  higher_bound <- NULL
+  lower_bound <- NULL
+
+  model <- fit_lme(data_col = atp_col, input = energetics)
+  coefs <- unname(fixef(model))
+  intercept <- coefs[1]
+
+  groups <- levels(model.frame(model)$exp_group)
+  means <- data.table(coefs)
+  colnames(means) <- c("mean")
+  means[, exp_group := groups]
+
+  ci <- data.table(tail(
+    confint(model, level = conf_int, method = ci_method),
+    length(groups)
+  ))
+  colnames(ci) <- c("lower_bound", "higher_bound")
+  ci[, exp_group := groups]
+  summary <- means[ci, on = .(exp_group), .(exp_group, mean, higher_bound, lower_bound)]
+  summary[
+    2:length(summary),
+    `:=`(
+      mean = mean + intercept,
+      lower_bound = lower_bound + intercept,
+      higher_bound = higher_bound + intercept
+    )
+  ]
+  colnames(summary)[-1] <- sapply(colnames(summary)[-1], function(i) paste0(atp_col, ".", i))
+  summary
 }
