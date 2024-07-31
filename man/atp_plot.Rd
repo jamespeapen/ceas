@@ -6,6 +6,7 @@
 \usage{
 atp_plot(
   energetics,
+  model = "ols",
   error_bar = "ci",
   conf_int = 0.95,
   size = 2,
@@ -13,12 +14,16 @@ atp_plot(
   basal_vs_max = "basal",
   glyc_vs_resp = "glyc",
   group_label = "Experimental group",
-  sep_reps = FALSE
+  sep_reps = FALSE,
+  ci_method = "Wald"
 )
 }
 \arguments{
 \item{energetics}{A table of calculated glycolysis and OXPHOS rates.
 Returned by \code{get_energetics}}
+
+\item{model}{The linear model used to estimate mean and confidence
+intervals: ordinary least squares (\code{"ols"}) or mixed-effects (\code{"mixed"})}
 
 \item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"})
 or confidence intervals (\code{"ci"})}
@@ -39,6 +44,10 @@ or confidence intervals (\code{"ci"})}
 replicates combined. The current default \code{FALSE} combines replicates, but
 future releases will default to \code{TRUE} providing replicate-specific
 summaries.}
+
+\item{ci_method}{The method used to compute confidence intervals for the
+mixed-effects model: \code{"Wald"}, \code{"profile"}, or \code{"boot"} passed to
+\code{lme4::confint.merMod()}.}
 }
 \value{
 a ggplot

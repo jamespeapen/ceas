@@ -3,6 +3,8 @@
 #' Generate the ATP Plot
 #' @param energetics A table of calculated glycolysis and OXPHOS rates.
 #' Returned by `get_energetics`
+#' @param model The linear model used to estimate mean and confidence
+#' intervals: ordinary least squares (`"ols"`) or mixed-effects (`"mixed"`)
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`)
 #' or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
@@ -15,6 +17,9 @@
 #' replicates combined. The current default `FALSE` combines replicates, but
 #' future releases will default to `TRUE` providing replicate-specific
 #' summaries.
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot aes geom_point labs xlab ylab geom_linerange xlim ylim geom_linerange theme_bw .data position_dodge2
@@ -58,6 +63,7 @@
 #'   )
 atp_plot <- function(
     energetics,
+    model = "ols",
     error_bar = "ci",
     conf_int = 0.95,
     size = 2,
@@ -65,9 +71,11 @@ atp_plot <- function(
     basal_vs_max = "basal",
     glyc_vs_resp = "glyc",
     group_label = "Experimental group",
-    sep_reps = FALSE) {
+    sep_reps = FALSE,
+    ci_method = "Wald") {
   # Sanity checks
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
+  stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   data_cols <- c(
@@ -91,6 +99,7 @@ atp_plot <- function(
 
   energetics_summary <- get_energetics_summary(
     energetics,
+    model = model,
     error_metric = error_bar,
     conf_int = conf_int,
     sep_reps = sep_reps
