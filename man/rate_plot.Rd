@@ -8,11 +8,13 @@ rate_plot(
   seahorse_rates,
   measure = "OCR",
   assay = "MITO",
+  model = "ols",
   error_bar = "ci",
   conf_int = 0.95,
   group_label = "Experimental group",
   linewidth = 2,
-  sep_reps = FALSE
+  sep_reps = FALSE,
+  ci_method = "Wald"
 )
 }
 \arguments{
@@ -21,6 +23,8 @@ rate_plot(
 \item{measure}{Whether to plot \code{"OCR"} or \code{"ECAR"}}
 
 \item{assay}{What assay to plot (e.g. "MITO" or "GLYCO")}
+
+\item{model}{The model used to estimate mean and confidence intervals:}
 
 \item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"}) or confidence intervals (\code{"ci"})}
 
@@ -34,6 +38,10 @@ rate_plot(
 replicates combined. The current default \code{FALSE} combines replicates, but
 future releases will default to \code{TRUE} providing replicate-specific
 summaries.}
+
+\item{ci_method}{The method used to compute confidence intervals for the
+mixed-effects model: \code{"Wald"}, \code{"profile"}, or \code{"boot"} passed to
+\code{lme4::confint.merMod()}.}
 }
 \value{
 a ggplot
