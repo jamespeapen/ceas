@@ -6,18 +6,23 @@
 \usage{
 bioscope_plot(
   energetics,
+  model = "ols",
   error_bar = "ci",
   conf_int = 0.95,
   size = 2,
   basal_shape = 1,
   max_shape = 19,
   group_label = "Experimental Group",
-  sep_reps = FALSE
+  sep_reps = FALSE,
+  ci_method = "Wald"
 )
 }
 \arguments{
 \item{energetics}{A table of calculated glycolysis and OXPHOS rates.
 Returned by \code{get_energetics}}
+
+\item{model}{The linear model used to estimate mean and confidence
+intervals: ordinary least squares (\code{"ols"}) or mixed-effects (\code{"mixed"})}
 
 \item{error_bar}{Whether to plot error bars as standard deviation (\code{"sd"})
 or confidence intervals (\code{"ci"})}
@@ -36,6 +41,10 @@ or confidence intervals (\code{"ci"})}
 replicates combined. The current default \code{FALSE} combines replicates, but
 future releases will default to \code{TRUE} providing replicate-specific
 summaries.}
+
+\item{ci_method}{The method used to compute confidence intervals for the
+mixed-effects model: \code{"Wald"}, \code{"profile"}, or \code{"boot"} passed to
+\code{lme4::confint.merMod()}.}
 
 \item{bioscope_plot}{Creates a 2D plot visualizing the mean and standard
 deviation basal and maximal ATP production from glycolysis and OXPHOS for
@@ -63,11 +72,11 @@ bioscope_plot(energetics, sep_reps = FALSE)
 # to change fill, the geom_point shape should be between 15 and 20.
 # These shapes are filled without border and will correctly show on the legend.
 bioscope_plot(
- energetics,
- sep_reps = TRUE,
- size = 3,
- basal_shape = 2,
- max_shape = 17  # empty and filled triangle
+  energetics,
+  sep_reps = TRUE,
+  size = 3,
+  basal_shape = 2,
+  max_shape = 17 # empty and filled triangle
 ) +
   ggplot2::scale_fill_manual(
     values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
