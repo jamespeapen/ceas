@@ -4,6 +4,7 @@
 #' @param seahorse_rates data.table Seahorse OCR and ECAR rates (imported using `read_data` function)
 #' @param measure Whether to plot `"OCR"` or `"ECAR"`
 #' @param assay What assay to plot (e.g. "MITO" or "GLYCO")
+#' @param model The model used to estimate mean and confidence intervals:
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param group_label Label for the experimental group to populate the legend title
@@ -12,6 +13,9 @@
 #' replicates combined. The current default `FALSE` combines replicates, but
 #' future releases will default to `TRUE` providing replicate-specific
 #' summaries.
+#' @param ci_method The method used to compute confidence intervals for the
+#' mixed-effects model: `"Wald"`, `"profile"`, or `"boot"` passed to
+#' `lme4::confint.merMod()`.
 #' @return a ggplot
 #'
 #' @importFrom ggplot2 ggplot geom_line geom_ribbon scale_x_continuous xlab ylab labs theme_bw
@@ -27,14 +31,17 @@ rate_plot <- function(
     seahorse_rates,
     measure = "OCR",
     assay = "MITO",
+    model = "ols",
     error_bar = "ci",
     conf_int = 0.95,
     group_label = "Experimental group",
     linewidth = 2,
-    sep_reps = FALSE) {
+    sep_reps = FALSE,
+    ci_method = "Wald") {
   # sanity checks
 
   stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
+  stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
@@ -62,7 +69,15 @@ rate_plot <- function(
   multi_rep <- length(unique(seahorse_rates$replicate)) > 1
   if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
 
-  plot_data <- get_rate_summary(seahorse_rates, measure, assay, error_bar, conf_int, sep_reps)
+  plot_data <- get_rate_summary(
+    seahorse_rates,
+    measure,
+    assay,
+    model,
+    error_bar,
+    conf_int,
+    sep_reps
+  )
 
   y_labels <- list(
     "OCR" = paste0(assay, " OCR (pmol/min)"),
