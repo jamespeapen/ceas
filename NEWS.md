@@ -1,3 +1,12 @@
+# ceas 1.2.0
+
+- Linear mixed-effects models can now be used to get mean and confidence
+  intervals for datasets with replicates. ATP production, OCR and ECAR are
+  modelled as the response with experimental group as a fixed effect and replicate
+  as a random effect. Mixed-effects modelling is supported by
+  `get_energetics_summary()`, `get_rate_summary()`, `bioscope_plot()`,
+  `atp_plot()`, and `rate_plot()`.
+
 # ceas 1.1.2
 
 - `get_energetics()` now warns about possible mismatches between the replicates
