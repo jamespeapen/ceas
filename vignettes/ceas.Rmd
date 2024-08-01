@@ -207,7 +207,7 @@ calculations](atp_calculation.html).
 
 ## Plotting
 
-### Bioenergetic scope plot
+### Bioenergetic scope plot {.tabset}
 
 The `bioscope_plot` function plots a 2D representation of group “bioenergetic
 scope.” Bioenergetic scope describes the theoretical energetic space in which a
@@ -217,11 +217,30 @@ and/or max JATP from OXPHOS and glycolysis and the vertical and horizontal lines
 represent the standard deviation or confidence interval of JATP from OXPHOS or
 glycolysis, respectively.
 
-```{r bioscope_plot}
-(bioscope <- bioscope_plot(energetics))
+#### Replicates combined
+
+```{r bioscope_plot, fig.cap="Bioenergetic scope with replicates combined"}
+bioscope <- bioscope_plot(
+  energetics,
+  model = "ols",
+  sep_reps = FALSE
+)
+bioscope
 ```
 
-### Rate plots {.tabset}
+#### Replicates as random effects
+
+```{r bioscope_plot_lme, fig.cap="Bioenergetic scope based on a mixed-effects model with replicates as random effect", message = FALSE}
+bioscope_plot(energetics, sep_reps = FALSE, model = "mixed")
+```
+
+#### Replicates separated
+
+```{r bioscope_plot_sep_reps, fig.cap="Bioenergetic scope with replicates separated"}
+bioscope_plot(energetics, sep_reps = TRUE, model = "ols")
+```
+
+### Rate plots
 
 The `rate_plot` function provides an overview of OCR or ECAR for each assay type
 over time, which enables cross-group energetic comparisons before and after the
@@ -229,16 +248,83 @@ addition of energetic-modulating compounds. The `rate_plot` line represents mean
 group OCR or ECAR over the sequential measurements (x-axis) and the shaded
 variance region represents standard deviation or specified confidence interval.
 
-#### Oxygen consumption rate (OCR)
+#### Oxygen consumption rate (OCR) {.tabset}
 
-```{r ocr}
-(ocr <- rate_plot(seahorse_rates, measure = "OCR", assay = "MITO"))
+##### Replicates combined
+
+```{r ocr, fig.cap="OCR with replicates combined"}
+ocr <- rate_plot(
+  seahorse_rates,
+  measure = "OCR",
+  assay = "MITO",
+  model = "ols",
+  sep_reps = FALSE
+)
+ocr
 ```
 
-#### Extracellular Acidification Rate (ECAR)
+##### Replicates as random effects
 
-```{r ecar}
-(ecar <- rate_plot(seahorse_rates, measure = "ECAR", assay = "GLYCO"))
+```{r ocr_lme, fig.cap="OCR based on mixed-effects model"}
+rate_plot(
+  seahorse_rates,
+  measure = "OCR",
+  assay = "MITO",
+  model = "mixed",
+  sep_reps = FALSE
+)
+```
+
+##### Replicates separated
+
+```{r ocr_sep_reps, fig.cap="OCR with replicates separated"}
+rate_plot(
+  seahorse_rates,
+  measure = "OCR",
+  assay = "MITO",
+  model = "ols",
+  sep_reps = TRUE
+)
+```
+
+
+#### Extracellular Acidification Rate (ECAR) {.tabset}
+
+##### Replicates combined
+
+```{r ecar, fig.cap="ECAR with replicates combined"}
+ecar <- rate_plot(
+  seahorse_rates,
+  measure = "ECAR",
+  assay = "GLYCO",
+  model = "ols",
+  sep_reps = FALSE
+)
+ecar
+```
+
+##### Replicates as random effects
+
+```{r ecar_lme, fig.cap="ECAR based on mixed-effects model"}
+rate_plot(
+  seahorse_rates,
+  measure = "ECAR",
+  assay = "GLYCO",
+  model = "mixed",
+  sep_reps = FALSE
+)
+```
+
+##### Replicates separated
+
+```{r ecar_sep, fig.cap="ECAR with replicates separated"}
+rate_plot(
+  seahorse_rates,
+  measure = "ECAR",
+  assay = "GLYCO",
+  model = "ols",
+  sep_reps = TRUE
+)
 ```
 
 ### ATP plots {.tabset}
@@ -251,28 +337,52 @@ confidence interval JATP variance.
 
 #### Basal glycolysis
 
-```{r basal_glyc}
-(basal_glyc <- atp_plot(energetics, basal_vs_max = "basal", glyc_vs_resp = "glyc"))
+```{r basal_glyc, fig.cap="JATP from basal glycolysis with replicates combined"}
+basal_glyc <- atp_plot(
+  energetics,
+  basal_vs_max = "basal",
+  glyc_vs_resp = "glyc",
+  sep_reps = FALSE
+)
+basal_glyc 
 ```
 
 #### Basal respiration
 
-```{r basal_resp}
-(basal_resp <- atp_plot(energetics, basal_vs_max = "basal", glyc_vs_resp = "resp"))
+```{r basal_resp, fig.cap="JATP from basal respiration with replicates separated"}
+atp_plot(
+  energetics,
+  basal_vs_max = "basal",
+  glyc_vs_resp = "resp",
+  model = "ols",
+  sep_reps = TRUE
+)
 ```
 
 
 #### Maximal glycolysis
 
-```{r max_glyc}
-(max_glyc <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "glyc"))
+```{r max_glyc, fig.cap="JATP from maximal glycolysis with a mixed-effects model"}
+atp_plot(
+  energetics,
+  basal_vs_max = "max",
+  glyc_vs_resp = "glyc",
+  model = "mixed",
+  sep_reps = FALSE
+)
 ```
 
 
 #### Maximal respiration
 
-```{r max_resp}
-(max_resp <- atp_plot(energetics, basal_vs_max = "max", glyc_vs_resp = "resp"))
+```{r max_resp, fig.cap="JATP from maximal respiration replicates combined"}
+atp_plot(
+  energetics,
+  basal_vs_max = "max",
+  glyc_vs_resp = "resp",
+  model = "ols",
+  sep_reps = TRUE
+)
 ```
 
 ### Customizing plots
