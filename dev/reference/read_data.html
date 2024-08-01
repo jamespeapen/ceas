@@ -9,7 +9,7 @@ data is background normalized."><meta property="og:image" content="https://james
 
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,8 +85,13 @@ character as delimiter.</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Although ceas enables integration of multiple biological and/or technical
 replicates, previous work has reported high inter-plate variation (Yepez et.
-al 2018). If you don't want your replicate data combined, make sure that the
-names of the common groups between the replicates are different.</p>
+al 2018). If you don't want your replicate data combined, you can either:</p><ul><li><p>make sure that the names of the common groups between the replicates are
+different.</p></li>
+<li><p>in downstream analyses (<code>get_energetics_summary</code>, <code>bioscope_plot</code>,
+<code>rate_plot</code>, <code>atp_plot</code>), use <code>sep_reps = TRUE</code> to do all calculations and
+plotting separately for each replicate.</p></li>
+</ul><p><strong>NOTE:</strong> to maintain backwards compatibility <code>sep_reps</code> is currently
+<code>FALSE</code> by default, but will be set to <code>TRUE</code> in a future release.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -116,7 +121,7 @@ respiration activities using Seahorse XF Analyzer</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9:           1    A09 1.304765 393.4523 52.54649 534.2160    Group_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:           1    A10 1.304765 217.0543 29.11793 320.5476    Group_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     assay_type replicate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;     &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;    &lt;fctr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:       &lt;NA&gt;         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:       MITO         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:       MITO         1</span>
@@ -146,7 +151,7 @@ respiration activities using Seahorse XF Analyzer</em>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9:           1    A09 1.304765 393.45230 52.546486 534.21600    Group_3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:           1    A10 1.304765 217.05432 29.117934 320.54760    Group_4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     assay_type replicate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;     &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;    &lt;fctr&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:       &lt;NA&gt;         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:       MITO         1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:       MITO         1</span>

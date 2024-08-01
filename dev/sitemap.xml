@@ -10,6 +10,9 @@
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/atp_plot.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/bioscope_plot.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/ceas-package.html</loc></url>
+<url><loc>https://jamespeapen.github.io/ceas/dev/reference/energetics_lme_summary.html</loc></url>
+<url><loc>https://jamespeapen.github.io/ceas/dev/reference/energetics_ols_summary.html</loc></url>
+<url><loc>https://jamespeapen.github.io/ceas/dev/reference/fit_lme.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/get_energetics.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/get_energetics_summary.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/get_rate_summary.html</loc></url>
@@ -18,6 +21,7 @@
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/normalize.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/partition_data.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/rate_plot.html</loc></url>
+<url><loc>https://jamespeapen.github.io/ceas/dev/reference/rates_lme_summary.html</loc></url>
 <url><loc>https://jamespeapen.github.io/ceas/dev/reference/read_data.html</loc></url>
 </urlset>
 

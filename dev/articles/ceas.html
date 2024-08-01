@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -201,7 +201,7 @@ ceas.</p>
 <th align="right">PER</th>
 <th align="left">exp_group</th>
 <th align="left">assay_type</th>
-<th align="right">replicate</th>
+<th align="left">replicate</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -213,7 +213,7 @@ ceas.</p>
 <td align="right">0.0000</td>
 <td align="left">Background</td>
 <td align="left">NA</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -224,7 +224,7 @@ ceas.</p>
 <td align="right">334.4771</td>
 <td align="left">Group_1</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
@@ -235,7 +235,7 @@ ceas.</p>
 <td align="right">358.4754</td>
 <td align="left">Group_1</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -246,7 +246,7 @@ ceas.</p>
 <td align="right">503.4910</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
@@ -257,7 +257,7 @@ ceas.</p>
 <td align="right">492.2597</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -268,7 +268,7 @@ ceas.</p>
 <td align="right">482.1940</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 </tbody>
 </table>
@@ -337,7 +337,7 @@ using the <code>norm</code> argument.</p>
 <th align="right">PER</th>
 <th align="left">exp_group</th>
 <th align="left">assay_type</th>
-<th align="right">replicate</th>
+<th align="left">replicate</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -349,7 +349,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">0.00000</td>
 <td align="left">Background</td>
 <td align="left">NA</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -360,7 +360,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">55.74619</td>
 <td align="left">Group_1</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
@@ -371,7 +371,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">59.74590</td>
 <td align="left">Group_1</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -382,7 +382,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">83.91516</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
@@ -393,7 +393,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">82.04329</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
@@ -404,7 +404,7 @@ using the <code>norm</code> argument.</p>
 <td align="right">80.36566</td>
 <td align="left">Group_2</td>
 <td align="left">MITO</td>
-<td align="right">1</td>
+<td align="left">1</td>
 </tr>
 </tbody>
 </table>
@@ -553,8 +553,8 @@ and buffer values.</p>
 <div class="section level2">
 <h2 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
 </h2>
-<div class="section level3">
-<h3 id="bioenergetic-scope-plot">Bioenergetic scope plot<a class="anchor" aria-label="anchor" href="#bioenergetic-scope-plot"></a>
+<div class="section level3 tabset">
+<h3 class="tabset" id="bioenergetic-scope-plot">Bioenergetic scope plot<a class="anchor" aria-label="anchor" href="#bioenergetic-scope-plot"></a>
 </h3>
 <p>The <code>bioscope_plot</code> function plots a 2D representation of
 group “bioenergetic scope.” Bioenergetic scope describes the theoretical
@@ -564,12 +564,55 @@ on the x-axis. The points represent mean basal and/or max JATP from
 OXPHOS and glycolysis and the vertical and horizontal lines represent
 the standard deviation or confidence interval of JATP from OXPHOS or
 glycolysis, respectively.</p>
+
+
+
+<ul class="nav nav-tabs" id="bioenergetic-scope-plot" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-combined" id="replicates-combined-tab" type="button" role="tab" aria-controls="replicates-combined" aria-selected="true" class="active nav-link">Replicates combined</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-as-random-effects" id="replicates-as-random-effects-tab" type="button" role="tab" aria-controls="replicates-as-random-effects" aria-selected="false" class="nav-link">Replicates as random effects</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-separated" id="replicates-separated-tab" type="button" role="tab" aria-controls="replicates-separated" aria-selected="false" class="nav-link">Replicates separated</button></li>
+</ul>
+<div class="tab-content">
+<div class="active  tab-pane" id="replicates-combined" role="tabpanel" aria-labelledby="replicates-combined-tab">
+
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">bioscope</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/bioscope_plot-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">energetics</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span><span class="op">)</span></span>
+<span><span class="va">bioscope</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/bioscope_plot-1.png" alt="Bioenergetic scope with replicates combined" width="700"><p class="caption">
+Bioenergetic scope with replicates combined
+</p>
 </div>
-<div class="section level3 tabset">
-<h3 class="tabset" id="rate-plots">Rate plots<a class="anchor" aria-label="anchor" href="#rate-plots"></a>
+</div>
+<div class="tab-pane" id="replicates-as-random-effects" role="tabpanel" aria-labelledby="replicates-as-random-effects-tab">
+
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">FALSE</span>, model <span class="op">=</span> <span class="st">"mixed"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/bioscope_plot_lme-1.png" alt="Bioenergetic scope based on a mixed-effects model with replicates as random effect" width="700"><p class="caption">
+Bioenergetic scope based on a mixed-effects model with replicates as
+random effect
+</p>
+</div>
+</div>
+<div class="tab-pane" id="replicates-separated" role="tabpanel" aria-labelledby="replicates-separated-tab">
+
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">TRUE</span>, model <span class="op">=</span> <span class="st">"ols"</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/bioscope_plot_sep_reps-1.png" alt="Bioenergetic scope with replicates separated" width="700"><p class="caption">
+Bioenergetic scope with replicates separated
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="rate-plots">Rate plots<a class="anchor" aria-label="anchor" href="#rate-plots"></a>
 </h3>
 <p>The <code>rate_plot</code> function provides an overview of OCR or
 ECAR for each assay type over time, which enables cross-group energetic
@@ -578,24 +621,134 @@ compounds. The <code>rate_plot</code> line represents mean group OCR or
 ECAR over the sequential measurements (x-axis) and the shaded variance
 region represents standard deviation or specified confidence
 interval.</p>
+<div class="section level4 tabset">
+<h4 class="tabset" id="oxygen-consumption-rate-ocr">Oxygen consumption rate (OCR)<a class="anchor" aria-label="anchor" href="#oxygen-consumption-rate-ocr"></a>
+</h4>
 
 
-<ul class="nav nav-tabs" id="rate-plots" role="tablist">
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#oxygen-consumption-rate-ocr" id="oxygen-consumption-rate-ocr-tab" type="button" role="tab" aria-controls="oxygen-consumption-rate-ocr" aria-selected="true" class="active nav-link">Oxygen consumption rate (OCR)</button></li>
-<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#extracellular-acidification-rate-ecar" id="extracellular-acidification-rate-ecar-tab" type="button" role="tab" aria-controls="extracellular-acidification-rate-ecar" aria-selected="false" class="nav-link">Extracellular Acidification Rate (ECAR)</button></li>
+
+<ul class="nav nav-tabs" id="oxygen-consumption-rate-ocr" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-combined-1" id="replicates-combined-1-tab" type="button" role="tab" aria-controls="replicates-combined-1" aria-selected="true" class="active nav-link">Replicates combined</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-as-random-effects-1" id="replicates-as-random-effects-1-tab" type="button" role="tab" aria-controls="replicates-as-random-effects-1" aria-selected="false" class="nav-link">Replicates as random effects</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-separated-1" id="replicates-separated-1-tab" type="button" role="tab" aria-controls="replicates-separated-1" aria-selected="false" class="nav-link">Replicates separated</button></li>
 </ul>
 <div class="tab-content">
-<div class="active  tab-pane" id="oxygen-consumption-rate-ocr" role="tabpanel" aria-labelledby="oxygen-consumption-rate-ocr-tab">
+<div class="active  tab-pane" id="replicates-combined-1" role="tabpanel" aria-labelledby="replicates-combined-1-tab">
 
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">ocr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"OCR"</span>, assay <span class="op">=</span> <span class="st">"MITO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/ocr-1.png" width="700"></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">ocr</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ocr-1.png" alt="OCR with replicates combined" width="700"><p class="caption">
+OCR with replicates combined
+</p>
 </div>
-<div class="tab-pane" id="extracellular-acidification-rate-ecar" role="tabpanel" aria-labelledby="extracellular-acidification-rate-ecar-tab">
+</div>
+<div class="tab-pane" id="replicates-as-random-effects-1" role="tabpanel" aria-labelledby="replicates-as-random-effects-1-tab">
 
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">ecar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, measure <span class="op">=</span> <span class="st">"ECAR"</span>, assay <span class="op">=</span> <span class="st">"GLYCO"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/ecar-1.png" width="700"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"mixed"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ocr_lme-1.png" alt="OCR based on mixed-effects model" width="700"><p class="caption">
+OCR based on mixed-effects model
+</p>
+</div>
+</div>
+<div class="tab-pane" id="replicates-separated-1" role="tabpanel" aria-labelledby="replicates-separated-1-tab">
+
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"MITO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ocr_sep_reps-1.png" alt="OCR with replicates separated" width="700"><p class="caption">
+OCR with replicates separated
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level4 tabset">
+<h4 class="tabset" id="extracellular-acidification-rate-ecar">Extracellular Acidification Rate (ECAR)<a class="anchor" aria-label="anchor" href="#extracellular-acidification-rate-ecar"></a>
+</h4>
+
+
+
+<ul class="nav nav-tabs" id="extracellular-acidification-rate-ecar" role="tablist">
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-combined-2" id="replicates-combined-2-tab" type="button" role="tab" aria-controls="replicates-combined-2" aria-selected="true" class="active nav-link">Replicates combined</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-as-random-effects-2" id="replicates-as-random-effects-2-tab" type="button" role="tab" aria-controls="replicates-as-random-effects-2" aria-selected="false" class="nav-link">Replicates as random effects</button></li>
+<li role="presentation" class="nav-item"><button data-bs-toggle="tab" data-bs-target="#replicates-separated-2" id="replicates-separated-2-tab" type="button" role="tab" aria-controls="replicates-separated-2" aria-selected="false" class="nav-link">Replicates separated</button></li>
+</ul>
+<div class="tab-content">
+<div class="active  tab-pane" id="replicates-combined-2" role="tabpanel" aria-labelledby="replicates-combined-2-tab">
+
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"ECAR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"GLYCO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">ecar</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ecar-1.png" alt="ECAR with replicates combined" width="700"><p class="caption">
+ECAR with replicates combined
+</p>
+</div>
+</div>
+<div class="tab-pane" id="replicates-as-random-effects-2" role="tabpanel" aria-labelledby="replicates-as-random-effects-2-tab">
+
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"ECAR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"GLYCO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"mixed"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ecar_lme-1.png" alt="ECAR based on mixed-effects model" width="700"><p class="caption">
+ECAR based on mixed-effects model
+</p>
+</div>
+</div>
+<div class="tab-pane" id="replicates-separated-2" role="tabpanel" aria-labelledby="replicates-separated-2-tab">
+
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/rate_plot.html">rate_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">seahorse_rates</span>,</span>
+<span>  measure <span class="op">=</span> <span class="st">"ECAR"</span>,</span>
+<span>  assay <span class="op">=</span> <span class="st">"GLYCO"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/ecar_sep-1.png" alt="ECAR with replicates separated" width="700"><p class="caption">
+ECAR with replicates separated
+</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -621,27 +774,68 @@ variance.</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="basal-glycolysis" role="tabpanel" aria-labelledby="basal-glycolysis-tab">
 
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/basal_glyc-1.png" width="700"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">energetics</span>,</span>
+<span>  basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>,</span>
+<span>  glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">basal_glyc</span> </span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/basal_glyc-1.png" alt="JATP from basal glycolysis with replicates combined" width="700"><p class="caption">
+JATP from basal glycolysis with replicates combined
+</p>
+</div>
 </div>
 <div class="tab-pane" id="basal-respiration" role="tabpanel" aria-labelledby="basal-respiration-tab">
 
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">basal_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/basal_resp-1.png" width="700"></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">energetics</span>,</span>
+<span>  basal_vs_max <span class="op">=</span> <span class="st">"basal"</span>,</span>
+<span>  glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/basal_resp-1.png" alt="JATP from basal respiration with replicates separated" width="700"><p class="caption">
+JATP from basal respiration with replicates separated
+</p>
+</div>
 </div>
 <div class="tab-pane" id="maximal-glycolysis" role="tabpanel" aria-labelledby="maximal-glycolysis-tab">
 
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">max_glyc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/max_glyc-1.png" width="700"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">energetics</span>,</span>
+<span>  basal_vs_max <span class="op">=</span> <span class="st">"max"</span>,</span>
+<span>  glyc_vs_resp <span class="op">=</span> <span class="st">"glyc"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"mixed"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/max_glyc-1.png" alt="JATP from maximal glycolysis with a mixed-effects model" width="700"><p class="caption">
+JATP from maximal glycolysis with a mixed-effects model
+</p>
+</div>
 </div>
 <div class="tab-pane" id="maximal-respiration" role="tabpanel" aria-labelledby="maximal-respiration-tab">
 
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">max_resp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span><span class="va">energetics</span>, basal_vs_max <span class="op">=</span> <span class="st">"max"</span>, glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/max_resp-1.png" width="700"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/atp_plot.html">atp_plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">energetics</span>,</span>
+<span>  basal_vs_max <span class="op">=</span> <span class="st">"max"</span>,</span>
+<span>  glyc_vs_resp <span class="op">=</span> <span class="st">"resp"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="ceas_files/figure-html/max_resp-1.png" alt="JATP from maximal respiration replicates combined" width="700"><p class="caption">
+JATP from maximal respiration replicates combined
+</p>
+</div>
 </div>
 </div>
 </div>
@@ -656,15 +850,15 @@ plot and add the custom colors you’d like:</p>
 <div class="section level4">
 <h4 id="colors">Colors<a class="anchor" aria-label="anchor" href="#colors"></a>
 </h4>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
@@ -683,14 +877,14 @@ plot and add the custom colors you’d like:</p>
 <div class="tab-content">
 <div class="active  tab-pane" id="change-axis-labels" role="tabpanel" aria-labelledby="change-axis-labels-tab">
 
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div class="tab-pane" id="change-label-size" role="tabpanel" aria-labelledby="change-label-size-tab">
 
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
@@ -707,14 +901,19 @@ the code used to make the plots by running the function name without
 parenthesis and modify it. Further, since every step in the ceas
 workflow provides a dataset, you can run the modified function or your
 own custom plotting functions on those datasets.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rate_plot</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">assay</span> <span class="op">=</span> <span class="st">"MITO"</span>, <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, </span>
-<span>    <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">assay</span> <span class="op">=</span> <span class="st">"MITO"</span>, <span class="va">model</span> <span class="op">=</span> <span class="st">"ols"</span>, </span>
+<span>    <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span>, </span>
+<span>    <span class="va">sep_reps</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span>
 <span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'measure' should be 'OCR' or 'ECAR'` <span class="op">=</span> <span class="va">measure</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OCR"</span>, <span class="st">"ECAR"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'model' should be 'ols' or 'mixed'` <span class="op">=</span> <span class="va">model</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ols"</span>, <span class="st">"mixed"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`cannot run mixed-effects model with \`sep_reps = TRUE\`` <span class="op">=</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> </span>
+<span>        <span class="st">"mixed"</span> <span class="op">&amp;</span> <span class="op">!</span><span class="va">sep_reps</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"ols"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'error_bar' should be 'sd' or 'ci'` <span class="op">=</span> <span class="va">error_bar</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sd"</span>, <span class="st">"ci"</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'conf_int' should be between 0 and 1` <span class="op">=</span> <span class="va">conf_int</span> <span class="op">&gt;</span> </span>
@@ -729,20 +928,31 @@ own custom plotting functions on those datasets.</p>
 <span>    <span class="va">exp_group</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>    <span class="va">lower_bound</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span>    <span class="va">upper_bound</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span>    <span class="va">multi_rep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">seahorse_rates</span><span class="op">$</span><span class="va">replicate</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">1</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="va">sep_reps</span> <span class="op">&amp;&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/missing.html" class="external-link">missing</a></span><span class="op">(</span><span class="va">sep_reps</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="va">multi_rep</span><span class="op">)</span> </span>
+<span>        <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="va">sep_reps_warning</span><span class="op">)</span></span>
 <span>    <span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_rate_summary.html">get_rate_summary</a></span><span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span>, <span class="va">assay</span>, </span>
-<span>        <span class="va">error_bar</span>, <span class="va">conf_int</span><span class="op">)</span></span>
+<span>        <span class="va">model</span>, <span class="va">error_bar</span>, <span class="va">conf_int</span>, <span class="va">sep_reps</span><span class="op">)</span></span>
 <span>    <span class="va">y_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>OCR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">assay</span>, <span class="st">" OCR (pmol/min)"</span><span class="op">)</span>, </span>
 <span>        ECAR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">assay</span>, <span class="st">" ECAR (mpH/min)"</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Measurement</span>, y <span class="op">=</span> <span class="va">mean</span>, color <span class="op">=</span> <span class="va">exp_group</span>, </span>
-<span>        group <span class="op">=</span> <span class="va">exp_group</span>, fill <span class="op">=</span> <span class="va">exp_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>        <span class="fu">geom_ribbon</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_bound</span>, ymax <span class="op">=</span> <span class="va">upper_bound</span><span class="op">)</span>, </span>
-<span>            alpha <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, </span>
+<span>    <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Measurement</span>, y <span class="op">=</span> <span class="va">mean</span>, color <span class="op">=</span> <span class="va">exp_group</span>, </span>
+<span>        group <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="va">sep_reps</span> <span class="op">&amp;&amp;</span> <span class="va">multi_rep</span><span class="op">)</span> </span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">exp_group</span>, <span class="va">replicate</span><span class="op">)</span></span>
+<span>        <span class="kw">else</span> <span class="va">exp_group</span>, fill <span class="op">=</span> <span class="va">exp_group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_ribbon</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lower_bound</span>, </span>
+<span>        ymax <span class="op">=</span> <span class="va">upper_bound</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, </span>
 <span>        <span class="fl">12</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">"Measurement"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ylab</span><span class="op">(</span><span class="va">y_labels</span><span class="op">[</span><span class="va">measure</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>        <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="va">group_label</span>, fill <span class="op">=</span> <span class="va">group_label</span><span class="op">)</span> <span class="op">+</span> <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
+<span>        <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="va">group_label</span>, fill <span class="op">=</span> <span class="va">group_label</span>, linetype <span class="op">=</span> <span class="st">"Replicate"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>        <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">sep_reps</span> <span class="op">&amp;&amp;</span> <span class="va">multi_rep</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>linetype <span class="op">=</span> <span class="va">replicate</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>    <span class="kw">else</span> <span class="op">{</span></span>
+<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In RStudio, you can run <code><a href="https://rdrr.io/r/utils/edit.html" class="external-link">utils::edit</a></code> to modify a
 function.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/edit.html" class="external-link">edit</a></span><span class="op">(</span><span class="va">rate_plot</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

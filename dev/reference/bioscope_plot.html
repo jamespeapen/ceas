@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,12 +45,14 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bioscope_plot</span><span class="op">(</span></span>
 <span>  <span class="va">energetics</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
 <span>  error_bar <span class="op">=</span> <span class="st">"ci"</span>,</span>
 <span>  conf_int <span class="op">=</span> <span class="fl">0.95</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  basal_shape <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  max_shape <span class="op">=</span> <span class="fl">19</span>,</span>
-<span>  group_label <span class="op">=</span> <span class="st">"Experimental Group"</span></span>
+<span>  group_label <span class="op">=</span> <span class="st">"Experimental Group"</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -61,6 +63,11 @@
 <dl><dt id="arg-energetics">energetics<a class="anchor" aria-label="anchor" href="#arg-energetics"></a></dt>
 <dd><p>A table of calculated glycolysis and OXPHOS rates.
 Returned by <code>get_energetics</code></p></dd>
+
+
+<dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
+<dd><p>The linear model used to estimate mean and confidence
+intervals: ordinary least squares (<code>"ols"</code>) or mixed-effects (<code>"mixed"</code>)</p></dd>
 
 
 <dt id="arg-error-bar">error_bar<a class="anchor" aria-label="anchor" href="#arg-error-bar"></a></dt>
@@ -88,6 +95,13 @@ or confidence intervals (<code>"ci"</code>)</p></dd>
 <dd><p>Label for the experimental group to populate the legend title</p></dd>
 
 
+<dt id="arg-sep-reps">sep_reps<a class="anchor" aria-label="anchor" href="#arg-sep-reps"></a></dt>
+<dd><p>Whether to calculate summary statistics on the groups with
+replicates combined. The current default <code>FALSE</code> combines replicates, but
+future releases will default to <code>TRUE</code> providing replicate-specific
+summaries.</p></dd>
+
+
 <dt id="arg-bioscope-plot">bioscope_plot<a class="anchor" aria-label="anchor" href="#arg-bioscope-plot"></a></dt>
 <dd><p>Creates a 2D plot visualizing the mean and standard
 deviation basal and maximal ATP production from glycolysis and OXPHOS for
@@ -111,19 +125,25 @@ each experimental group</p></dd>
 <span class="r-in"><span>  pka <span class="op">=</span> <span class="fl">6.093</span>,</span></span>
 <span class="r-in"><span>  buffer <span class="op">=</span> <span class="fl">0.1</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bioscope_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># to change fill, the geom_point shape should be between 15 and 20.</span></span></span>
 <span class="r-in"><span><span class="co"># These shapes are filled without border and will correctly show on the legend.</span></span></span>
-<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span>, size <span class="op">=</span> <span class="fl">3</span>, basal_shape <span class="op">=</span> <span class="fl">2</span>, max_shape <span class="op">=</span> <span class="fl">17</span><span class="op">)</span> <span class="op">+</span> <span class="co"># empty and filled triangle</span></span></span>
+<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">energetics</span>,</span></span>
+<span class="r-in"><span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  size <span class="op">=</span> <span class="fl">3</span>,</span></span>
+<span class="r-in"><span>  basal_shape <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  max_shape <span class="op">=</span> <span class="fl">17</span> <span class="co"># empty and filled triangle</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_fill_manual</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="bioscope_plot-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># to change color, use ggplot2::scale_color_manual</span></span></span>
-<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="fu">bioscope_plot</span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#e36500"</span>, <span class="st">"#b52356"</span>, <span class="st">"#3cb62d"</span>, <span class="st">"#328fe1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
