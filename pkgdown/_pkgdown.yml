@@ -26,8 +26,12 @@ reference:
 - title: Energetics calculations
   contents:
     - get_energetics
+    - fit_lme
     - get_energetics_summary
     - get_rate_summary
+    - energetics_ols_summary
+    - energetics_lme_summary
+    - rates_lme_summary
 - title: Plotting
   contents:
     - bioscope_plot
