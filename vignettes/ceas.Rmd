@@ -219,7 +219,7 @@ glycolysis, respectively.
 
 #### Replicates combined
 
-```{r bioscope_plot, fig.cap="Bioenergetic scope with replicates combined"}
+```{r bioscope_plot, fig.cap="Bioenergetic scope with replicates combined", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 bioscope <- bioscope_plot(
   energetics,
   model = "ols",
@@ -230,13 +230,13 @@ bioscope
 
 #### Replicates as random effects
 
-```{r bioscope_plot_lme, fig.cap="Bioenergetic scope based on a mixed-effects model with replicates as random effect", message = FALSE}
+```{r bioscope_plot_lme, fig.cap="Bioenergetic scope based on a mixed-effects model with replicates as random effect", message = FALSE, out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 bioscope_plot(energetics, sep_reps = FALSE, model = "mixed")
 ```
 
 #### Replicates separated
 
-```{r bioscope_plot_sep_reps, fig.cap="Bioenergetic scope with replicates separated"}
+```{r bioscope_plot_sep_reps, fig.cap="Bioenergetic scope with replicates separated", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 bioscope_plot(energetics, sep_reps = TRUE, model = "ols")
 ```
 
@@ -252,7 +252,7 @@ variance region represents standard deviation or specified confidence interval.
 
 ##### Replicates combined
 
-```{r ocr, fig.cap="OCR with replicates combined"}
+```{r ocr, fig.cap="OCR with replicates combined", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 ocr <- rate_plot(
   seahorse_rates,
   measure = "OCR",
@@ -265,7 +265,7 @@ ocr
 
 ##### Replicates as random effects
 
-```{r ocr_lme, fig.cap="OCR based on mixed-effects model"}
+```{r ocr_lme, fig.cap="OCR based on mixed-effects model", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 rate_plot(
   seahorse_rates,
   measure = "OCR",
@@ -277,13 +277,14 @@ rate_plot(
 
 ##### Replicates separated
 
-```{r ocr_sep_reps, fig.cap="OCR with replicates separated"}
+```{r ocr_sep_reps, fig.cap="OCR with replicates separated", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 rate_plot(
   seahorse_rates,
   measure = "OCR",
   assay = "MITO",
   model = "ols",
-  sep_reps = TRUE
+  sep_reps = TRUE,
+  linewidth = 1
 )
 ```
 
@@ -292,7 +293,7 @@ rate_plot(
 
 ##### Replicates combined
 
-```{r ecar, fig.cap="ECAR with replicates combined"}
+```{r ecar, fig.cap="ECAR with replicates combined", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 ecar <- rate_plot(
   seahorse_rates,
   measure = "ECAR",
@@ -305,7 +306,7 @@ ecar
 
 ##### Replicates as random effects
 
-```{r ecar_lme, fig.cap="ECAR based on mixed-effects model"}
+```{r ecar_lme, fig.cap="ECAR based on mixed-effects model", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 rate_plot(
   seahorse_rates,
   measure = "ECAR",
@@ -317,13 +318,15 @@ rate_plot(
 
 ##### Replicates separated
 
-```{r ecar_sep, fig.cap="ECAR with replicates separated"}
+```{r ecar_sep, fig.cap="ECAR with replicates separated", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 rate_plot(
   seahorse_rates,
   measure = "ECAR",
   assay = "GLYCO",
   model = "ols",
-  sep_reps = TRUE
+  sep_reps = TRUE,
+  linewidth = 1
+
 )
 ```
 
@@ -337,7 +340,7 @@ confidence interval JATP variance.
 
 #### Basal glycolysis
 
-```{r basal_glyc, fig.cap="JATP from basal glycolysis with replicates combined"}
+```{r basal_glyc, fig.cap="JATP from basal glycolysis with replicates combined", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 basal_glyc <- atp_plot(
   energetics,
   basal_vs_max = "basal",
@@ -349,7 +352,7 @@ basal_glyc
 
 #### Basal respiration
 
-```{r basal_resp, fig.cap="JATP from basal respiration with replicates separated"}
+```{r basal_resp, fig.cap="JATP from basal respiration with replicates separated", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 atp_plot(
   energetics,
   basal_vs_max = "basal",
@@ -362,7 +365,7 @@ atp_plot(
 
 #### Maximal glycolysis
 
-```{r max_glyc, fig.cap="JATP from maximal glycolysis with a mixed-effects model"}
+```{r max_glyc, fig.cap="JATP from maximal glycolysis with a mixed-effects model", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 atp_plot(
   energetics,
   basal_vs_max = "max",
@@ -375,7 +378,7 @@ atp_plot(
 
 #### Maximal respiration
 
-```{r max_resp, fig.cap="JATP from maximal respiration replicates combined"}
+```{r max_resp, fig.cap="JATP from maximal respiration replicates combined", out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 atp_plot(
   energetics,
   basal_vs_max = "max",
@@ -395,18 +398,18 @@ add the custom colors you'd like:
 
 #### Colors
 
-```{r custom_colors}
+```{r custom_colors, out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 custom_colors <- c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 ```
 
-```{r}
+```{r, , out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 bioscope +
 ggplot2::scale_color_manual(
   values = custom_colors
 )
 ```
 
-```{r}
+```{r, out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 ocr +
 ggplot2::scale_color_manual(
   values = custom_colors
@@ -417,14 +420,14 @@ ggplot2::scale_color_manual(
 
 ##### Change axis labels
 
-```{r}
+```{r, out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 ecar +
     ggplot2::labs(x = "Time points")
 ```
 
 ##### Change label size
 
-```{r}
+```{r, out.width = "100%", fig.dim = c(5, 3), dpi = 120}
 basal_glyc +
     ggplot2::theme(axis.text = ggplot2::element_text(size = 20))
 ```
