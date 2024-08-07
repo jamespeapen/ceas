@@ -579,11 +579,11 @@ glycolysis, respectively.</p>
 <code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">energetics</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
-<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">bioscope</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot-1.png" alt="Bioenergetic scope with replicates combined" width="700"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot-1.png" alt="Bioenergetic scope with replicates combined" width="100%"><p class="caption">
 Bioenergetic scope with replicates combined
 </p>
 </div>
@@ -593,7 +593,7 @@ Bioenergetic scope with replicates combined
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">FALSE</span>, model <span class="op">=</span> <span class="st">"mixed"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot_lme-1.png" alt="Bioenergetic scope based on a mixed-effects model with replicates as random effect" width="700"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot_lme-1.png" alt="Bioenergetic scope based on a mixed-effects model with replicates as random effect" width="100%"><p class="caption">
 Bioenergetic scope based on a mixed-effects model with replicates as
 random effect
 </p>
@@ -604,7 +604,7 @@ random effect
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">TRUE</span>, model <span class="op">=</span> <span class="st">"ols"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot_sep_reps-1.png" alt="Bioenergetic scope with replicates separated" width="700"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot_sep_reps-1.png" alt="Bioenergetic scope with replicates separated" width="100%"><p class="caption">
 Bioenergetic scope with replicates separated
 </p>
 </div>
@@ -645,7 +645,7 @@ interval.</p>
 <span><span class="op">)</span></span>
 <span><span class="va">ocr</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr-1.png" alt="OCR with replicates combined" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ocr-1.png" alt="OCR with replicates combined" width="100%"><p class="caption">
 OCR with replicates combined
 </p>
 </div>
@@ -663,7 +663,7 @@ OCR with replicates combined
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr_lme-1.png" alt="OCR based on mixed-effects model" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ocr_lme-1.png" alt="OCR based on mixed-effects model" width="100%"><p class="caption">
 OCR based on mixed-effects model
 </p>
 </div>
@@ -676,10 +676,11 @@ OCR based on mixed-effects model
 <span>  measure <span class="op">=</span> <span class="st">"OCR"</span>,</span>
 <span>  assay <span class="op">=</span> <span class="st">"MITO"</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
-<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr_sep_reps-1.png" alt="OCR with replicates separated" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ocr_sep_reps-1.png" alt="OCR with replicates separated" width="100%"><p class="caption">
 OCR with replicates separated
 </p>
 </div>
@@ -710,7 +711,7 @@ OCR with replicates separated
 <span><span class="op">)</span></span>
 <span><span class="va">ecar</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar-1.png" alt="ECAR with replicates combined" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ecar-1.png" alt="ECAR with replicates combined" width="100%"><p class="caption">
 ECAR with replicates combined
 </p>
 </div>
@@ -728,7 +729,7 @@ ECAR with replicates combined
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar_lme-1.png" alt="ECAR based on mixed-effects model" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ecar_lme-1.png" alt="ECAR based on mixed-effects model" width="100%"><p class="caption">
 ECAR based on mixed-effects model
 </p>
 </div>
@@ -741,10 +742,12 @@ ECAR based on mixed-effects model
 <span>  measure <span class="op">=</span> <span class="st">"ECAR"</span>,</span>
 <span>  assay <span class="op">=</span> <span class="st">"GLYCO"</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
-<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">1</span></span>
+<span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar_sep-1.png" alt="ECAR with replicates separated" width="700"><p class="caption">
+<img src="ceas_files/figure-html/ecar_sep-1.png" alt="ECAR with replicates separated" width="100%"><p class="caption">
 ECAR with replicates separated
 </p>
 </div>
@@ -783,7 +786,7 @@ variance.</p>
 <span><span class="op">)</span></span>
 <span><span class="va">basal_glyc</span> </span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/basal_glyc-1.png" alt="JATP from basal glycolysis with replicates combined" width="700"><p class="caption">
+<img src="ceas_files/figure-html/basal_glyc-1.png" alt="JATP from basal glycolysis with replicates combined" width="100%"><p class="caption">
 JATP from basal glycolysis with replicates combined
 </p>
 </div>
@@ -799,7 +802,7 @@ JATP from basal glycolysis with replicates combined
 <span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/basal_resp-1.png" alt="JATP from basal respiration with replicates separated" width="700"><p class="caption">
+<img src="ceas_files/figure-html/basal_resp-1.png" alt="JATP from basal respiration with replicates separated" width="100%"><p class="caption">
 JATP from basal respiration with replicates separated
 </p>
 </div>
@@ -816,7 +819,7 @@ JATP from basal respiration with replicates separated
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/max_glyc-1.png" alt="JATP from maximal glycolysis with a mixed-effects model" width="700"><p class="caption">
+<img src="ceas_files/figure-html/max_glyc-1.png" alt="JATP from maximal glycolysis with a mixed-effects model" width="100%"><p class="caption">
 JATP from maximal glycolysis with a mixed-effects model
 </p>
 </div>
@@ -832,7 +835,7 @@ JATP from maximal glycolysis with a mixed-effects model
 <span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/max_resp-1.png" alt="JATP from maximal respiration replicates combined" width="700"><p class="caption">
+<img src="ceas_files/figure-html/max_resp-1.png" alt="JATP from maximal respiration replicates combined" width="100%"><p class="caption">
 JATP from maximal respiration replicates combined
 </p>
 </div>
@@ -857,13 +860,13 @@ plot and add the custom colors you’d like:</p>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 <div class="section level4 tabset">
 <h4 class="tabset" id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
@@ -880,14 +883,14 @@ plot and add the custom colors you’d like:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 </div>
 <div class="tab-pane" id="change-label-size" role="tabpanel" aria-labelledby="change-label-size-tab">
 
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 </div>
 </div>
@@ -906,7 +909,7 @@ own custom plotting functions on those datasets.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">function</span> <span class="op">(</span><span class="va">seahorse_rates</span>, <span class="va">measure</span> <span class="op">=</span> <span class="st">"OCR"</span>, <span class="va">assay</span> <span class="op">=</span> <span class="st">"MITO"</span>, <span class="va">model</span> <span class="op">=</span> <span class="st">"ols"</span>, </span>
 <span>    <span class="va">error_bar</span> <span class="op">=</span> <span class="st">"ci"</span>, <span class="va">conf_int</span> <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">group_label</span> <span class="op">=</span> <span class="st">"Experimental group"</span>, </span>
-<span>    <span class="va">sep_reps</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span>
+<span>    <span class="va">linewidth</span> <span class="op">=</span> <span class="fl">2</span>, <span class="va">sep_reps</span> <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">ci_method</span> <span class="op">=</span> <span class="st">"Wald"</span><span class="op">)</span> </span>
 <span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot</a></span><span class="op">(</span>`'measure' should be 'OCR' or 'ECAR'` <span class="op">=</span> <span class="va">measure</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> </span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OCR"</span>, <span class="st">"ECAR"</span><span class="op">)</span><span class="op">)</span></span>
@@ -944,10 +947,10 @@ own custom plotting functions on those datasets.</p>
 <span>        <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="va">group_label</span>, fill <span class="op">=</span> <span class="va">group_label</span>, linetype <span class="op">=</span> <span class="st">"Replicate"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>        <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">sep_reps</span> <span class="op">&amp;&amp;</span> <span class="va">multi_rep</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>linetype <span class="op">=</span> <span class="va">replicate</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>linetype <span class="op">=</span> <span class="va">replicate</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="va">linewidth</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>    <span class="kw">else</span> <span class="op">{</span></span>
-<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>        <span class="va">p</span> <span class="op">+</span> <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="va">linewidth</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>In RStudio, you can run <code><a href="https://rdrr.io/r/utils/edit.html" class="external-link">utils::edit</a></code> to modify a

@@ -52,7 +52,8 @@
 <span>  basal_shape <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  max_shape <span class="op">=</span> <span class="fl">19</span>,</span>
 <span>  group_label <span class="op">=</span> <span class="st">"Experimental Group"</span>,</span>
-<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  ci_method <span class="op">=</span> <span class="st">"Wald"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -100,6 +101,12 @@ or confidence intervals (<code>"ci"</code>)</p></dd>
 replicates combined. The current default <code>FALSE</code> combines replicates, but
 future releases will default to <code>TRUE</code> providing replicate-specific
 summaries.</p></dd>
+
+
+<dt id="arg-ci-method">ci_method<a class="anchor" aria-label="anchor" href="#arg-ci-method"></a></dt>
+<dd><p>The method used to compute confidence intervals for the
+mixed-effects model: <code>"Wald"</code>, <code>"profile"</code>, or <code>"boot"</code> passed to
+<code><a href="https://rdrr.io/pkg/lme4/man/confint.merMod.html" class="external-link">lme4::confint.merMod()</a></code>.</p></dd>
 
 
 <dt id="arg-bioscope-plot">bioscope_plot<a class="anchor" aria-label="anchor" href="#arg-bioscope-plot"></a></dt>
