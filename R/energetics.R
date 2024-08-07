@@ -202,7 +202,12 @@ partition_data <- function(
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
-#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' energetics <- get_energetics(
+#'   partitioned_data,
+#'   ph = 7.4,
+#'   pka = 6.093,
+#'   buffer = 0.1
+#' )
 #' head(energetics, n = 10)
 get_energetics <- function(partitioned_data, ph, pka, buffer) {
   . <- NULL
@@ -326,7 +331,12 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
-#' energetics_list <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' energetics_list <- get_energetics(
+#'   partitioned_data,
+#'   ph = 7.4,
+#'   pka = 6.093,
+#'   buffer = 0.1
+#' )
 #' energetics_summary <- get_energetics_summary(energetics_list, sep_reps = FALSE)
 #' head(energetics_summary[, c(1:5)], n = 10)
 #' head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
@@ -455,10 +465,20 @@ energetics_ols_summary <- function(atp_col, error_metric, conf_int) {
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
-#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' energetics <- get_energetics(
+#'   partitioned_data,
+#'   ph = 7.4,
+#'   pka = 6.093,
+#'   buffer = 0.1
+#' )
 #' # Only for one column. For the full energetics table run
 #' # `get_energetics_summary` with `model = "mixed"`.
-#' energetics_lme_summary("ATP_max_resp", energetics, conf_int = 0.95, ci_method = "Wald")
+#' energetics_lme_summary(
+#'   "ATP_max_resp",
+#'   energetics,
+#'   conf_int = 0.95,
+#'   ci_method = "Wald"
+#')
 energetics_lme_summary <- function(atp_col, energetics, conf_int, ci_method) {
   . <- NULL
   exp_group <- NULL

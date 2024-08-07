@@ -34,8 +34,18 @@ rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
 seahorse_rates <- read_data(rep_list, sheet = 2)
 partitioned_data <- partition_data(seahorse_rates)
-energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+energetics <- get_energetics(
+  partitioned_data,
+  ph = 7.4,
+  pka = 6.093,
+  buffer = 0.1
+)
 # Only for one column. For the full energetics table run
 # `get_energetics_summary` with `model = "mixed"`.
-energetics_lme_summary("ATP_max_resp", energetics, conf_int = 0.95, ci_method = "Wald")
+energetics_lme_summary(
+  "ATP_max_resp",
+  energetics,
+  conf_int = 0.95,
+  ci_method = "Wald"
+)
 }
