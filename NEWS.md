@@ -1,3 +1,8 @@
+# ceas 1.1.1
+
+- `rate_plot()` now has a `linewidth` parameter to set the width of its
+  `geom_line`s
+
 # ceas 1.1.0
 
 - Separating replicates is now supported for getting `get_energetics_summary()`,
