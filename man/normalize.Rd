@@ -14,7 +14,7 @@ function.}
 count or \eqn{\mu}g of protein in column 2. Headers are ignored.}
 }
 \value{
-a normalzed seahorse_rates data.table
+a normalized seahorse_rates data.table
 }
 \description{
 Normalizes input data according to cell number or \eqn{\mu}g of protein. It
