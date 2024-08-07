@@ -11,6 +11,7 @@ rate_plot(
   error_bar = "ci",
   conf_int = 0.95,
   group_label = "Experimental group",
+  linewidth = 2,
   sep_reps = FALSE
 )
 }
@@ -26,6 +27,8 @@ rate_plot(
 \item{conf_int}{The confidence interval percentage. Should be between 0 and 1}
 
 \item{group_label}{Label for the experimental group to populate the legend title}
+
+\item{linewidth}{Width for the lines, passed to \code{geom_line()}}
 
 \item{sep_reps}{Whether to calculate summary statistics on the groups with
 replicates combined. The current default \code{FALSE} combines replicates, but

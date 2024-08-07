@@ -7,6 +7,7 @@
 #' @param error_bar Whether to plot error bars as standard deviation (`"sd"`) or confidence intervals (`"ci"`)
 #' @param conf_int The confidence interval percentage. Should be between 0 and 1
 #' @param group_label Label for the experimental group to populate the legend title
+#' @param linewidth Width for the lines, passed to `geom_line()`
 #' @param sep_reps Whether to calculate summary statistics on the groups with
 #' replicates combined. The current default `FALSE` combines replicates, but
 #' future releases will default to `TRUE` providing replicate-specific
@@ -29,6 +30,7 @@ rate_plot <- function(
     error_bar = "ci",
     conf_int = 0.95,
     group_label = "Experimental group",
+    linewidth = 2,
     sep_reps = FALSE) {
   # sanity checks
 
@@ -89,9 +91,9 @@ rate_plot <- function(
     theme_bw()
 
   if (sep_reps && multi_rep) {
-    p + geom_line(aes(linetype = replicate), linewidth = 2)
+    p + geom_line(aes(linetype = replicate), linewidth = linewidth)
   } else {
-    p + geom_line(linewidth = 2)
+    p + geom_line(linewidth = linewidth)
   }
 }
 
