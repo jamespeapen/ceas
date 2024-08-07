@@ -478,7 +478,7 @@ energetics_ols_summary <- function(atp_col, error_metric, conf_int) {
 #'   energetics,
 #'   conf_int = 0.95,
 #'   ci_method = "Wald"
-#')
+#' )
 energetics_lme_summary <- function(atp_col, energetics, conf_int, ci_method) {
   . <- NULL
   exp_group <- NULL

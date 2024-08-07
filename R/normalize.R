@@ -6,7 +6,7 @@
 #' function.
 #' @param norm_csv A csv file with the experimental groups in column 1 and cell
 #' count or \eqn{\mu}g of protein in column 2. Headers are ignored.
-#' @return a normalzed seahorse_rates data.table
+#' @return a normalized seahorse_rates data.table
 #'
 #' @details
 #'
