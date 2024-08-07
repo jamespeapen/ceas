@@ -36,7 +36,12 @@
 #'   list.files(pattern = "*.xlsx", full.names = TRUE)
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
-#' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
+#' energetics <- get_energetics(
+#'   partitioned_data,
+#'   ph = 7.4,
+#'   pka = 6.093,
+#'   buffer = 0.1
+#' )
 #' atp_plot(energetics, sep_reps = FALSE)
 #'
 #' atp_plot(energetics, basal_vs_max = "max", sep_reps = FALSE)
