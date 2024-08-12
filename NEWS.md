@@ -1,3 +1,8 @@
+# ceas 1.2.1
+
+- `read_data()` throws an error if the "Group" column of the input data is only
+  one word that cannot be separated with the `delimiter` provided by the user.
+
 # ceas 1.2.0
 
 - Linear mixed-effects models can now be used to get mean and confidence
