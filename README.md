@@ -66,6 +66,14 @@ pak::pkg_install("jamespeapen/ceas@dev") # dev version
 A user guide is available on the [package website](https://jamespeapen.github.io/ceas/).
 Bug reports may be submitted through [GitHub issues](https://github.com/jamespeapen/ceas/issues).
 
+## Citation
+
+If you use *ceas* please cite
+
+Rachel (Rae) J House, James P Eapen, Hui Shen, Carrie R Graveel, Matthew R
+Steensma, ceas: An R package for Seahorse data analysis and visualization,
+Bioinformatics, 2024;, btae503, https://doi.org/10.1093/bioinformatics/btae503
+
 ## Contributing
 
 Submit patches using GitHub pull requests or by sending a patch file to
