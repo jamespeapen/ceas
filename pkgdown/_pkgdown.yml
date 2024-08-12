@@ -1,6 +1,7 @@
 url: https://jamespeapen.github.io/ceas
 template:
   bootstrap: 5
+  math-rendering: mathjax
 
 authors:
   Van Andel Institute:
