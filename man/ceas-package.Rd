@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Analysis and visualization of cellular energetics data from Agilent Seahorse XF96. Cellular energetics is how cells make, use, and distribute units of energy (primarily ATP). Measuring real-time cellular energetics is essential to understanding a tissue or cell’s bioenergetic state and fuel dependencies. The Seahorse machine measures a cell’s or matrix’s oxygen consumption rate (OCR) – a proxy of oxidative phosphorylation – and extracellular acidification rate – a proxy of glycolysis. This package offers flexible and fast analysis and plotting capabilities for such data using the methods described by Mookerjee et al. (2017) \doi{10.1074/jbc.m116.774471}.
+Measuring cellular energetics is essential to understanding a matrix’s (e.g. cell, tissue or biofluid) metabolic state. The Agilent Seahorse machine is a common method to measure real-time cellular energetics, but existing analysis tools are highly manual or lack functionality. The Cellular Energetics Analysis Software (ceas) R package fills this analytical gap by providing modular and automated Seahorse data analysis and visualization using the methods described by Mookerjee et al. (2017) \doi{10.1074/jbc.m116.774471}.
 }
 \seealso{
 Useful links:
@@ -20,18 +20,18 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Rachel House \email{rachel.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
+\strong{Maintainer}: Rachel J. House \email{rachel.house@vai.org} (\href{https://orcid.org/0000-0003-2176-0431}{ORCID})
 
 Authors:
 \itemize{
-  \item James Eapen \email{james.eapen@vai.org} (\href{https://orcid.org/0000-0001-6016-3598}{ORCID})
+  \item James P. Eapen \email{james.eapen@vai.org} (\href{https://orcid.org/0000-0001-6016-3598}{ORCID})
 }
 
 Other contributors:
 \itemize{
   \item Hui Shen \email{hui.shen@vai.org} (\href{https://orcid.org/0000-0001-9767-4084}{ORCID}) [funder]
-  \item Carrie Graveel \email{carrie.graveel@vai.org} (\href{https://orcid.org/0000-0001-7251-5642}{ORCID}) [funder]
-  \item Matthew Steensma \email{matthew.steensma@vai.org} (\href{https://orcid.org/0000-0002-9003-6730}{ORCID}) [funder]
+  \item Carrie R. Graveel \email{carrie.graveel@vai.org} (\href{https://orcid.org/0000-0001-7251-5642}{ORCID}) [funder]
+  \item Matthew R. Steensma \email{matthew.steensma@vai.org} (\href{https://orcid.org/0000-0002-9003-6730}{ORCID}) [funder]
   \item Van Andel Institute [copyright holder]
 }
 
