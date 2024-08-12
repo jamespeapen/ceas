@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ceas</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,11 @@
       <small>Source: <a href="https://github.com/jamespeapen/ceas/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.1" id="ceas-121">ceas 1.2.1<a class="anchor" aria-label="anchor" href="#ceas-121"></a></h2>
+<ul><li>
+<code><a href="../reference/read_data.html">read_data()</a></code> throws an error if the “Group” column of the input data is only one word that cannot be separated with the <code>delimiter</code> provided by the user.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="ceas-120">ceas 1.2.0<a class="anchor" aria-label="anchor" href="#ceas-120"></a></h2>
 <ul><li>Linear mixed-effects models can now be used to get mean and confidence intervals for datasets with replicates. ATP production, OCR and ECAR are modelled as the response with experimental group as a fixed effect and replicate as a random effect. Mixed-effects modelling is supported by <code><a href="../reference/get_energetics_summary.html">get_energetics_summary()</a></code>, <code><a href="../reference/get_rate_summary.html">get_rate_summary()</a></code>, <code><a href="../reference/bioscope_plot.html">bioscope_plot()</a></code>, <code><a href="../reference/atp_plot.html">atp_plot()</a></code>, and <code><a href="../reference/rate_plot.html">rate_plot()</a></code>.</li>
