@@ -55,6 +55,7 @@
 read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
   # suppress "no visible binding for global variable" error
   exp_group <- NULL
+  assay_type <- NULL
   Group <- NULL
   ECAR <- NULL
   OCR <- NULL
@@ -82,6 +83,19 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
     ][, replicate := as.factor(i)][, Group := NULL]
   })
   rates_dt <- rbindlist(reps)
+
+  bad_group_names <- rates_dt[is.na(assay_type) & exp_group != "Background"]
+  bad_group_names_error <- paste(
+    "'Group' column in the following rows not formatted properly.\n",
+    "Unless set to 'Background', the value should be 'group_identifier' and",
+    "'assay type' separated by a character (eg: 'Group_1 MITO')\n"
+  )
+  if (nrow(bad_group_names) > 0) {
+    stop(
+      bad_group_names_error,
+      paste(capture.output(bad_group_names), collapse = "\n")
+    )
+  }
 
   norm_warning <- "'Background' is not 0 in the rows shown below - check that background normalization was performed by Wave\n"
   background_dt <- rates_dt[exp_group == "Background"]
