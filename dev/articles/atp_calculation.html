@@ -16,7 +16,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="../deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="ATP calculation">
 <meta name="robots" content="noindex">
 </head>
@@ -86,40 +86,41 @@ window.MathJax = {
 };
 </script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><!----><p><img src="mito_glyco_tests.png" title="GLYCO and MITO stress tests"></p>
 <p>Proton production rate (PPR):</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">PPR</mtext><mo>=</mo><mfrac><mtext mathvariant="normal">ECAR value</mtext><mtext mathvariant="normal">buffer</mtext></mfrac></mrow><annotation encoding="application/x-tex">\text{PPR} = \frac{\text{ECAR value}}{\text{buffer}}</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">PPR</mtext><mtext mathvariant="normal">mito</mtext></msub><mo>=</mo><mfrac><msup><mn>10</mn><mrow><mtext mathvariant="normal">pH</mtext><mo>−</mo><msub><mtext mathvariant="normal">pK</mtext><mi>a</mi></msub></mrow></msup><mrow><mn>1</mn><mo>+</mo><msup><mn>10</mn><mrow><mtext mathvariant="normal">pH</mtext><mo>−</mo><msub><mtext mathvariant="normal">pK</mtext><mi>a</mi></msub></mrow></msup></mrow></mfrac><mo>⋅</mo><mfrac><msup><mtext mathvariant="normal">H</mtext><mo>+</mo></msup><msub><mtext mathvariant="normal">O</mtext><mn>2</mn></msub></mfrac><mo>⋅</mo><mtext mathvariant="normal">OCR</mtext></mrow><annotation encoding="application/x-tex">\text{PPR}_{\text{mito}} = \frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot \frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}</annotation></semantics></math></p>
+<p><span class="math display">\[\text{PPR} = \frac{\text{ECAR
+value}}{\text{buffer}}\]</span></p>
+<p><span class="math display">\[\text{PPR}_{\text{mito}} =
+\frac{10^{\text{pH}-\text{pK}_a}}{1+10^{\text{pH}-\text{pK}_a}} \cdot
+\frac{\text{H}^+}{\text{O}_2} \cdot \text{OCR}\]</span></p>
 <p>Calculates the proton production from glucose during its conversion
-to bicarbonate and assuming max <span class="math inline">$\frac{\ce{H}^+}{\ce{O2}}$</span> of 1</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">PPR</mtext><mtext mathvariant="normal">glyc</mtext></msub><mo>=</mo><mtext mathvariant="normal">PPR</mtext><mo>−</mo><msub><mtext mathvariant="normal">PPR</mtext><mtext mathvariant="normal">resp</mtext></msub></mrow><annotation encoding="application/x-tex">\text{PPR}_\text{glyc} = \text{PPR} - \text{PPR}_\text{resp}</annotation></semantics></math></p>
-<p><span class="math display">$$
+to bicarbonate and assuming max <span class="math inline">\(\frac{\ce{H}^+}{\ce{O2}}\)</span> of 1</p>
+<p><span class="math display">\[\text{PPR}_\text{glyc} = \text{PPR} -
+\text{PPR}_\text{resp}\]</span></p>
+<p><span class="math display">\[
 \ce{2H2 + O2 -&gt; 2H2O}
-$$</span></p>
+\]</span></p>
 <p>Calculates the proton production from glucose during its conversion
-to <span class="math inline">$\ce{lactate + H+}$</span>.</p>
+to <span class="math inline">\(\ce{lactate + H+}\)</span>.</p>
 <p>Joules of ATP (JATP) production:</p>
-<p><span class="math display">$$
+<p><span class="math display">\[
 \text{ATP}_{\text{glyc}} = \Bigl(\text{PPR}_\text{glyc} \cdot
 \frac{\text{ATP}}{\text{lactate}}\Bigl) + \Bigl(\text{MITO}_\text{resp}
 \cdot 2 \cdot \frac{\text{P}}{\text{O}_\text{glyc}}\Bigl)
-$$</span></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext mathvariant="normal">ATP</mtext><mtext mathvariant="normal">lactate</mtext></mfrac><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">
+\]</span></p>
+<p><span class="math display">\[
 \frac{\text{ATP}}{\text{lactate}} = 1
-</annotation></semantics></math></p>
-<p>with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mtext mathvariant="normal">P</mtext><msub><mtext mathvariant="normal">O</mtext><mtext mathvariant="normal">glyc</mtext></msub></mfrac><annotation encoding="application/x-tex">\frac{\text{P}}{{\text{O}_\text{glyc}}}</annotation></semantics></math>
-= 0.167 for glucose (0.242 for glycogen).</p>
-<p><span class="math display">$$
+\]</span></p>
+<p>with <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{glyc}}}\)</span> =
+0.167 for glucose (0.242 for glycogen).</p>
+<p><span class="math display">\[
 \text{ATP}_\text{resp} =
 \Bigl(\text{coupled MITO}_\text{resp} \cdot 2 \cdot
 \frac{\text{P}}{\text{O}_\text{oxphos}}\Bigl) +
 \Bigl(\text{MITO}_\text{resp} \cdot 2 \cdot
 \frac{\text{P}}{\text{O}_\text{TCA}}\Bigl)
-$$</span></p>
-<p>with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mtext mathvariant="normal">P</mtext><msub><mtext mathvariant="normal">O</mtext><mtext mathvariant="normal">oxphos</mtext></msub></mfrac><annotation encoding="application/x-tex">\frac{\text{P}}{{\text{O}_\text{oxphos}}}</annotation></semantics></math>
-= 2.486 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mtext mathvariant="normal">P</mtext><msub><mtext mathvariant="normal">O</mtext><mtext mathvariant="normal">TCA</mtext></msub></mfrac><annotation encoding="application/x-tex">\frac{\text{P}}{{\text{O}_\text{TCA}}}</annotation></semantics></math>
-= 0.167.</p>
+\]</span></p>
+<p>with <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{oxphos}}}\)</span>
+= 2.486 and <span class="math inline">\(\frac{\text{P}}{{\text{O}_\text{TCA}}}\)</span> =
+0.167.</p>
   </main>
 </div>
 
