@@ -1,0 +1,23 @@
+bibentry(
+  bibtype = "Article",
+  author = c(
+    person(given = "Rachel J.", family = "House"),
+    person(given = "James P.", family = "Eapen"),
+    person(given = "Hui", family = "Shen"),
+    person(given = "Carrie R.", family = "Graveel"),
+    person(given = "Matthew R.", family = "Steensma")
+  ),
+  title = "ceas: An R package for Seahorse data analysis and visualization",
+  journal = "Bioinformatics",
+  year = "2024",
+  month = "aug",
+  doi = "10.1093/bioinformatics/btae503",
+  url = "https://jamespeapen.github.io/ceas/",
+
+  header = "To cite ceas in publications, please use",
+  textVersion = paste(
+  "Rachel J. House, James P. Eapen, Hui Shen, Carrie R. Graveel, Matthew R. Steensma (2024).",
+  "ceas: An R package for Seahorse data analysis and visualization",
+  "Bioinformatics", "doi: 10.1093/bioinformatics/btae503"
+  )
+)

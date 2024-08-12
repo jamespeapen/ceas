@@ -2,7 +2,7 @@
 
 **Cellular Energetics Analysis Software**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10067116.svg)](https://doi.org/10.5281/zenodo.10067116)
+[![DOI](https://img.shields.io/badge/DOI-10.1093%2Fbioinformatics%2Fbtae503-blue)](https://doi.org/10.1093/bioinformatics/btae503)
 
 <!-- badges: start -->
 [![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/package=ceas)
@@ -57,6 +57,14 @@ pak::pkg_install("jamespeapen/ceas")
 
 A user guide is available on the [package website](https://jamespeapen.github.io/ceas/).
 Bug reports may be submitted through [GitHub issues](https://github.com/jamespeapen/ceas/issues).
+
+## Citation
+
+If you use *ceas* please cite
+
+Rachel (Rae) J House, James P Eapen, Hui Shen, Carrie R Graveel, Matthew R
+Steensma, ceas: An R package for Seahorse data analysis and visualization,
+Bioinformatics, 2024;, btae503, https://doi.org/10.1093/bioinformatics/btae503
 
 ## Contributing
 
