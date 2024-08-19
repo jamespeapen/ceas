@@ -2,7 +2,7 @@
 
 **Cellular Energetics Analysis Software**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10067116.svg)](https://doi.org/10.5281/zenodo.10067116)
+[![DOI](https://img.shields.io/badge/DOI-10.1093%2Fbioinformatics%2Fbtae503-blue)](https://doi.org/10.1093/bioinformatics/btae503)
 
 <!-- badges: start -->
 [![CRAN release](https://www.r-pkg.org/badges/version-ago/ceas)](https://cran.r-project.org/web/packages/ceas/index.html)
