@@ -36,10 +36,16 @@ install.packages("ceas")
 
 ### Github
 
-You can install the development version from Github by cloning the repo and running
+You can install the release or development versions from GitHub by cloning the
+repo. The code on the `main` branch is in sync with the CRAN releases while the
+`dev` branch has the latest updates. Documentation for the dev branch can be
+found on the [dev page](https://jamespeapen.github.io/ceas/dev/) of the website
+(`/dev`).
+
 
 ```bash
 git clone https://github.com/jamespeapen/ceas/
+git clone -b dev https://github.com/jamespeapen/ceas/ # dev version
 R CMD INSTALL ceas
 ```
 
@@ -47,12 +53,14 @@ You can also use the R [`devtools`](https://devtools.r-lib.org/) package:
 
 ```r
 devtools::install_github("jamespeapen/ceas")
+devtools::install_github("jamespeapen/ceas", ref = "dev") # dev version
 ```
 
 or [`pak`](https://pak.r-lib.org/):
 
 ```r
 pak::pkg_install("jamespeapen/ceas")
+pak::pkg_install("jamespeapen/ceas@dev") # dev version
 ```
 
 ## Usage
