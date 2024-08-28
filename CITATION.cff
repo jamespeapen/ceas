@@ -18,7 +18,7 @@ abstract: Measuring cellular energetics is essential to understanding a matrixâ€
   data analysis and visualization.
 authors:
 - family-names: House
-  given-names: Rachel
+  given-names: Rachel (Rae)
   email: rachel.house@vai.org
   orcid: https://orcid.org/0000-0003-2176-0431
 - family-names: Eapen
@@ -30,7 +30,7 @@ preferred-citation:
   title: 'ceas: An R package for Seahorse data analysis and visualization'
   authors:
   - family-names: House
-    given-names: Rachel J.
+    given-names: Rachel (Rae) J.
     email: rachel.house@vai.org
     orcid: https://orcid.org/0000-0003-2176-0431
   - family-names: Eapen
