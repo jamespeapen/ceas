@@ -1,7 +1,7 @@
 bibentry(
   bibtype = "Article",
   author = c(
-    person(given = "Rachel J.", family = "House"),
+    person(given = "Rachel (Rae) J.", family = "House"),
     person(given = "James P.", family = "Eapen"),
     person(given = "Hui", family = "Shen"),
     person(given = "Carrie R.", family = "Graveel"),
@@ -10,7 +10,9 @@ bibentry(
   title = "ceas: An R package for Seahorse data analysis and visualization",
   journal = "Bioinformatics",
   year = "2024",
-  month = "aug",
+  volume = "40",
+  number = "8",
+  pages = "btae503",
   doi = "10.1093/bioinformatics/btae503",
   url = "https://jamespeapen.github.io/ceas/",
 
@@ -18,6 +20,6 @@ bibentry(
   textVersion = paste(
   "Rachel J. House, James P. Eapen, Hui Shen, Carrie R. Graveel, Matthew R. Steensma (2024).",
   "ceas: An R package for Seahorse data analysis and visualization",
-  "Bioinformatics", "doi: 10.1093/bioinformatics/btae503"
+  "Bioinformatics, 40(8), btae503", "doi: 10.1093/bioinformatics/btae503"
   )
 )

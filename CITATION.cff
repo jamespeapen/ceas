@@ -8,21 +8,22 @@ message: 'To cite package "ceas" in publications use:'
 type: software
 license: MIT
 title: 'ceas: Cellular Energetics Analysis Software'
-version: 1.2.0
+version: 1.2.1
 doi: 10.1093/bioinformatics/btae503
 abstract: Measuring cellular energetics is essential to understanding a matrix’s (e.g.
   cell, tissue or biofluid) metabolic state. The Agilent Seahorse machine is a common
   method to measure real-time cellular energetics, but existing analysis tools are
   highly manual or lack functionality. The Cellular Energetics Analysis Software (ceas)
   R package fills this analytical gap by providing modular and automated Seahorse
-  data analysis and visualization.
+  data analysis and visualization using the methods described by Mookerjee et al.
+  (2017) <https://doi.org/10.1074/jbc.m116.774471>.
 authors:
 - family-names: House
-  given-names: Rachel (Rae)
+  given-names: Rachel (Rae) J.
   email: rachel.house@vai.org
   orcid: https://orcid.org/0000-0003-2176-0431
 - family-names: Eapen
-  given-names: James
+  given-names: James P.
   email: james.eapen@vai.org
   orcid: https://orcid.org/0000-0001-6016-3598
 preferred-citation:
@@ -45,15 +46,17 @@ preferred-citation:
     given-names: Matthew R.
   journal: Bioinformatics
   year: '2024'
-  month: '8'
+  volume: '40'
+  issue: '8'
   doi: 10.1093/bioinformatics/btae503
   url: https://jamespeapen.github.io/ceas/
+  start: btae503
 repository: https://CRAN.R-project.org/package=ceas
 repository-code: https://github.com/jamespeapen/ceas/issues/
 url: https://jamespeapen.github.io/ceas/
 contact:
 - family-names: House
-  given-names: Rachel
+  given-names: Rachel (Rae) J.
   email: rachel.house@vai.org
   orcid: https://orcid.org/0000-0003-2176-0431
 identifiers:

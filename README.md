@@ -71,8 +71,8 @@ Bug reports may be submitted through [GitHub issues](https://github.com/jamespea
 If you use *ceas* please cite
 
 Rachel (Rae) J House, James P Eapen, Hui Shen, Carrie R Graveel, Matthew R
-Steensma, ceas: An R package for Seahorse data analysis and visualization,
-Bioinformatics, 2024;, btae503, https://doi.org/10.1093/bioinformatics/btae503
+Steensma (2024). ceas: An R package for Seahorse data analysis and
+visualization, Bioinformatics, 40(8), btae503
 
 ## Contributing
 
