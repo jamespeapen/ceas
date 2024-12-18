@@ -1,3 +1,50 @@
+# ceas 1.3.0
+
+- `normalize()` can now normalize by each well (`norm_column = "well"`) as an
+  alternative to the existing normalization by experimental group (`norm_column
+= "exp_group"`)
+
+- `normalize()` has two normalization methods.
+
+  - `norm_method = "self"`: based on the corresponding well or experimental
+    group row of the `measure` column in the input normalization CSV.
+
+    |exp_group | measure|
+    |:---------|-------:|
+    |Group_1   |   30000|
+    |Group_2   |   30000|
+    |Group_3   |    5000|
+    |Group_4   |    5000|
+
+    Given the input normalization data above, normalizing by experimental group
+    will divide each of those experimental group rows of the seahorse table by the
+    corresponding `measure` value of the experimental group in the input CSV.
+    Similarly, if normalizing by well, each set of well rows is normalized by
+    the corresponding `measure` value of the well - the input normalization CSV
+    must have a column for `well` instead of `exp_group` for every well in the
+    Seahorse data.
+
+  - based on the minimum of the `measure` column of the input normalization data
+    (`norm_method = "minimum"`) (same as [before](#ceas-030)). A normalization
+  constant is calculated dividing each well or experimental group `measure` by
+  the minimum `measure`.
+
+    |exp_group | measure| norm_const|
+    |:---------|-------:|----------:|
+    |Group_1   |   30000|    6      |
+    |Group_2   |   30000|    6      |
+    |Group_3   |    5000|    1      |
+    |Group_4   |    5000|    1      |
+
+    If normalizing by experimental group, each row of the seahorse table is
+    divide by the group's normalization constant. Similarly, if normalizing by
+    well, each well row is divided by the well's normalization constant.
+
+  **Note:** the current default is to normalize by experimental group and using
+  the minimum (`norm_column = "exp_group", norm_method = "minimum"`) to maintain
+  backwards compatibility, but future releases will normalize by well and using
+  each corresponding row (`norm_column = "well", norm_method = "self"`).
+
 # ceas 1.2.1
 
 - `read_data()` throws an error if the "Group" column of the input data is only

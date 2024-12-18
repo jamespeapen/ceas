@@ -14,6 +14,14 @@
 #' @param delimiter The delimiter between the group name and the assay type in
 #' the Group column of the wave output. e.g. "Group1 MITO" would use a space
 #' character as delimiter.
+#' @param norm_column Whether to normalize by `"Well"` or `"exp_group"` column.
+#' The first column of the normalization csv provided should match this value.
+#' @param norm_method How to normalize each well or experimental group (specified by `norm_column`):
+#'  - by its corresponding row in the `norm` csv (`"self"`) or
+#'  - by the minimum of the `measure` column in the provided `norm` csv (`"minimum"`).
+#'
+#' See the `normalize()` function for more details.
+#'
 #' @return a seahorse_rates table
 #'
 #' @details
@@ -47,12 +55,18 @@
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' head(seahorse_rates, n = 10)
 #'
-#' # normalization
+#' # normalization by well using raw cell count or protein quantity
 #' norm_csv <- system.file("extdata", package = "ceas") |>
-#'   list.files(pattern = "norm.csv", full.names = TRUE)
-#' seahorse_rates.norm <- read_data(rep_list, norm = norm_csv, sheet = 2)
+#'   list.files(pattern = "well_norm.csv", full.names = TRUE)
+#' seahorse_rates.norm <- read_data(
+#'   rep_list,
+#'   norm = norm_csv,
+#'   norm_column = "well",
+#'   norm_method = "self",
+#'   sheet = 2
+#' )
 #' head(seahorse_rates.norm, n = 10)
-read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
+read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ", norm_column = "exp_group", norm_method = "minimum") {
   # suppress "no visible binding for global variable" error
   exp_group <- NULL
   assay_type <- NULL
@@ -109,8 +123,21 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ") {
     )
   }
 
+  if (is.null(norm) & (!missing(norm_column) | !missing(norm_method))) {
+    warning("rates not normalized as 'norm_csv' not provided")
+    rates_dt
+  }
+
   if (!is.null(norm)) {
-    rates_dt <- normalize(rates_dt, norm)
+    if (norm_column == "exp_group" & missing(norm_column)) warning(norm_column_warning)
+    if (norm_method == "minimum" & missing(norm_method)) warning(norm_method_warning)
+
+    rates_dt <- normalize(
+      seahorse_rates = rates_dt,
+      norm_csv = norm,
+      norm_column = norm_column,
+      norm_method = norm_method
+    )
   }
 
   rates_dt

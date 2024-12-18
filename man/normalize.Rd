@@ -4,35 +4,77 @@
 \alias{normalize}
 \title{Normalize Seahorse data}
 \usage{
-normalize(seahorse_rates, norm_csv)
+normalize(
+  seahorse_rates,
+  norm_csv,
+  norm_column = "well",
+  norm_method = "minimum"
+)
 }
 \arguments{
 \item{seahorse_rates}{The seahorse rates table read by the \code{\link[=read_data]{read_data()}}
 function.}
 
-\item{norm_csv}{A csv file with the experimental groups in column 1 and cell
-count or \eqn{\mu}g of protein in column 2. Headers are ignored.}
+\item{norm_csv}{A csv file with either well or experimental group in column
+1 and the sample normalization measure in column 2. Headers are ignored.}
+
+\item{norm_column}{Whether to normalize by \code{"well"} or \code{"exp_group"} group.
+The first column of the normalization csv provided should match this value.}
+
+\item{norm_method}{How to normalize each well or experimental group (specified by \code{norm_column}):
+\itemize{
+\item by its corresponding row in the \code{norm_csv} (\code{"self"}) or
+\item by the minimum of the \code{measure} column in the provided \code{norm_csv} (\code{"minimum"}).
+}
+
+See details.}
 }
 \value{
 a normalized seahorse_rates data.table
 }
 \description{
-Normalizes input data according to cell number or \eqn{\mu}g of protein. It
-assumes your data is background normalized.
+Normalizes input data according to a sample normalization measure (e.g. cell
+number or \eqn{\mu}g of protein). It assumes your data is background
+normalized.
 }
 \details{
 This normalization is distinct from the background normalization done by the
 Wave software. If the data are not background normalized, \code{read_data()} will
 output a warning showing rows with OCR, ECAR and PER values greater than 0.
+\subsection{Normalization Methods}{
+
+When \code{norm_method} is set to \code{"self"}, each OCR, ECAR, and PER value is
+divided by the measure it"self". OCR and ECAR values are divided by the
+corresponding raw value in the "measure" column: an intra-well or
+experimental group normalization. Each normalized value is then interpreted
+as pmol/min per measure (e.g. pmol/min/cell  or pmol/min/\eqn{\mu}g of
+protein.
+
+When set to \code{"minimum"}, each OCR, ECAR, and PER value is normalized by the
+minimum value in the \code{norm_csv} "measure" column. In this method, every
+"measure" column's value in the provided CSV file is divided by the lowest
+of the "measure" values to get a normalization factor for each well or
+experimental group. The OCR, ECAR, and PER values in each well or
+experimental group are divided by their corresponding normalization factors.
+Compared to \code{"self"}, this is an inter-well/experimental group normalization
+based on the lowest \code{"measure"}. The results may be interpreted as pmol/min
+per minimum of the measure (eg: group cell count or \eqn{\mu}g of protein.)
+}
 }
 \examples{
 rep_list <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "*.xlsx", full.names = TRUE)
 norm_csv <- system.file("extdata", package = "ceas") |>
-  list.files(pattern = "norm.csv", full.names = TRUE)
+  list.files(pattern = "^norm.csv", full.names = TRUE)
 read.csv(norm_csv)
 seahorse_rates <- read_data(rep_list, sheet = 2)
 head(seahorse_rates, n = 10)
-seahorse_rates.normalized <- normalize(seahorse_rates, norm_csv)
+# normalize by experimental group based on the minimum cell count or protein quantity
+seahorse_rates.normalized <- normalize(
+  seahorse_rates,
+  norm_csv,
+  norm_column = "exp_group",
+  norm_method = "minimum"
+)
 head(seahorse_rates.normalized, n = 10)
 }

@@ -4,7 +4,14 @@
 \alias{read_data}
 \title{Read Seahorse Wave Excel File}
 \usage{
-read_data(rep_list, norm = NULL, sheet = 2, delimiter = " ")
+read_data(
+  rep_list,
+  norm = NULL,
+  sheet = 2,
+  delimiter = " ",
+  norm_column = "exp_group",
+  norm_method = "minimum"
+)
 }
 \arguments{
 \item{rep_list}{A list of Seahorse Wave excel export files. One file per
@@ -22,6 +29,17 @@ sheet 2}
 \item{delimiter}{The delimiter between the group name and the assay type in
 the Group column of the wave output. e.g. "Group1 MITO" would use a space
 character as delimiter.}
+
+\item{norm_column}{Whether to normalize by \code{"Well"} or \code{"exp_group"} column.
+The first column of the normalization csv provided should match this value.}
+
+\item{norm_method}{How to normalize each well or experimental group (specified by \code{norm_column}):
+\itemize{
+\item by its corresponding row in the \code{norm} csv (\code{"self"}) or
+\item by the minimum of the \code{measure} column in the provided \code{norm} csv (\code{"minimum"}).
+}
+
+See the \code{normalize()} function for more details.}
 }
 \value{
 a seahorse_rates table
@@ -51,10 +69,16 @@ rep_list <- system.file("extdata", package = "ceas") |>
 seahorse_rates <- read_data(rep_list, sheet = 2)
 head(seahorse_rates, n = 10)
 
-# normalization
+# normalization by well using raw cell count or protein quantity
 norm_csv <- system.file("extdata", package = "ceas") |>
-  list.files(pattern = "norm.csv", full.names = TRUE)
-seahorse_rates.norm <- read_data(rep_list, norm = norm_csv, sheet = 2)
+  list.files(pattern = "well_norm.csv", full.names = TRUE)
+seahorse_rates.norm <- read_data(
+  rep_list,
+  norm = norm_csv,
+  norm_column = "well",
+  norm_method = "self",
+  sheet = 2
+)
 head(seahorse_rates.norm, n = 10)
 }
 \references{
