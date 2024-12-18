@@ -50,27 +50,67 @@ knitr::kable(head(seahorse_rates))
 
 ### Normalization
 
-There are two types of normalization involved in Seahorse data analysis. One is
-background normalization done by the Wave software. *ceas* will produce a
-warning if it finds that the "Background" data are not 0 (see first row of the
-table above).
+There are two types of normalization involved in Seahorse data analysis. The
+first type of normalization is background normalization, which is typically
+performed within in the Seahorse Wave software. If the Seahorse data has been
+background normalized, the “Background” wells should have OCR and ECAR values of
+0. *ceas* will flag the user with a warning if the “Background” OCR and ECAR
+   values are not 0 (see first row of the table above).
 
-The other is biological normalization based on the cell count or the mass of
-protein. If the data is not already biologically normalized, you will need a csv
-file containing experimental groups and cell counts or $\mu$g of protein in this
-format:
+The second type of normalization is sample normalization, which can be performed
+using *ceas*. Example sample normalization measures include cell count per well
+and $\mu$g of protein per well. Sample normalization using *ceas* requires an
+additional CSV file containing two columns:
+
+1. `"exp_group"` or `"well"`
+
+2. experimental measure values (e.g. cell counts) in this format:
 
 ```{r, norm_csv}
 norm_csv <- system.file("extdata", package = "ceas") |>
   list.files(pattern = "norm.csv", full.names = TRUE)
-read.csv(norm_csv) |> knitr::kable()
+norm_csv
+exp_group_norm <- norm_csv[1]
+well_norm <- norm_csv[2]
+
+read.csv(exp_group_norm) |> knitr::kable(caption = "For normalizing by experimental group")
+read.csv(well_norm) |> head() |> knitr::kable(caption = "For normalizing by well")
 ```
 
-Your csv file's full path may be passed into `read_data()` using the `norm`
-argument.
+For sample normalization *ceas* can use one of two normalizing methods according
+to the provided `norm_method` argument:
+
+- `"self"`: for each experimental group or well, the rows of the Seahorse data
+are divided by the corresponding `measure` value. Each OCR, ECAR, and PER value
+is divided by the measure it"self". OCR and ECAR values are divided by the
+corresponding raw value in the "measure" column. This can be thought of as an
+intra-well/experimental group normalization. Each normalized value is then
+interpreted as pmol/min per cell or pmol/min per \eqn{\mu}g of protein.
+
+- `"minimum"`: When set to `"minimum"`, each OCR, ECAR, and PER value is
+normalized by the minimum value in the `norm_csv` "measure" column. In this
+method, every "measure" column's value in the provided CSV file is divided by
+the lowest of the "measure" values to get a normalization factor for each well
+or experimental group. The OCR, ECAR, and PER values in each well or
+experimental group are divided by their corresponding normalization factors.
+Compared to `"self"`, this can be thought of as an inter-well/experimental group
+normalization based on the lowest `"measure"`. The results may be interpreted as
+pmol/min per minimum of the group cell count or \eqn{\mu}g of protein.
+
+Your normalization CSV file path may be passed into `read_data()` using the
+`norm` argument along with `norm_column` with either `"exp_group"` or `"well"`
+and `norm_method` as either `"self"` or `"minimum"`.
+
+**Note**: it is important to minimize sample variability during your Seahorse
+experiment.
 
 ```{r normalized_read}
-read_data(rep_list, norm = norm_csv) |> head() |> knitr::kable()
+read_data(
+    rep_list,
+    norm = exp_group_norm,
+    norm_column = "exp_group",
+    norm_method = "self"
+) |> head() |> knitr::kable()
 ```
 
 ## Calculating energetics
