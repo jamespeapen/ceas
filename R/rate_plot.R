@@ -266,6 +266,7 @@ get_rate_summary <- function(
 #' @importFrom lme4 lmer fixef
 #' @importFrom data.table data.table rbindlist :=
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' rep_list <- system.file("extdata", package = "ceas") |>

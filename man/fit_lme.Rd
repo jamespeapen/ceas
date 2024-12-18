@@ -36,3 +36,4 @@ partitioned_data <- partition_data(seahorse_rates)
 energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 fit_lme("ATP_max_glyc", energetics)
 }
+\keyword{internal}

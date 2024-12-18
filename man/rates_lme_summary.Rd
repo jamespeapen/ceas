@@ -39,3 +39,4 @@ rates_lme_summary(
   ci_method = "Wald"
 )
 }
+\keyword{internal}

@@ -11,6 +11,7 @@
 #'
 #' @importFrom lme4 lmer
 #' @export
+#' @keywords internal
 #'
 #' @examples
 #' rep_list <- system.file("extdata", package = "ceas") |>
