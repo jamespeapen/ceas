@@ -102,8 +102,9 @@ output a warning showing rows with OCR, ECAR and PER values greater than 0.</p><
 divided by the measure it"self". OCR and ECAR values are divided by the
 corresponding raw value in the "measure" column: an intra-well or
 experimental group normalization. Each normalized value is then interpreted
-as pmol/min per cell or pmol/min per \(\mu\)g of protein.
-When set to <code>"minimum"</code>, each OCR, ECAR, and PER value is normalized by the
+as pmol/min per measure (e.g. pmol/min/cell  or pmol/min/\(\mu\)g of
+protein.</p>
+<p>When set to <code>"minimum"</code>, each OCR, ECAR, and PER value is normalized by the
 minimum value in the <code>norm_csv</code> "measure" column. In this method, every
 "measure" column's value in the provided CSV file is divided by the lowest
 of the "measure" values to get a normalization factor for each well or
@@ -111,7 +112,7 @@ experimental group. The OCR, ECAR, and PER values in each well or
 experimental group are divided by their corresponding normalization factors.
 Compared to <code>"self"</code>, this is an inter-well/experimental group normalization
 based on the lowest <code>"measure"</code>. The results may be interpreted as pmol/min
-per minimum of the group cell count or \(\mu\)g of protein.</p>
+per minimum of the measure (eg: group cell count or \(\mu\)g of protein.)</p>
 </div>
 
     </div>
