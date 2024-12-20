@@ -98,8 +98,7 @@ directory. With that, the user should organize the file(s) they wish to
 analyze in a single directory (folder). This directory can also contain
 the normalization CSV file (see <a href="#normalization">Normalization</a>). An easy way to get such a list
 is to put all your data in a directory and list its contents. For
-example, if your data is in a directory called “seahorse_data”, use to
-make a list of the excel files.</p>
+example, if your data is in a directory called “seahorse_data”:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rep_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="st">"seahorse_data"</span>, pattern <span class="op">=</span> <span class="st">"*.xlsx"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>In this vignette we use the package’s internal datasets:</p>
