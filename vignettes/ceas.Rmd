@@ -24,10 +24,19 @@ library(ceas)
 
 ## Importing Seahorse rates data
 
-The `read_data` function takes a list of Excel files. An easy way to get
-such a list is to put all your data in a directory and list its contents. Here
-we use the package's internal datasets, but `list.files` will take a directory
-name as its first argument.
+The read_data function imports a list of Wave excel export file(s), meaning it
+will import all `.xlsx` files from a common directory. With that, the user
+should organize the file(s) they wish to analyze in a single directory (folder).
+This directory can also contain the normalization CSV file (see
+[Normalization](#normalization)). An easy way to get such a list is to put all
+your data in a directory and list its contents. For example, if your data is in
+a directory called "seahorse_data":
+
+```{r data_custom_dir, eval=FALSE}
+rep_list <- list.files("seahorse_data", pattern = "*.xlsx", full.names = TRUE)
+```
+
+In this vignette we use the package's internal datasets:
 
 ```{r data}
 rep_list <- system.file("extdata", package = "ceas") |>
@@ -37,11 +46,18 @@ knitr::kable(head(raw_data))
 ```
 
 The data requires the following columns: `r colnames(raw_data)`. The `Group`
-column needs to be in the format `biological_group<space>Assay_type` as shown
-above. Upon reading with `read_data`, the `Group` column is split into two
-`group` and `assay` columns on the space. This output format can be set in the
-Seahorse machine before starting the experiment. If you already have the data,
-this column will have to be converted to this format to work with ceas.
+column needs to be in the format `biological_group<delimiter>Assay_type` (with
+`<space>` as the default delimiter) as shown above. Upon reading with
+`read_data`, the `Group` column is split into two at the delimiter character and
+used to populate the `group` and `assay` columns. This output format can be set
+in the Seahorse machine before starting the experiment. The user can choose to
+either
+
+- name their wells according to the *ceas* format on the Wave software or
+
+- manually rename each Group in the Wave excel output before importing via
+`read_data.` If you already have the data, this column will have to be converted
+to this format to work with *ceas*.
 
 ```{r read_dataformat}
 seahorse_rates <- read_data(rep_list)
@@ -73,8 +89,10 @@ norm_csv
 exp_group_norm <- norm_csv[1]
 well_norm <- norm_csv[2]
 
-read.csv(exp_group_norm) |> knitr::kable(caption = "For normalizing by experimental group")
-read.csv(well_norm) |> head() |> knitr::kable(caption = "For normalizing by well")
+read.csv(exp_group_norm) |>
+    knitr::kable(caption = "For normalizing by experimental group")
+read.csv(well_norm) |> head() |>
+    knitr::kable(caption = "For normalizing by well")
 ```
 
 For sample normalization *ceas* can use one of two normalizing methods according
@@ -130,9 +148,10 @@ partitioned_data <- partition_data(seahorse_rates)
 
 #### Alternative data formats {.tabset}
 
-While the default options are set for an experiment with both a mitochondrial
-and glycolysis assay, if you have only a mitochondrial assay or no glycolysis
-assay, the `assay_types` list parameter can be modified to account for that.
+The default `partition_data()` parameters are set to analyze (1) Mito Stress
+Test and (2) Glycolysis Stress Test assays run in parallel in the same
+experiment. The `assay_types` list parameter can be modified to account for
+alternative experiments (e.g. just a Mito Stress Test assay).
 
 ##### Mito + Glyco (our default)
 
