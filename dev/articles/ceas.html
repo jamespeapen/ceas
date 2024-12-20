@@ -286,14 +286,22 @@ ceas.</p>
 <h3 id="normalization">Normalization<a class="anchor" aria-label="anchor" href="#normalization"></a>
 </h3>
 <p>There are two types of normalization involved in Seahorse data
-analysis. One is background normalization done by the Wave software.
-<em>ceas</em> will produce a warning if it finds that the “Background”
-data are not 0 (see first row of the table above).</p>
-<p>The other is biological normalization based on the cell count or the
-mass of protein. If the data is not already biologically normalized, you
-will need a CSV file containing either experimental groups or wells and
-their cell counts or <span class="math inline">\(\mu\)</span>g of
-protein in this format:</p>
+analysis. The first type of normalization is background normalization,
+which is typically performed within in the Seahorse Wave software. If
+the Seahorse data has been background normalized, the “Background” wells
+should have OCR and ECAR values of 0. <em>ceas</em> will flag the user
+with a warning if the “Background” OCR and ECAR values are not 0 (see
+first row of the table above).</p>
+<p>The second type of normalization is sample normalization, which can
+be performed using <em>ceas</em>. Example sample normalization measures
+include cell count per well and <span class="math inline">\(\mu\)</span>g of protein per well. Sample
+normalization using <em>ceas</em> requires an additional CSV file
+containing two columns:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>"exp_group"</code> or <code>"well"</code></p></li>
+<li><p>experimental measure values (e.g. cell counts) in this
+format:</p></li>
+</ol>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">norm_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"ceas"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"norm.csv"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -364,23 +372,36 @@ protein in this format:</p>
 </tr>
 </tbody>
 </table>
-<p><em>ceas</em> also has two normalizing methods set with the
-<code>norm_method</code> argument:</p>
+<p>For sample normalization <em>ceas</em> can use one of two normalizing
+methods according to the provided <code>norm_method</code> argument:</p>
 <ul>
-<li><p><code>"minimum"</code>: using the minimum of the
-<code>measure</code> column by calculating a normalization constant.
-Each row of the Seahorse data is divided by the corresponding
-experimental group or well normalization constant.</p></li>
-<li><p><code>"self"</code>: by the raw value of the <code>measure</code>
-column. For each experimental group or well, the rows of the Seahorse
-data are divided by the corresponding <code>measure</code>
-value.</p></li>
+<li><p><code>"self"</code>: for each experimental group or well, the
+rows of the Seahorse data are divided by the corresponding
+<code>measure</code> value. Each OCR, ECAR, and PER value is divided by
+the measure it”self”. OCR and ECAR values are divided by the
+corresponding raw value in the “measure” column. This can be thought of
+as an intra-well/experimental group normalization. Each normalized value
+is then interpreted as pmol/min per cell or pmol/min per g of
+protein.</p></li>
+<li><p><code>"minimum"</code>: When set to <code>"minimum"</code>, each
+OCR, ECAR, and PER value is normalized by the minimum value in the
+<code>norm_csv</code> “measure” column. In this method, every “measure”
+column’s value in the provided CSV file is divided by the lowest of the
+“measure” values to get a normalization factor for each well or
+experimental group. The OCR, ECAR, and PER values in each well or
+experimental group are divided by their corresponding normalization
+factors. Compared to <code>"self"</code>, this can be thought of as an
+inter-well/experimental group normalization based on the lowest
+<code>"measure"</code>. The results may be interpreted as pmol/min per
+minimum of the group cell count or g of protein.</p></li>
 </ul>
-<p>Your normalization CSV file’s full path may be passed into
+<p>Your normalization CSV file path may be passed into
 <code><a href="../reference/read_data.html">read_data()</a></code> using the <code>norm</code> argument along with
 <code>norm_column</code> with either <code>"exp_group"</code> or
 <code>"well"</code> and <code>norm_method</code> as either
 <code>"self"</code> or <code>"minimum"</code>.</p>
+<p><strong>Note</strong>: it is important to minimize sample variability
+during your Seahorse experiment.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/read_data.html">read_data</a></span><span class="op">(</span></span>
 <span>    <span class="va">rep_list</span>,</span>

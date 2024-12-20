@@ -80,9 +80,10 @@ The first column of the normalization csv provided should match this value.</p><
 
 
 <dt id="arg-norm-method">norm_method<a class="anchor" aria-label="anchor" href="#arg-norm-method"></a></dt>
-<dd><p>Whether to normalize each row in the <code>norm_column</code> by its
-corresponding row in the <code>norm_csv</code> (<code>"self"</code>) or by the minimum
-(<code>"minimum"</code>) of the <code>norm_column</code>. See details.</p></dd>
+<dd><p>How to normalize each well or experimental group (specified by <code>norm_column</code>):</p><ul><li><p>by its corresponding row in the <code>norm_csv</code> (<code>"self"</code>) or</p></li>
+<li><p>by the minimum of the <code>measure</code> column in the provided <code>norm_csv</code> (<code>"minimum"</code>).
+See details.</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
@@ -93,14 +94,26 @@ corresponding row in the <code>norm_csv</code> (<code>"self"</code>) or by the m
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This normalization is distinct from the background normalization done by the
 Wave software. If the data are not background normalized, <code><a href="read_data.html">read_data()</a></code> will
-output a warning showing rows with OCR, ECAR and PER values greater than 0.</p>
+output a warning showing rows with OCR, ECAR and PER values greater than 0.</p><div class="section">
+<h3 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h3>
+
+
 <p>When <code>norm_method</code> is set to <code>"self"</code>, each OCR, ECAR, and PER value is
-divided by the "measure" column corresponding to its group. Each value is
-then interpreted as pmol/min per cell or pmol/min per \(\mu\)g of protein.
-If <code>norm_method</code> is set to <code>"minimum"</code>, each OCR, ECAR, and PER value is
-divided by the minimum of the measure column in the provided <code>norm_csv</code>.
-This is interpreted as pmol/min per minimum of the group cell count or
-\(\mu\)g of protein.</p>
+divided by the measure it"self". OCR and ECAR values are divided by the
+corresponding raw value in the "measure" column: an intra-well or
+experimental group normalization. Each normalized value is then interpreted
+as pmol/min per cell or pmol/min per \(\mu\)g of protein.
+When set to <code>"minimum"</code>, each OCR, ECAR, and PER value is normalized by the
+minimum value in the <code>norm_csv</code> "measure" column. In this method, every
+"measure" column's value in the provided CSV file is divided by the lowest
+of the "measure" values to get a normalization factor for each well or
+experimental group. The OCR, ECAR, and PER values in each well or
+experimental group are divided by their corresponding normalization factors.
+Compared to <code>"self"</code>, this is an inter-well/experimental group normalization
+based on the lowest <code>"measure"</code>. The results may be interpreted as pmol/min
+per minimum of the group cell count or \(\mu\)g of protein.</p>
+</div>
+
     </div>
 
     <div class="section level2">

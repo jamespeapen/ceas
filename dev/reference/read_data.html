@@ -96,10 +96,10 @@ The first column of the normalization csv provided should match this value.</p><
 
 
 <dt id="arg-norm-method">norm_method<a class="anchor" aria-label="anchor" href="#arg-norm-method"></a></dt>
-<dd><p>Whether to normalize each row in the <code>norm_column</code> by its
-corresponding row in the <code>norm_csv</code> (<code>"self"</code>) or by the minimum
-(<code>"minimum"</code>) of the <code>norm_column</code>. See the <code><a href="normalize.html">normalize()</a></code> function for more
-details.</p></dd>
+<dd><p>How to normalize each well or experimental group (specified by <code>norm_column</code>):</p><ul><li><p>by its corresponding row in the <code>norm</code> csv (<code>"self"</code>) or</p></li>
+<li><p>by the minimum of the <code>measure</code> column in the provided <code>norm</code> csv (<code>"minimum"</code>).
+See the <code><a href="normalize.html">normalize()</a></code> function for more details.</p></li>
+</ul></dd>
 
 </dl></div>
     <div class="section level2">
