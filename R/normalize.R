@@ -77,8 +77,12 @@ normalize <- function(seahorse_rates, norm_csv, norm_column = "well", norm_metho
   stopifnot("'norm_column' should be 'well' or 'exp_group'" = tolower(norm_column) %in% c(norm_columns))
   stopifnot("'norm_method' should be 'self' or 'minimum'" = norm_method %in% c(norm_methods))
 
-  if (norm_column == "exp_group" & missing(norm_column)) warning(norm_column_warning)
-  if (norm_method == "minimum" & missing(norm_method)) warning(norm_method_warning)
+  if (norm_column == "exp_group" & missing(norm_column)) {
+    warning(norm_column_warning)
+  }
+  if (norm_method == "minimum" & missing(norm_method)) {
+    warning(norm_method_warning)
+  }
 
   well_group_column <- ifelse(tolower(norm_column) == "well", "Well", "exp_group")
   method <- ifelse(norm_method == "self", "self", "minimum")
@@ -88,24 +92,16 @@ normalize <- function(seahorse_rates, norm_csv, norm_column = "well", norm_metho
 
   normalized_rates <- copy(seahorse_rates)
   if (method == "self") {
-    (
-      normalized_rates[norm_dt, on = well_group_column, measure := i.measure]
-      [, `:=`(
-          ECAR = ifelse(is.na(measure), ECAR, ECAR / measure),
-          OCR = ifelse(is.na(measure), OCR, OCR / measure),
-          PER = ifelse(is.na(measure), PER, PER / measure)
-        )]
-      [, measure := NULL][]
-    )
+    (normalized_rates[norm_dt, on = well_group_column, measure := i.measure][, `:=`(
+      ECAR = ifelse(is.na(measure), ECAR, ECAR / measure),
+      OCR = ifelse(is.na(measure), OCR, OCR / measure),
+      PER = ifelse(is.na(measure), PER, PER / measure)
+    )][, measure := NULL][])
   } else {
-    (
-      normalized_rates[norm_dt, on = well_group_column, norm_const := i.norm_const]
-      [, `:=`(
-          ECAR = ifelse(ECAR == 0, ECAR, ECAR / norm_const),
-          OCR = ifelse(OCR == 0, OCR, OCR / norm_const),
-          PER = ifelse(PER == 0, PER, PER / norm_const)
-        )]
-      [, norm_const := NULL][]
-    )
+    (normalized_rates[norm_dt, on = well_group_column, norm_const := i.norm_const][, `:=`(
+      ECAR = ifelse(ECAR == 0, ECAR, ECAR / norm_const),
+      OCR = ifelse(OCR == 0, OCR, OCR / norm_const),
+      PER = ifelse(PER == 0, PER, PER / norm_const)
+    )][, norm_const := NULL][])
   }
 }

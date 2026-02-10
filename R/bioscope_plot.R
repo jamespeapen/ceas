@@ -59,16 +59,17 @@
 #'     values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 #'   )
 bioscope_plot <- function(
-    energetics,
-    model = "ols",
-    error_bar = "ci",
-    conf_int = 0.95,
-    size = 2,
-    basal_shape = 1,
-    max_shape = 19,
-    group_label = "Experimental Group",
-    sep_reps = FALSE,
-    ci_method = "Wald") {
+  energetics,
+  model = "ols",
+  error_bar = "ci",
+  conf_int = 0.95,
+  size = 2,
+  basal_shape = 1,
+  max_shape = 19,
+  group_label = "Experimental Group",
+  sep_reps = FALSE,
+  ci_method = "Wald"
+) {
   # sanity checks
 
   data_cols <- c(
@@ -81,8 +82,7 @@ bioscope_plot <- function(
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot(
-    "cannot run mixed-effects model with `sep_reps = TRUE`" =
-      (model == "mixed" & !sep_reps) | (model == "ols")
+    "cannot run mixed-effects model with `sep_reps = TRUE`" = (model == "mixed" & !sep_reps) | (model == "ols")
   )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
@@ -112,7 +112,9 @@ bioscope_plot <- function(
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(energetics$replicate)) > 1
-  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+  if (!sep_reps && missing(sep_reps) && multi_rep) {
+    warning(sep_reps_warning)
+  }
 
   energetics_summary <- get_energetics_summary(
     energetics,
@@ -130,12 +132,15 @@ bioscope_plot <- function(
 
   max_axis <- max(energetics_summary$ATP_max_glyc.higher_bound, energetics_summary$ATP_max_resp.higher_bound)
 
-  p <- ggplot(energetics_summary, aes(
-    ATP_max_glyc.mean,
-    ATP_max_resp.mean,
-    color = exp_group,
-    fill = exp_group
-  )) +
+  p <- ggplot(
+    energetics_summary,
+    aes(
+      ATP_max_glyc.mean,
+      ATP_max_resp.mean,
+      color = exp_group,
+      fill = exp_group
+    )
+  ) +
     geom_point(size = size, aes(shape = "Max")) +
     geom_point(
       data = energetics_summary,
@@ -147,26 +152,42 @@ bioscope_plot <- function(
     labs(color = group_label, fill = group_label, linetype = "Replicate") +
     xlim(0, max_axis) +
     ylim(0, max_axis) +
-    geom_linerange(aes(
-      x = ATP_max_glyc.mean, y = ATP_max_resp.mean,
-      ymin = ATP_max_resp.lower_bound,
-      ymax = ATP_max_resp.higher_bound
-    ), data = energetics_summary) +
-    geom_linerange(aes(
-      x = ATP_max_glyc.mean, y = ATP_max_resp.mean,
-      xmin = ATP_max_glyc.lower_bound,
-      xmax = ATP_max_glyc.higher_bound
-    ), data = energetics_summary) +
-    geom_linerange(aes(
-      x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean,
-      xmin = ATP_basal_glyc.lower_bound,
-      xmax = ATP_basal_glyc.higher_bound
-    ), data = energetics_summary) +
-    geom_linerange(aes(
-      x = ATP_basal_glyc.mean, y = ATP_basal_resp.mean,
-      ymin = ATP_basal_resp.lower_bound,
-      ymax = ATP_basal_resp.higher_bound
-    ), data = energetics_summary) +
+    geom_linerange(
+      aes(
+        x = ATP_max_glyc.mean,
+        y = ATP_max_resp.mean,
+        ymin = ATP_max_resp.lower_bound,
+        ymax = ATP_max_resp.higher_bound
+      ),
+      data = energetics_summary
+    ) +
+    geom_linerange(
+      aes(
+        x = ATP_max_glyc.mean,
+        y = ATP_max_resp.mean,
+        xmin = ATP_max_glyc.lower_bound,
+        xmax = ATP_max_glyc.higher_bound
+      ),
+      data = energetics_summary
+    ) +
+    geom_linerange(
+      aes(
+        x = ATP_basal_glyc.mean,
+        y = ATP_basal_resp.mean,
+        xmin = ATP_basal_glyc.lower_bound,
+        xmax = ATP_basal_glyc.higher_bound
+      ),
+      data = energetics_summary
+    ) +
+    geom_linerange(
+      aes(
+        x = ATP_basal_glyc.mean,
+        y = ATP_basal_resp.mean,
+        ymin = ATP_basal_resp.lower_bound,
+        ymax = ATP_basal_resp.higher_bound
+      ),
+      data = energetics_summary
+    ) +
     scale_shape_manual(name = "Value", values = c("Basal" = basal_shape, "Max" = max_shape)) +
     theme_bw()
 

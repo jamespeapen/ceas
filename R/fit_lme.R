@@ -21,10 +21,11 @@
 #' energetics <- get_energetics(partitioned_data, ph = 7.4, pka = 6.093, buffer = 0.1)
 #' fit_lme("ATP_max_glyc", energetics)
 fit_lme <- function(
-    data_col,
-    input,
-    group_colname = "exp_group",
-    rep_colname = "replicate") {
+  data_col,
+  input,
+  group_colname = "exp_group",
+  rep_colname = "replicate"
+) {
   lmer(
     as.formula(paste0(data_col, " ~ ", group_colname, " + (1 | ", rep_colname, ")")),
     data = input

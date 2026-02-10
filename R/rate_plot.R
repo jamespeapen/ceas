@@ -40,23 +40,23 @@
 #'   sep_reps = TRUE
 #' )
 rate_plot <- function(
-    seahorse_rates,
-    measure = "OCR",
-    assay = "MITO",
-    model = "ols",
-    error_bar = "ci",
-    conf_int = 0.95,
-    group_label = "Experimental group",
-    linewidth = 2,
-    sep_reps = FALSE,
-    ci_method = "Wald") {
+  seahorse_rates,
+  measure = "OCR",
+  assay = "MITO",
+  model = "ols",
+  error_bar = "ci",
+  conf_int = 0.95,
+  group_label = "Experimental group",
+  linewidth = 2,
+  sep_reps = FALSE,
+  ci_method = "Wald"
+) {
   # sanity checks
 
   stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot(
-    "cannot run mixed-effects model with `sep_reps = TRUE`" =
-      (model == "mixed" & !sep_reps) | (model == "ols")
+    "cannot run mixed-effects model with `sep_reps = TRUE`" = (model == "mixed" & !sep_reps) | (model == "ols")
   )
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
@@ -83,7 +83,9 @@ rate_plot <- function(
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(seahorse_rates$replicate)) > 1
-  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+  if (!sep_reps && missing(sep_reps) && multi_rep) {
+    warning(sep_reps_warning)
+  }
 
   plot_data <- get_rate_summary(
     seahorse_rates,
@@ -100,13 +102,16 @@ rate_plot <- function(
     "ECAR" = paste0(assay, " ECAR (mpH/min)")
   )
   # plot function
-  p <- ggplot(plot_data, aes(
-    x = Measurement,
-    y = mean,
-    color = exp_group,
-    group = if (sep_reps && multi_rep) interaction(exp_group, replicate) else exp_group,
-    fill = exp_group
-  )) +
+  p <- ggplot(
+    plot_data,
+    aes(
+      x = Measurement,
+      y = mean,
+      color = exp_group,
+      group = if (sep_reps && multi_rep) interaction(exp_group, replicate) else exp_group,
+      fill = exp_group
+    )
+  ) +
     geom_ribbon(
       aes(
         ymin = lower_bound,
@@ -188,14 +193,15 @@ rate_plot <- function(
 #' )
 #' head(reps_as_random_effects, n = 10)
 get_rate_summary <- function(
-    seahorse_rates,
-    measure = "OCR",
-    assay,
-    model = "ols",
-    error_metric = "ci",
-    conf_int = 0.95,
-    sep_reps = FALSE,
-    ci_method = "Wald") {
+  seahorse_rates,
+  measure = "OCR",
+  assay,
+  model = "ols",
+  error_metric = "ci",
+  conf_int = 0.95,
+  sep_reps = FALSE,
+  ci_method = "Wald"
+) {
   assay_type <- NULL
   exp_group <- NULL
   se <- NULL
@@ -204,24 +210,28 @@ get_rate_summary <- function(
   stopifnot("'measure' should be 'OCR' or 'ECAR'" = measure %in% c("OCR", "ECAR"))
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot(
-    "cannot run mixed-effects model with `sep_reps = TRUE`" =
-      (model == "mixed" & !sep_reps) | (model == "ols")
+    "cannot run mixed-effects model with `sep_reps = TRUE`" = (model == "mixed" & !sep_reps) | (model == "ols")
   )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(seahorse_rates$replicate)) > 1
-  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+  if (!sep_reps && missing(sep_reps) && multi_rep) {
+    warning(sep_reps_warning)
+  }
 
   summary_cols <- c("exp_group", "Measurement", "replicate")
   summary_cols <- if (sep_reps) summary_cols else summary_cols[-3]
 
   if (model == "ols") {
-    plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][, .(
-      mean = mean(get(measure)),
-      sd = sd(get(measure)),
-      se = sd(get(measure)) / sqrt(length(get(measure)))
-    ), by = summary_cols]
+    plot_data <- seahorse_rates[exp_group != "Background" & assay_type == assay][,
+      .(
+        mean = mean(get(measure)),
+        sd = sd(get(measure)),
+        se = sd(get(measure)) / sqrt(length(get(measure)))
+      ),
+      by = summary_cols
+    ]
 
     z_value <- qnorm(((1 - conf_int) / 2), lower.tail = FALSE)
 

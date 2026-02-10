@@ -67,23 +67,23 @@
 #'     values = c("#e36500", "#b52356", "#3cb62d", "#328fe1")
 #'   )
 atp_plot <- function(
-    energetics,
-    model = "ols",
-    error_bar = "ci",
-    conf_int = 0.95,
-    size = 2,
-    shape = 16,
-    basal_vs_max = "basal",
-    glyc_vs_resp = "glyc",
-    group_label = "Experimental group",
-    sep_reps = FALSE,
-    ci_method = "Wald") {
+  energetics,
+  model = "ols",
+  error_bar = "ci",
+  conf_int = 0.95,
+  size = 2,
+  shape = 16,
+  basal_vs_max = "basal",
+  glyc_vs_resp = "glyc",
+  group_label = "Experimental group",
+  sep_reps = FALSE,
+  ci_method = "Wald"
+) {
   # Sanity checks
   stopifnot("'error_bar' should be 'sd' or 'ci'" = error_bar %in% c("sd", "ci"))
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot(
-    "cannot run mixed-effects model with `sep_reps = TRUE`" =
-      (model == "mixed" & !sep_reps) | (model == "ols")
+    "cannot run mixed-effects model with `sep_reps = TRUE`" = (model == "mixed" & !sep_reps) | (model == "ols")
   )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
@@ -104,7 +104,9 @@ atp_plot <- function(
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(energetics$replicate)) > 1
-  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+  if (!sep_reps && missing(sep_reps) && multi_rep) {
+    warning(sep_reps_warning)
+  }
 
   energetics_summary <- get_energetics_summary(
     energetics,
@@ -118,7 +120,8 @@ atp_plot <- function(
   energetics_summary[, (numeric_cols) := lapply(.SD, function(x) pmax(x, 0)), .SDcols = numeric_cols]
 
   # Determine which plot to create based on the options
-  data_column <- switch(paste(basal_vs_max, glyc_vs_resp, sep = "_"),
+  data_column <- switch(
+    paste(basal_vs_max, glyc_vs_resp, sep = "_"),
     "basal_glyc" = "ATP_basal_glyc",
     "basal_resp" = "ATP_basal_resp",
     "max_glyc" = "ATP_max_glyc",
@@ -142,7 +145,8 @@ atp_plot <- function(
   ggplot(
     energetics_summary,
     aes(
-      x = exp_group, y = .data[[data_column.mean]],
+      x = exp_group,
+      y = .data[[data_column.mean]],
       color = if (sep_reps && multi_rep) replicate else NULL
     )
   ) +
@@ -153,7 +157,8 @@ atp_plot <- function(
     ) +
     geom_linerange(
       aes(
-        x = exp_group, y = .data[[data_column.mean]],
+        x = exp_group,
+        y = .data[[data_column.mean]],
         ymin = .data[[data_column.lower_bound]],
         ymax = .data[[data_column.higher_bound]],
       ),

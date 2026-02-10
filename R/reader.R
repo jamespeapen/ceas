@@ -66,7 +66,14 @@
 #'   sheet = 2
 #' )
 #' head(seahorse_rates.norm, n = 10)
-read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ", norm_column = "exp_group", norm_method = "minimum") {
+read_data <- function(
+  rep_list,
+  norm = NULL,
+  sheet = 2,
+  delimiter = " ",
+  norm_column = "exp_group",
+  norm_method = "minimum"
+) {
   # suppress "no visible binding for global variable" error
   exp_group <- NULL
   assay_type <- NULL
@@ -92,8 +99,8 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ", norm_co
     }
 
     # setup columns for partitioning
-    setDT(rep.i)[
-      , c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
+    setDT(rep.i)[,
+      c("exp_group", "assay_type") := tstrsplit(Group, delimiter, fixed = TRUE)
     ][, replicate := as.factor(i)][, Group := NULL]
   })
   rates_dt <- rbindlist(reps)
@@ -129,8 +136,12 @@ read_data <- function(rep_list, norm = NULL, sheet = 2, delimiter = " ", norm_co
   }
 
   if (!is.null(norm)) {
-    if (norm_column == "exp_group" & missing(norm_column)) warning(norm_column_warning)
-    if (norm_method == "minimum" & missing(norm_method)) warning(norm_method_warning)
+    if (norm_column == "exp_group" & missing(norm_column)) {
+      warning(norm_column_warning)
+    }
+    if (norm_method == "minimum" & missing(norm_method)) {
+      warning(norm_method_warning)
+    }
 
     rates_dt <- normalize(
       seahorse_rates = rates_dt,

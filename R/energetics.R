@@ -106,23 +106,24 @@
 #' seahorse_rates <- read_data(rep_list, sheet = 2)
 #' partitioned_data <- partition_data(seahorse_rates)
 partition_data <- function(
-    seahorse_rates,
-    assay_types = list(
-      basal = "MITO",
-      uncoupled = "MITO",
-      maxresp = "MITO",
-      nonmito = "MITO",
-      no_glucose_glyc = "GLYCO",
-      glucose_glyc = "GLYCO",
-      max_glyc = "GLYCO"
-    ),
-    basal_tp = 3,
-    uncoupled_tp = 6,
-    maxresp_tp = 8,
-    nonmito_tp = 12,
-    no_glucose_glyc_tp = 3,
-    glucose_glyc_tp = 6,
-    max_glyc_tp = 8) {
+  seahorse_rates,
+  assay_types = list(
+    basal = "MITO",
+    uncoupled = "MITO",
+    maxresp = "MITO",
+    nonmito = "MITO",
+    no_glucose_glyc = "GLYCO",
+    glucose_glyc = "GLYCO",
+    max_glyc = "GLYCO"
+  ),
+  basal_tp = 3,
+  uncoupled_tp = 6,
+  maxresp_tp = 8,
+  nonmito_tp = 12,
+  no_glucose_glyc_tp = 3,
+  glucose_glyc_tp = 6,
+  max_glyc_tp = 8
+) {
   # suppress "no visible binding for global variable" error
   Measurement <- NULL
   assay_type <- NULL
@@ -341,26 +342,28 @@ get_energetics <- function(partitioned_data, ph, pka, buffer) {
 #' head(energetics_summary[, c(1:5)], n = 10)
 #' head(energetics_summary[, c(1, 2, 6, 7)], n = 10)
 get_energetics_summary <- function(
-    energetics,
-    model = "ols",
-    error_metric = "ci",
-    conf_int = 0.95,
-    sep_reps = FALSE,
-    ci_method = "Wald") {
+  energetics,
+  model = "ols",
+  error_metric = "ci",
+  conf_int = 0.95,
+  sep_reps = FALSE,
+  ci_method = "Wald"
+) {
   # suppress "no visible binding for global variable" error
   . <- NULL
   .N <- NULL
 
   stopifnot("'model' should be 'ols' or 'mixed'" = model %in% c("ols", "mixed"))
   stopifnot(
-    "cannot run mixed-effects model with `sep_reps = TRUE`" =
-      (model == "mixed" & !sep_reps) | (model == "ols")
+    "cannot run mixed-effects model with `sep_reps = TRUE`" = (model == "mixed" & !sep_reps) | (model == "ols")
   )
   stopifnot("'conf_int' should be between 0 and 1" = conf_int > 0 && conf_int < 1)
 
   # TODO: make sep_reps = TRUE the default
   multi_rep <- length(unique(energetics$replicate)) > 1
-  if (!sep_reps && missing(sep_reps) && multi_rep) warning(sep_reps_warning)
+  if (!sep_reps && missing(sep_reps) && multi_rep) {
+    warning(sep_reps_warning)
+  }
 
   summary_cols <- c("exp_group", "replicate")
   summary_cols <- if (sep_reps) summary_cols else summary_cols[1]
@@ -368,16 +371,21 @@ get_energetics_summary <- function(
   sdcols <- colnames(energetics)[-1:-2]
 
   if (model == "ols") {
-    summary <- energetics[, as.list(unlist( # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
-      lapply(.SD, function(col) energetics_ols_summary(col, error_metric, conf_int))
-    )),
-    .SDcols = sdcols,
-    by = summary_cols
+    summary <- energetics[,
+      as.list(unlist(
+        # seems to be the way to get mean and sd as columns instead of rows: https://stackoverflow.com/a/29907103
+        lapply(.SD, function(col) energetics_ols_summary(col, error_metric, conf_int))
+      )),
+      .SDcols = sdcols,
+      by = summary_cols
     ]
   } else {
-    summary <- Reduce(merge, x = lapply(sdcols, function(col) {
-      energetics_lme_summary(col, energetics, conf_int, ci_method)
-    }))
+    summary <- Reduce(
+      merge,
+      x = lapply(sdcols, function(col) {
+        energetics_lme_summary(col, energetics, conf_int, ci_method)
+      })
+    )
   }
   merge(
     energetics[, .(count = .N), by = summary_cols],

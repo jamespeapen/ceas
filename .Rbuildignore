@@ -1,6 +1,7 @@
 .envrc
 flake.nix
 flake.lock
+air.toml
 .direnv
 .lintr
 ^LICENSE\.md$
