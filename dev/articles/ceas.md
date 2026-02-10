@@ -659,8 +659,9 @@ function (seahorse_rates, measure = "OCR", assay = "MITO", model = "ols",
     lower_bound <- NULL
     upper_bound <- NULL
     multi_rep <- length(unique(seahorse_rates$replicate)) > 1
-    if (!sep_reps && missing(sep_reps) && multi_rep) 
+    if (!sep_reps && missing(sep_reps) && multi_rep) {
         warning(sep_reps_warning)
+    }
     plot_data <- get_rate_summary(seahorse_rates, measure, assay, 
         model, error_bar, conf_int, sep_reps)
     y_labels <- list(OCR = paste0(assay, " OCR (pmol/min)"), 

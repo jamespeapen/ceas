@@ -1,5 +1,10 @@
 # Changelog
 
+## ceas 1.3.1
+
+- Fixed `DESCRIPTION` to set the minimum supported R version to 4.1 as
+  we use the native R pipe.
+
 ## ceas 1.3.0
 
 CRAN release: 2024-12-20
