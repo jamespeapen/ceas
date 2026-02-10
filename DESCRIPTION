@@ -18,6 +18,8 @@ Description: Measuring cellular energetics is essential to understanding a
     (2017) <doi:10.1074/jbc.m116.774471>.
 URL: https://jamespeapen.github.io/ceas/, https://github.com/jamespeapen/ceas/
 BugReports: https://github.com/jamespeapen/ceas/issues/
+Depends:
+  R (>= 4.1)
 Imports:
     data.table,
     ggplot2,
