@@ -1,5 +1,6 @@
 .envrc
-default.nix
+flake.nix
+flake.lock
 .direnv
 .lintr
 ^LICENSE\.md$
@@ -11,4 +12,3 @@ default.nix
 _test*
 ^cran-comments\.md$
 .git
-=======
