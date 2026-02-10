@@ -6,17 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Getting started with CEAS • ceas</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="../deps/MathJax-3.2.2/tex-chtml.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Getting started with CEAS">
 <meta name="robots" content="noindex">
 </head>
@@ -85,9 +90,7 @@
 <h2 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jamespeapen.github.io/ceas/">ceas</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in get(paste0(generic, ".", class), envir = get_method_env()) : </span></span>
-<span><span class="co">#&gt;   object 'type_sum.accel' not found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jamespeapen.github.io/ceas/">ceas</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="importing-seahorse-rates-data">Importing Seahorse rates data<a class="anchor" aria-label="anchor" href="#importing-seahorse-rates-data"></a>
@@ -688,9 +691,11 @@ glycolysis, respectively.</p>
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
 <span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">bioscope</span></span></code></pre></div>
+<span><span class="va">bioscope</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot-1.png" alt="Bioenergetic scope with replicates combined" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot-1.png" class="r-plt" alt="Bioenergetic scope with replicates combined" width="100%"><p class="caption">
 Bioenergetic scope with replicates combined
 </p>
 </div>
@@ -700,7 +705,7 @@ Bioenergetic scope with replicates combined
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">FALSE</span>, model <span class="op">=</span> <span class="st">"mixed"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot_lme-1.png" alt="Bioenergetic scope based on a mixed-effects model with replicates as random effect" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot_lme-1.png" class="r-plt" alt="Bioenergetic scope based on a mixed-effects model with replicates as random effect" width="100%"><p class="caption">
 Bioenergetic scope based on a mixed-effects model with replicates as
 random effect
 </p>
@@ -709,9 +714,11 @@ random effect
 <div class="tab-pane" id="replicates-separated" role="tabpanel" aria-labelledby="replicates-separated-tab">
 
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">TRUE</span>, model <span class="op">=</span> <span class="st">"ols"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bioscope_plot.html">bioscope_plot</a></span><span class="op">(</span><span class="va">energetics</span>, sep_reps <span class="op">=</span> <span class="cn">TRUE</span>, model <span class="op">=</span> <span class="st">"ols"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/bioscope_plot_sep_reps-1.png" alt="Bioenergetic scope with replicates separated" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/bioscope_plot_sep_reps-1.png" class="r-plt" alt="Bioenergetic scope with replicates separated" width="100%"><p class="caption">
 Bioenergetic scope with replicates separated
 </p>
 </div>
@@ -750,9 +757,11 @@ interval.</p>
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
 <span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">ocr</span></span></code></pre></div>
+<span><span class="va">ocr</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr-1.png" alt="OCR with replicates combined" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ocr-1.png" class="r-plt" alt="OCR with replicates combined" width="100%"><p class="caption">
 OCR with replicates combined
 </p>
 </div>
@@ -768,9 +777,11 @@ OCR with replicates combined
 <span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
-<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr_lme-1.png" alt="OCR based on mixed-effects model" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ocr_lme-1.png" class="r-plt" alt="OCR based on mixed-effects model" width="100%"><p class="caption">
 OCR based on mixed-effects model
 </p>
 </div>
@@ -787,7 +798,7 @@ OCR based on mixed-effects model
 <span>  linewidth <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ocr_sep_reps-1.png" alt="OCR with replicates separated" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ocr_sep_reps-1.png" class="r-plt" alt="OCR with replicates separated" width="100%"><p class="caption">
 OCR with replicates separated
 </p>
 </div>
@@ -816,9 +827,11 @@ OCR with replicates separated
 <span>  model <span class="op">=</span> <span class="st">"ols"</span>,</span>
 <span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">ecar</span></span></code></pre></div>
+<span><span class="va">ecar</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar-1.png" alt="ECAR with replicates combined" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ecar-1.png" class="r-plt" alt="ECAR with replicates combined" width="100%"><p class="caption">
 ECAR with replicates combined
 </p>
 </div>
@@ -834,9 +847,11 @@ ECAR with replicates combined
 <span>  sep_reps <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
-<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
+<span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar_lme-1.png" alt="ECAR based on mixed-effects model" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ecar_lme-1.png" class="r-plt" alt="ECAR based on mixed-effects model" width="100%"><p class="caption">
 ECAR based on mixed-effects model
 </p>
 </div>
@@ -854,7 +869,7 @@ ECAR based on mixed-effects model
 <span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/ecar_sep-1.png" alt="ECAR with replicates separated" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/ecar_sep-1.png" class="r-plt" alt="ECAR with replicates separated" width="100%"><p class="caption">
 ECAR with replicates separated
 </p>
 </div>
@@ -893,7 +908,7 @@ variance.</p>
 <span><span class="op">)</span></span>
 <span><span class="va">basal_glyc</span> </span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/basal_glyc-1.png" alt="JATP from basal glycolysis with replicates combined" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/basal_glyc-1.png" class="r-plt" alt="JATP from basal glycolysis with replicates combined" width="100%"><p class="caption">
 JATP from basal glycolysis with replicates combined
 </p>
 </div>
@@ -909,7 +924,7 @@ JATP from basal glycolysis with replicates combined
 <span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/basal_resp-1.png" alt="JATP from basal respiration with replicates separated" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/basal_resp-1.png" class="r-plt" alt="JATP from basal respiration with replicates separated" width="100%"><p class="caption">
 JATP from basal respiration with replicates separated
 </p>
 </div>
@@ -926,7 +941,7 @@ JATP from basal respiration with replicates separated
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; boundary (singular) fit: see help('isSingular')</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/max_glyc-1.png" alt="JATP from maximal glycolysis with a mixed-effects model" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/max_glyc-1.png" class="r-plt" alt="JATP from maximal glycolysis with a mixed-effects model" width="100%"><p class="caption">
 JATP from maximal glycolysis with a mixed-effects model
 </p>
 </div>
@@ -942,7 +957,7 @@ JATP from maximal glycolysis with a mixed-effects model
 <span>  sep_reps <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="ceas_files/figure-html/max_resp-1.png" alt="JATP from maximal respiration replicates combined" width="100%"><p class="caption">
+<img src="ceas_files/figure-html/max_resp-1.png" class="r-plt" alt="JATP from maximal respiration replicates combined" width="100%"><p class="caption">
 JATP from maximal respiration replicates combined
 </p>
 </div>
@@ -966,14 +981,18 @@ plot and add the custom colors you’d like:</p>
 <code class="sourceCode R"><span><span class="va">bioscope</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
+<p><img src="ceas_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="100%"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ocr</span> <span class="op">+</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span></span>
 <span>  values <span class="op">=</span> <span class="va">custom_colors</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
+<p><img src="ceas_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 <div class="section level4 tabset">
 <h4 class="tabset" id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
@@ -989,15 +1008,17 @@ plot and add the custom colors you’d like:</p>
 
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecar</span> <span class="op">+</span></span>
-<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Time points"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Ignoring unknown labels:</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> <span style="color: #00BB00;">linetype</span> : <span style="color: #0000BB;">"Replicate"</span></span></span></code></pre></div>
+<p><img src="ceas_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 <div class="tab-pane" id="change-label-size" role="tabpanel" aria-labelledby="change-label-size-tab">
 
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basal_glyc</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
+<p><img src="ceas_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 </div>
@@ -1091,7 +1112,7 @@ Measurements.”</span> <em>Journal of Biological Chemistry</em> 292 (17):
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
